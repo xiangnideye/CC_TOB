@@ -1,0 +1,39 @@
+<template>
+<div id="login">
+  <v-header :Data="Data"></v-header>
+  <v-main :Data="Data"></v-main>
+</div>
+</template>
+
+<script>
+import Vue from 'vue';
+import $ from 'jquery';
+import '../../common/js/jquery.cookie';
+import '../../common/css/reset.min.css';
+import header from '../../components/login/header/header';
+import main from '../../components/login/main/main';
+export default {
+  data (){
+    return {
+      Data:{}
+    }
+  },
+  name:'login',
+  created() {
+    var phoneNumber = $.cookie('userNum');
+     this.$http.get("http://192.168.1.11//cc/responseAccountInfo.action?"+"phoneNumber"+"="+phoneNumber).then((response) =>{
+       this.Data = response.body;
+      
+     },(response) =>{
+       console.log("GG")
+     });
+  },
+  components:{
+    'v-header':header,
+    'v-main':main
+  }
+}
+</script>
+
+<style lang="css">
+</style>
