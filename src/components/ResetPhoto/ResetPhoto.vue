@@ -2,8 +2,11 @@
   <div class="Reset" >
       <p class="title" v-show="titleSHow">重置手机号</p>
       <div v-show="Reset_1">
-        <input type="text" @focus="phoneHide" v-model="UserPhone" class="Phone" placeholder="填写手机号">
-        <button id="code" class="code" @click="GetCode" :disabled="boolean" :class="None">{{Code}}</button>
+        <div class="POsition">
+          <input type="text" @focus="phoneHide" v-model="UserPhone" class="Phone" placeholder="填写手机号">
+          <button id="code" class="code" @click="GetCode" :disabled="boolean" :class="None">{{Code}}</button>
+        </div>
+
         <p class="PhoneShow3" v-show="PhoneShow">请输入正确的手机号码</p>
         <p class="PhoneShow4" v-show="Registered">您的手机号已经注册</p>
         <input type="text" @focus="codeHide"  v-model="userCode" class="Pleasecode" placeholder="请输入验证码">
@@ -15,6 +18,7 @@
         <input type="text" @focus="FocusPhide" class="pass1" placeholder="请输入原手机号" v-model="PhotoNum">
         <p class="PhoneShow" v-show="PassShow1">手机号格式不正确</p>
         <p class="PhoneShow2" v-show="PassShow2">手机号不能为空</p>
+        <p class="PhoneShow6" v-show="PassShow6">手机号或者密码不正确</p>
         <input type="password" @focus="FocusWhide" class="pass2" placeholder="请输入密码" v-model="PhotoWord">
         <p class="PhoneShow1" v-show="PassShow3">密码不能为空</p>
         <div class="Yes" @click="YesReset">确定</div>
@@ -39,8 +43,8 @@ export default {
         titleSHow:true,
         PhoneShow:false,
         Registered:false,
-        Reset_1:true,
-        Reset_2:false,
+        Reset_1:false,
+        Reset_2:true,
         PhotoWord:'',
         PhotoNum:'',
         userCode:'',
@@ -49,6 +53,7 @@ export default {
         PassShow2:false,
         PassShow1:false,
         PassShow3:false,
+        PassShow6:false,
         Success:false
       }
     },
@@ -58,7 +63,7 @@ export default {
       if(!(/^1[34578]\d{9}$/.test(this.UserPhone))){
           this.PhoneShow = true;
       }else{
-        this.$http.post('http://192.168.1.11/cc/to/b/getIdentifyCode.action',{phoneNumber:this.UserPhone,validationCode:'getValidationCode'}).then((response) =>{
+        this.$http.post('http://192.168.1.11/cc/to/b/getResetPhoneIdentifyCode.action',{newPhoneNumber:this.UserPhone,validationCode:'getValidationCode'}).then((response) =>{
             console.log('发送成功')
             var Code = document.getElementById('code')
             var _this = this;
@@ -95,18 +100,12 @@ export default {
           this.CodeShow1 = true;
       }
       if(this.PhoneShow == false && this.Registered == false && this.CodeShow1 == false){
-          this.$http.post('http://192.168.1.11/cc/to/b/identifyCodeValidation.action',{phoneNumber:this.UserPhone,validationCode:this.userCode}).then((response)=>{
-            if(response.body.IdentifyCodeCorrect == true){
-              $.cookie('phoneNum',this.UserPhone);
+          this.$http.post('http://192.168.1.11/cc/to/b/resetAccountPhone.action',{newPhoneNumber:this.UserPhone,identifyCode:this.userCode}).then((response)=>{
+            if(response.body.newPhoneNumberResetSuccess == true){
               this.Reset_1 = false;
-              this.Reset_2 = true;
+              this.Reset_2 = false;
+              this.Success = true;
             }
-            // if(response.body.redisNonValue == true){
-            //   this.msg="手机号不是获取验证码时用的手机号"
-            // }
-            // if(response.body.unregist == true){
-            //   this.msg="手机号未注册"
-            // }
           },(response) =>{
             console.log('错误')
           });
@@ -122,15 +121,17 @@ export default {
       if(this.PhotoWord == ''){
         this.PassShow3 = true;
       }
-      var UserPhone_ = $.cookie('phoneNum');
       if(this.PassShow1 == true || this.PassShow2 == true){
         return false
       }
-        this.$http.post('http://192.168.1.11/cc/to/b/updatePwd.action',{phoneNumber:UserPhone_,newPwd:this.passWOrd1}).then((response) =>{
-            console.log(response.body)
-            this.titleSHow = false;
-            this.Reset_2 = false;
-            this.Success = true;
+        this.$http.post('http://192.168.1.11/cc/to/b/checkPhoneAndPwd.action',{phoneNumber:this.PhotoNum,password:this.PhotoWord}).then((response) =>{
+            if(response.body.phoneAndPwdPassCheck == true){
+              this.Reset_1 = true;
+              this.Reset_2 = false;
+              this.Success = false;
+            }else{
+              this.PassShow6 = true;
+            }
         },(response) =>{
 
         })
@@ -143,6 +144,7 @@ export default {
     FocusPhide (){
       this.PassShow1 = false;
       this.PassShow2 = false;
+      this.PassShow6 = false;
     },
     FocusWhide (){
       this.PassShow3 = false;
@@ -167,6 +169,8 @@ export default {
       font-size:18px
       font-weight:600
       text-align:center
+    .POsition
+      position:relative
     .Phone,.Pleasecode,.pass1,.pass2
       width:260px
       height:40px
@@ -178,7 +182,7 @@ export default {
       margin-left:60px
     .code
       position: absolute
-      top: 64px
+      top: 2px
       right:57px
       cursor:pointer
       border: none
@@ -191,12 +195,14 @@ export default {
       border-top-right-radius:5px
       border-bottom-right-radius:5px
       background:#0ed666
-    .PhoneShow,.CodeShow1,.CodeShow2,.PhoneShow1,.PhoneShow2,.PhoneShow3,.PhoneShow4
+    .PhoneShow,.CodeShow1,.CodeShow2,.PhoneShow1,.PhoneShow2,.PhoneShow3,.PhoneShow4,.PhoneShow6
       position: absolute
       top:75px
       right: -75px
       font-size:14px
       color:#b14343
+    .PhoneShow6
+      right:-100px
     .PhoneShow1
       top:140px
       right: -50px

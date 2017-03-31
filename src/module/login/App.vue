@@ -1,5 +1,5 @@
 <template>
-<div id="login">
+<div id="login" class="clear">
   <v-header :Data="Data"></v-header>
   <v-main :Data="Data"></v-main>
 </div>
@@ -23,7 +23,7 @@ export default {
     var phoneNumber = $.cookie('userNum');
      this.$http.get("http://192.168.1.11//cc/responseAccountInfo.action?"+"phoneNumber"+"="+phoneNumber).then((response) =>{
        this.Data = response.body;
-      
+
      },(response) =>{
        console.log("GG")
      });
@@ -35,5 +35,8 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="stylus" res="stylesheet/stylus">
+  #login
+    float:left
+    min-width:100%
 </style>

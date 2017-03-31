@@ -18,7 +18,7 @@ export default {
 <style lang="stylus" res="stylesheet/stylus">
 .about
   height:276px
-  width:100%
+  min-width:1200px
   background:#f6f6f6
   border-top:1px solid #f6f6f6
   .about_Body

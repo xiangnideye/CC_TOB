@@ -146,7 +146,7 @@
   import Swiper from '../../../common/js/swiper.min.js'
   import '../../../common/css/swiper.min.css'
 
-  export default {
+export default {
   methods:{
     showForm() {
       this.formShow = true
@@ -179,6 +179,7 @@
 
 <style lang="stylus" res="stylesheet/stylus">
 .technology_Body
+ min-width:1200px
  height:1278px
  position:relative
  .technology

@@ -25,7 +25,7 @@
         <i class="phone_p"></i>
         <span class="phone_user">{{Data.phoneNumber}}</span>
       </div>
-      <div class="changeP">更换手机</div>
+      <div class="changeP" @click="goIPhone">更换手机</div>
     </div>
     <div class="ChangePass">
       <div class="Pass">
@@ -58,6 +58,9 @@ export default {
   methods :{
     goReser (){
       location.href="/module/Reset.html";
+    },
+    goIPhone (){
+      location.href = '/module/ResetPhoto.html'
     }
   }
 }

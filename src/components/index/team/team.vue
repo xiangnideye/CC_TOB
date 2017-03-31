@@ -49,7 +49,7 @@ export default {
 .team
   background:url('../../../ilb/image/heiban.jpg') no-repeat
   background-size:100% 100%
-  width:100%
+  min-width:1200px
   height:630px
   .team_body
     margin:0 auto

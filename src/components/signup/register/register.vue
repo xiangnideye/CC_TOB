@@ -9,12 +9,7 @@
         <button id="code" class="code" @click="GetCode" :disabled="boolean" :class="None">{{Code}}</button>
     </div>
 
-
-
-
     <p class="CodeShow" v-show="CodeShow">请输入验证码</p>
-
-    <!-- <button id="code" class="code" @click="GetCode" :disabled="boolean" :class="None">{{Code}}</button> -->
 
     <el-input type="password" @focus="WordHide" :maxlength="20" v-model="UserWord" placeholder="请设置密码 (8-20位字符)"></el-input>
 
@@ -147,7 +142,7 @@ export default {
                 $.cookie('userId',response.body.customerId);
                 $.cookie('userNum',response.body.phoneNumber);
                 $.cookie('loginSuccess',response.body.loginSuccess);
-                location.href = '/module/login.html#/data'
+                location.href = '/module/index.html'
               }else if(response.body.loginSuccess === false){
                   this.Perror = true;
               }

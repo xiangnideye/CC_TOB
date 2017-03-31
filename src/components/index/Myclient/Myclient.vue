@@ -59,7 +59,7 @@ export default {
 
 <style lang="stylus" res="stylesheet/stylus">
 .Myclient
-  width:100%
+  min-width:1200px
   background:#fff
   .Myclient_body
     width:1200px

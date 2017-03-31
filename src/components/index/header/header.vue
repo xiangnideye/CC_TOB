@@ -109,7 +109,7 @@ export default {
 <style lang="stylus" res="stylesheet/stylus">
   .header
     position:relative
-    width:100%
+    min-width:1200px
     height:560px
     background:#2773c1
     .Bg
@@ -155,9 +155,8 @@ export default {
       .nav_right
         height: 60px;
         line-height: 60px
-        position: absolute
-        left: 50%
-        margin-left: -278px
+        float:left
+        margin-left: 11%
         .navR_Font li
           float:left
           margin-right:50px
@@ -178,8 +177,7 @@ export default {
       .Success_login
         display:block
         position:absolute
-        top:1px
-        right:27px
+        right:0
         width:196px
         background#fff
         .Header
@@ -208,6 +206,9 @@ export default {
               cursor:pointer
               a
                 color:#838383
+                display:block
+                width:100%
+                heught:100%
             .login5
                 border-top:1px solid #eee
                 color:#c5c5c5

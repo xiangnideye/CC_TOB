@@ -1,7 +1,7 @@
 <template>
   <div class="Land_body">
     <div class="Login">
-      <el-input @focus="FocusPhide" v-model="UserPhone" placeholder="请输入手机号"></el-input>
+      <el-input @focus="FocusPhide" v-model="UserPhone" placeholder="请输入手机号" class="userPhone"></el-input>
       <p class="PhoneShow" v-show="Pshow">请输入正确的手机号码</p>
       <p class="PhoneShow" v-show="Perror">账号或密码错误</p>
       <el-input @focus="FocusWhide" type="password" v-model="PassWord" placeholder="请输入密码"></el-input>
@@ -21,7 +21,44 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 Vue.use(ElementUI);
 
+
 export default {
+  created (){
+    var _this = this;
+    window.onkeydown = function (event){
+      if(event.keyCode==13){
+        if(!(/^1[34578]\d{9}$/.test(_this.UserPhone))){
+          _this.Pshow = true;
+        }
+        if((_this.PassWord).length<6 || (_this.PassWord).length>20){
+          _this.Wshow = true;
+        }else{
+          _this.Wshow = false;
+        }
+        if((_this.Pshow == false) && (_this.Wshow == false)){
+          _this.$http.post('http://192.168.1.11/cc/receiveLogin.action',{phoneNumber:_this.UserPhone,password:_this.PassWord}).then((response) =>{
+            console.log(response.body)
+              if(response.body.loginSuccess === true && response.body.custComplete === false){
+                $.cookie('userId',response.body.customerId);
+                $.cookie('userNum',response.body.phoneNumber);
+                $.cookie('loginSuccess',response.body.loginSuccess);
+                location.href = '/module/success.html';
+                $.cookie("frequency","first");
+              }else if(response.body.loginSuccess === true && response.body.custComplete === true){
+                $.cookie('userId',response.body.customerId);
+                $.cookie('userNum',response.body.phoneNumber);
+                $.cookie('loginSuccess',response.body.loginSuccess);
+                location.href = '/module/index.html'
+              }else if(response.body.loginSuccess === false ||  response.body.phone_unexist === true){
+                  _this.Perror = true;
+              }
+           },(response) =>{
+              console.log('打印错误信息')
+           });
+        }
+      }
+    }
+  },
   data (){
     return {
       UserPhone:'',
@@ -56,8 +93,8 @@ export default {
               $.cookie('userId',response.body.customerId);
               $.cookie('userNum',response.body.phoneNumber);
               $.cookie('loginSuccess',response.body.loginSuccess);
-              location.href = '/module/login.html#/data'
-            }else if(response.body.loginSuccess === false){
+              location.href = '/module/index.html'
+            }else if(response.body.loginSuccess === false ||  response.body.phone_unexist === true){
                 this.Perror = true;
             }
          },(response) =>{
@@ -71,7 +108,7 @@ export default {
     },
     FocusWhide (){
       this.Wshow = false;
-    }
+    },
   }
 }
 </script>

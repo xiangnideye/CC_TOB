@@ -29,7 +29,7 @@ export default {
 <style lang="stylus" res="stylesheet/stylus">
 .foot
   height:310px
-  width:100%
+  min-width:1200px
   background:#364350
   .foot_body
     margin:0 auto
