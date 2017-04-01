@@ -2,17 +2,17 @@
   <div class="header" id="header">
     <div class="nav">
       <div class="nav_left">
-        <a href="http://www.careerchina.com/index" target="_blank" class="nav_CC"></a><i class="vertical"></i><a href="http://www.100tal.com/" target="_blank" class="nav_TAL"></a>
+        <a href="index.html"  class="nav_CC">
+        </a><i class="vertical"></i><a href="http://www.100tal.com/" target="_blank" class="nav_TAL"></a>
       </div>
       <div class="nav_right">
         <ul class="navR_Font clear">
-          <li><a href="signup.html">首页</a></li>
+          <li><a href="index.html">首页</a></li>
           <li><a href="#server">服务</a></li>
           <li><a href="#technology_Body">技术支持</a></li>
           <li><a href="#team">团队</a></li>
           <li><a href="#Myclient">客户</a></li>
           <li><a href="#about">关于我们</a></li>
-          <!-- <li><a href="login.html#/account">点击登陆</a></li> -->
         </ul>
       </div>
       <div class="Login" v-show="LoSuccess">
@@ -48,7 +48,7 @@
         <p class="nav_title1">中国最好的外教服务</p>
         <p class="nav_title2">致力于打通机构与外教的沟通合作</p>
       </div>
-       <div class="button"><a class="play" href="/module/signup.html#/Land" target="_block">客户申请</a></div>
+       <div class="button"><a class="play" href="/module/signup.html#/Land">客户申请</a></div>
     </div>
     <span class="Bg"></span>
   </div>
@@ -69,6 +69,24 @@ export default {
         this.LoSuccess = true;
         this.ulShow = false;
       }
+
+      ~function () {
+    var reg1 = /AppleWebKit.*Mobile/i,
+        reg2 = /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/;
+
+    //->条件成立说明当前页面是运行在移动端设备中的
+    if (reg1.test(navigator.userAgent) || reg2.test(navigator.userAgent)) {
+        //->如果当前页面的URL是PC端项目的地址:我们需要跳转到移动端项目
+        if (window.location.href.indexOf("/module/index.html") >= 0) {
+              window.location.href="/module/terminal.html";
+        }
+        return;
+    }
+    //->反之则说明当前的页面是运行在PC端设备中的,如果访问的URL地址是移动端的,我们需要跳转到PC端地址上
+    if (window.location.href.indexOf("/module/index.html") >= 0) {
+        alert(2)
+    }
+}();
   },
   methods:{
     showForm() {
@@ -133,12 +151,12 @@ export default {
         height:60px
         .nav_CC
           display:inline-block
-          margin-top:13px
+          margin-top:15px
           margin-left:40px
-          width:160px
+          width:140px
           height:30px
-          background:url("../../../ilb/image/icon.png") no-repeat
-          background-position:-70px -205px
+          background:url("../../../ilb/image/cc logo-01.png") no-repeat
+          background-size:100% 100%
         .vertical
           display:inline-block
           margin-left:18px
@@ -147,11 +165,11 @@ export default {
           background:#4583c8
         .nav_TAL
           display:inline-block
-          width:114px
+          width:126px
           height:30px
           margin-left:18px
-          background:url("../../../ilb/image/icon.png") no-repeat
-          background-position:-247px -202px
+          background:url("../../../ilb/image/好未来logo-01.png") no-repeat
+          background-size:100% 100%
       .nav_right
         height: 60px;
         line-height: 60px

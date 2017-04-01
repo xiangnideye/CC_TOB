@@ -1,7 +1,7 @@
 <template>
   <div class="nav">
     <div class="title clear">
-      <h2 class="title_C">Career China</h2>
+      <a href="index.html" class="title_C"></a>
     </div>
     <!-- <div class="information clear">
       <div class="Headportrait clear"></div>
@@ -67,11 +67,15 @@ export default {
     float:left
     height:100%
     .title_C
+      display:inline-block
       height:60px
       line-height:60px
       margin-left:40px
-      font-size:18px
-      color:#000
+      margin-top:15px
+      width:140px
+      height:30px
+      background:url("../../../ilb/image/cc logo-01.png") no-repeat
+      background-size:100% 100%
   .Success_login
     display:block
     position:absolute

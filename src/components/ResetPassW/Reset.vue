@@ -2,20 +2,27 @@
 <div class="Reset">
   <p class="title" v-show="titleSHow">重置密码</p>
   <div v-show="Reset_1">
-    <input type="text" @focus="phoneHide" v-model="UserPhone" class="Phone" placeholder="填写手机号">
-    <button id="code" class="code" @click="GetCode" :disabled="boolean" :class="None">{{Code}}</button>
-    <p class="PhoneShow" v-show="PhoneShow">请输入正确的手机号码</p>
-    <p class="PhoneShow" v-show="Registered">您的手机号已经注册</p>
-    <input type="text" @focus="codeHide" v-model="userCode" class="Pleasecode" placeholder="请输入验证码">
-    <p class="CodeShow1" v-show="CodeShow1">验证码不能为空</p>
-    <p class="CodeShow2" v-show="CodeShow2">验证码不正确</p>
+    <div class="position1">
+      <input type="text" @focus="phoneHide" v-model="UserPhone" class="Phone" placeholder="填写手机号">
+      <button id="code" class="code" @click="GetCode" :disabled="boolean" :class="None">{{Code}}</button>
+      <p class="phone_">{{phoneNumber_}}</p>
+    </div>
+    <div class="position2">
+      <input type="text" @focus="codeHide" maxlength="4" v-model="userCode" class="Pleasecode" placeholder="请输入验证码">
+      <p class="code_">{{phoneCode_}}</p>
+    </div>
     <div @click="GoReset" class="Yes">确定</div>
   </div>
   <div v-show="Reset_2">
-    <input type="password" @focus="PassP" class="pass1" placeholder="请输入新密码(8-20位)" v-model="passWOrd1">
-    <p class="PhoneShow1" v-show="PassShow1">密码不能为空</p>
+    <div class="position3">
+      <input type="password" @focus="PassP" class="pass1" placeholder="请输入新密码(8-20位)" v-model="passWOrd1">
+      <p class="Pass_">{{passNumber}}</p>
+    </div>
+  <div class="position3">
     <input type="password" @focus="PassP2" class="pass2" placeholder="再次输入新密码" v-model="passWOrd2">
-    <p class="PhoneShow2" v-show="PassShow2">两次输入密码不一致</p>
+    <p class="Pass_2">{{passNumber1}}</p>
+  </div>
+
     <div class="Yes" @click="YesReset">确定</div>
   </div>
   <div class="Reset_3" v-show="Success">
@@ -45,23 +52,23 @@ export default {
       Code: '获取验证码',
       UserPhone: '',
       titleSHow: true,
-      PhoneShow: false,
-      Registered: false,
       Reset_1: true,
       Reset_2: false,
       passWOrd1: '',
       passWOrd2: '',
       userCode: '',
-      CodeShow1: false,
-      CodeShow2: false,
-      Success: false
+      Success: false,
+      phoneNumber_:'',
+      phoneCode_:'',
+      passNumber:'',
+      passNumber1:''
     }
   },
   methods: {
     GetCode() {
       //验证码
       if (!(/^1[34578]\d{9}$/.test(this.UserPhone))) {
-        this.PhoneShow = true;
+        this.phoneNumber_ = '请输入正确的手机号码';
       } else {
         this.$http.post('http://192.168.1.11/cc/to/b/getIdentifyCode.action', {
           phoneNumber: this.UserPhone,
@@ -80,7 +87,7 @@ export default {
               Code.style.backgroundColor = '#989898';
             } else if (time === 0) {
               _this.boolean = false;
-              _this.Code = '从发验证码';
+              _this.Code = '重新发送验证码';
               Code.style.backgroundColor = '#0ed666';
             }
           }, 1000);
@@ -90,19 +97,20 @@ export default {
       }
     },
     phoneHide() {
-      this.PhoneShow = false;
-      this.Registered = false;
+      this.phoneNumber_ = '';
     },
     GoReset() {
       if (this.UserPhone == '') {
-        this.PhoneShow = true;
+        this.phoneNumber_ = '手机号码不能为空';
       } else if (!(/^1[34578]\d{9}$/.test(this.UserPhone))) {
-        this.Registered = true;
+        this.phoneNumber_ = '请输入正确的手机号码';
       }
       if (this.userCode == '') {
-        this.CodeShow1 = true;
+        this.phoneCode_ = '验证码不能为空';
+      }else if(!Number(this.userCode) || (this.userCode).length != 4){
+        this.phoneCode_ = '请输入正确的验证码';
       }
-      if (this.PhoneShow == false && this.Registered == false && this.CodeShow1 == false) {
+      if (this.phoneNumber_ == '' && this.phoneCode_ == '' ) {
         this.$http.post('http://192.168.1.11/cc/to/b/identifyCodeValidation.action', {
           phoneNumber: this.UserPhone,
           validationCode: this.userCode
@@ -120,37 +128,34 @@ export default {
     },
     YesReset() {
       if (this.passWOrd1 != this.passWOrd2) {
-        this.PassShow2 = true;
+        this.passNumber1 = '两次输入密码不一致';
       }
       if (this.passWOrd1 == '') {
-        this.PassShow1 = true;
+        this.passNumber = '密码不能为空';
       }
       var UserPhone_ = $.cookie('phoneNum');
-      if (this.PassShow2 == true || this.PassShow1 == true) {
-        return false
+      if (this.passNumber1 == '' && this.passNumber == '') {
+        this.$http.post('http://192.168.1.11/cc/to/b/updatePwd.action', {
+          phoneNumber: UserPhone_,
+          newPwd: this.passWOrd1
+        }).then((response) => {
+          console.log(response.body)
+          this.titleSHow = false;
+          this.Reset_2 = false;
+          this.Success = true;
+        }, (response) => {
+
+        })
       }
-      this.$http.post('http://192.168.1.11/cc/to/b/updatePwd.action', {
-        phoneNumber: UserPhone_,
-        newPwd: this.passWOrd1
-      }).then((response) => {
-        console.log(response.body)
-        this.titleSHow = false;
-        this.Reset_2 = false;
-        this.Success = true;
-      }, (response) => {
-
-      })
-
     },
     codeHide() {
-      this.CodeShow1 = false;
-      this.CodeShow2 = false;
+      this.phoneCode_ = '';
     },
     PassP() {
-      this.PassShow1 = false;
+      this.passNumber = '';
     },
     PassP2() {
-      this.PassShow2 = false;
+      this.passNumber1 = '';
     }
   },
 
@@ -172,6 +177,8 @@ export default {
       font-size:18px
       font-weight:600
       text-align:center
+    .position1,.position2,.position3,.position4
+      position:relative
     .Phone,.Pleasecode,.pass1,.pass2
       width:260px
       height:40px
@@ -183,7 +190,7 @@ export default {
       margin-left:60px
     .code
       position: absolute
-      top: 64px
+      top: 2px
       right:57px
       cursor:pointer
       border: none
@@ -196,17 +203,19 @@ export default {
       border-top-right-radius:5px
       border-bottom-right-radius:5px
       background:#0ed666
-    .PhoneShow,.CodeShow1,.CodeShow2,.PhoneShow1,.PhoneShow2
+    .phone_,.code_,.Pass_2,.Pass_
+      width:140px
       position: absolute
-      top:75px
+      top:15px
       right: -95px
       font-size:14px
       color:#b14343
-    .CodeShow1,.CodeShow2
-      top:138px
-      right: -55px
-    .PhoneShow2
-      top:138px
+    // .Pass_
+    //   right:-40px
+    // .Pass_2
+    //   right:-85px
+    // .code_
+    //   right:-55px
     .Yes
       width:285px
       height:40px

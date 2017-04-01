@@ -43,7 +43,7 @@
             <div class="swiper-button-next"></div>
             <div class="swiper-pagination"></div>
           </div>
-             <div class="button"><a class="play" href="/module/signup.html#/Land" target="_block">客户申请</a></div>
+             <div class="button"><a class="play" href="/module/signup.html#/Land">客户申请</a></div>
         </div>
       </div>
     </div>

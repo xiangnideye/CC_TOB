@@ -23,7 +23,6 @@ export default {
     var phoneNumber = $.cookie('userNum');
      this.$http.get("http://192.168.1.11//cc/responseAccountInfo.action?"+"phoneNumber"+"="+phoneNumber).then((response) =>{
        this.Data = response.body;
-
      },(response) =>{
        console.log("GG")
      });

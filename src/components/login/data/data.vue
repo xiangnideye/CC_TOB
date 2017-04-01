@@ -112,13 +112,13 @@
           <label> 教材名称:</label>
           <input type="text" class="UserCourseName CourseName1" v-model="textbook_name">
         </div>
-        <div class="cancel">取消</div>
+        <div class="cancel" @click="Cancel">取消</div>
         <div class="Save" @click="Save">保存</div>
       </form>
       <div class="Exhibition" v-show="infoHide">
-        <div class="Edit">
+        <div class="Edit" @click="Edit">
             <i class="EP"></i>
-            <span class="edit" @click="Edit">编辑</span>
+            <span class="edit">编辑</span>
         </div>
         <div class="Name">
           <span class="userKey">姓名:</span>
@@ -211,6 +211,8 @@ export default {
      userId =  $.cookie('userId');
      var frequency = $.cookie('frequency');
      this.$http.get('http://192.168.1.11/cc/showCustomerInfo.action?'+'customerId'+'='+userId).then((response) =>{
+        console.log(response.body);
+        this.CANCEL = response.body.infoComplete;
          if(response.body.infoComplete == true){
             this.In_Hide = false;
             this.infoHide = true;
@@ -238,6 +240,7 @@ export default {
   data (){
     return {
       PHIDE:false,
+      CANCEL:'',
       contactPerson:'',
       customerName:'',
       contactNumber:'',
@@ -298,6 +301,18 @@ export default {
       this.CourseHide = false;
       this.public15 = false;
     },
+    Cancel (){
+      if(this.CANCEL == true){
+        this.infoHide = true;
+        this.infoSHow = false;
+        this.In_Hide = false;
+      }else {
+        this.infoHide = false;
+        this.infoSHow = false;
+        this.In_Hide = true;
+      }
+
+    },
     Save (){
       function unique1(array){
         var n = [];
@@ -349,9 +364,10 @@ export default {
           this.public15 = true;
       };
       if(this.public1==true || this.public2==true || this.public3==true ||  this.public4==true|| this.public5==true || this.public6==true || this.public7==true || this.public8==true || this.public9==true || this.public10==true || this.public11==true || this.public12==true || this.public13==true || this.public14==true || this.public15==true){
-        console.log(1)
+        return false;
       }else{
         this.$http.post('http://192.168.1.11/cc/receiveFillCustomerInfo.action',{contactPerson:this.contactPerson,customerName:this.customerName,contactNumber:this.contactNumber,contactEmail:this.contactEmail,website:this.website,officeAddress:this.officeAddress,have_qualification:this.have_qualification,have_foreignstaff:this.have_foreignstaff,have_chineseTA:this.have_chineseTA,studentAgeStage:unique1(this.studentAgeStage),classScale:unique1(this.classScale),studentEnLevel:unique1(this.studentEnLevel),classContent:unique1(this.classContent),classContent_Others:this.classContent_Others,have_textbook:this.have_textbook,textbook_name:this.textbook_name,customerId:userId,triggerFlag:"true"}).then((response) =>{
+           console.log(response.body);
            this.cust = response.body;
            this.cal1 = (this.cust.classScale).join(',');
            this.cal2 = (this.cust.studentAgeStage).join(',');
@@ -587,13 +603,13 @@ export default {
           margin:0 5px 0 75px
           vertical-align: -10px
         .UserGrade1
-          margin:0 52px 0 89px
+          margin:0 7px 0 89px
           line-height:31px
         .UserGrade2
-          margin:0 52px 0 190px
+          margin:0 7px 0 190px
           line-height:31px
         .UserGrade3
-          margin:0 52px 0 190px
+          margin:0 7px 0 190px
           line-height:31px
         .UserCurr1
           margin-left:89px

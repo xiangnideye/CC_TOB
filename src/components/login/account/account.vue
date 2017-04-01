@@ -49,7 +49,6 @@ export default {
   },
   created (){
     var loginSuccess = $.cookie('loginSuccess');
-    console.log(loginSuccess)
     if(loginSuccess === 'false'){
         console.log(loginSuccess)
         location.href = '/module/index.html'

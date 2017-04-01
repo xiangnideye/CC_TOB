@@ -2,12 +2,14 @@
   <div class="Land_body">
     <div class="Login">
       <el-input @focus="FocusPhide" v-model="UserPhone" placeholder="请输入手机号" class="userPhone"></el-input>
-      <p class="PhoneShow" v-show="Pshow">请输入正确的手机号码</p>
-      <p class="PhoneShow" v-show="Perror">账号或密码错误</p>
+      <p class="Prompt_Name">{{Prompt_Name}}</p>
+      <!-- <p class="PhoneShow" v-show="Pshow">请输入正确的手机号码</p>
+      <p class="PhoneShow" v-show="Perror">账号或密码错误</p> -->
       <el-input @focus="FocusWhide" type="password" v-model="PassWord" placeholder="请输入密码"></el-input>
-      <p class="PasswordShow" v-show="Wshow">请输入密码</p>
+      <p class="Prompt_Pass">{{Prompt_Pass}}</p>
+      <!-- <p class="PasswordShow" v-show="Wshow">请输入密码</p> -->
       <a href="/module/Reset.html" class="Forget">忘记密码</a>
-      <div class="login" @click="LoginUp">登陆</div>
+      <div class="login" @click="LoginUp">登录</div>
     </div>
   </div>
 
@@ -23,19 +25,20 @@ Vue.use(ElementUI);
 
 
 export default {
-  created (){
+  mounted (){
     var _this = this;
     window.onkeydown = function (event){
       if(event.keyCode==13){
         if(!(/^1[34578]\d{9}$/.test(_this.UserPhone))){
-          _this.Pshow = true;
-        }
-        if((_this.PassWord).length<6 || (_this.PassWord).length>20){
-          _this.Wshow = true;
+          _this.Prompt_Name = '请输入正确的手机号码';
+        };
+        if((_this.PassWord).length <6 || (_this.PassWord).length>20){
+          _this.Prompt_Pass = '请输入密码';
         }else{
-          _this.Wshow = false;
-        }
-        if((_this.Pshow == false) && (_this.Wshow == false)){
+          console.log((_this.PassWord).length)
+          _this.Prompt_Pass = '';
+        };
+        if((_this.Prompt_Name == '') && (_this.Prompt_Pass == '')){
           _this.$http.post('http://192.168.1.11/cc/receiveLogin.action',{phoneNumber:_this.UserPhone,password:_this.PassWord}).then((response) =>{
             console.log(response.body)
               if(response.body.loginSuccess === true && response.body.custComplete === false){
@@ -67,22 +70,26 @@ export default {
       Wshow:false,
       DisPlay:true,
       Success_:false,
-      Perror:false
+      Perror:false,
+      Prompt_Name:'',
+      Prompt_Pass:''
     }
   },
   methods:{
     LoginUp (){
       if(!(/^1[34578]\d{9}$/.test(this.UserPhone))){
-        this.Pshow = true;
+        // this.Pshow = true;
+        this.Prompt_Name = '请输入正确的手机号码';
       }
       if((this.PassWord).length<6 || (this.PassWord).length>20){
-        this.Wshow = true;
+        // this.Wshow = true;
+        this.Prompt_Pass = '请输入密码';
       }else{
-        this.Wshow = false;
+        this.Prompt_Pass = '';
       }
-      if((this.Pshow == false) && (this.Wshow == false)){
+      if((this.Prompt_Name == '') && (this.Prompt_Pass == '')){
         this.$http.post('http://192.168.1.11/cc/receiveLogin.action',{phoneNumber:this.UserPhone,password:this.PassWord}).then((response) =>{
-          console.log(response.body)
+            console.log(response.body)
             if(response.body.loginSuccess === true && response.body.custComplete === false){
               $.cookie('userId',response.body.customerId);
               $.cookie('userNum',response.body.phoneNumber);
@@ -103,11 +110,13 @@ export default {
       }
     },
     FocusPhide (){
-      this.Pshow = false;
-      this.Perror = false;
+      // this.Pshow = false;
+      // this.Perror = false;
+      this.Prompt_Name = '';
     },
     FocusWhide (){
-      this.Wshow = false;
+      // this.Wshow = false;
+      this.Prompt_Pass = '';
     },
   }
 }
@@ -134,6 +143,15 @@ export default {
     right: -70px
     font-size:14px
     color:#b14343
+  .Prompt_Name,.Prompt_Pass
+    position:absolute
+    top:12px
+    right:-70px
+    font-size:14px
+    color:#b14343
+  .Prompt_Pass
+    top:75px
+    right:0px
   .PasswordShow
     position:absolute
     top: 72px

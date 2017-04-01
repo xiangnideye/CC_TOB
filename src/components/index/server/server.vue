@@ -46,7 +46,7 @@
         </div>
       </li>
     </ul>
-     <div class="button"><a class="play" href="/module/signup.html#/Land" target="_block">客户申请</a></div>
+     <div class="button"><a class="play" href="/module/signup.html#/Land" >客户申请</a></div>
   </div>
 </template>
 
