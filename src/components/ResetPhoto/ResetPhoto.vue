@@ -67,7 +67,7 @@ export default {
       if(!(/^1[34578]\d{9}$/.test(this.UserPhone))){
           this.NewPhoneNumer = '请输入正确的手机号码';
       }else{
-        this.$http.post('http://192.168.1.11/cc/to/b/getResetPhoneIdentifyCode.action',{newPhoneNumber:this.UserPhone,validationCode:'getValidationCode'}).then((response) =>{
+        this.$http.post('http://localhost:8080/cc/to/b/getResetPhoneIdentifyCode.action',{newPhoneNumber:this.UserPhone,validationCode:'getValidationCode'}).then((response) =>{
           console.log(response.body.getResetIndentifyCodeSuccess)
             if(response.body.getResetIndentifyCodeSuccess == true){
               var Code = document.getElementById('code')
@@ -113,7 +113,7 @@ export default {
       }
 
       if(this.NewCode == '' && this.NewPhoneNumer == '' ){
-          this.$http.post('http://192.168.1.11/cc/to/b/resetAccountPhone.action',{newPhoneNumber:this.UserPhone,identifyCode:this.userCode}).then((response)=>{
+          this.$http.post('http://localhost:8080/cc/to/b/resetAccountPhone.action',{newPhoneNumber:this.UserPhone,identifyCode:this.userCode}).then((response)=>{
             if(response.body.newPhoneNumberResetSuccess == true){
               this.Reset_1 = false;
               this.Reset_2 = false;
@@ -149,7 +149,7 @@ export default {
         this.PassNumber_ = '密码不能为空';
       }
       if(this.PhoneNumber_ == '' && this.PassNumber_ == ''){
-        this.$http.post('http://192.168.1.11/cc/to/b/checkPhoneAndPwd.action',{phoneNumber:this.PhotoNum,password:this.PhotoWord}).then((response) =>{
+        this.$http.post('http://localhost:8080/cc/to/b/checkPhoneAndPwd.action',{phoneNumber:this.PhotoNum,password:this.PhotoWord}).then((response) =>{
             if(response.body.phoneAndPwdPassCheck == true){
               this.Reset_1 = true;
               this.Reset_2 = false;

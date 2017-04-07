@@ -21,7 +21,7 @@ export default {
   name:'login',
   created() {
     var phoneNumber = $.cookie('userNum');
-     this.$http.get("/cc/responseAccountInfo.action?"+"phoneNumber"+"="+phoneNumber).then((response) =>{
+     this.$http.get("http://localhost:8080/cc/responseAccountInfo.action?"+"phoneNumber"+"="+phoneNumber).then((response) =>{
        this.Data = response.body;
      },(response) =>{
        console.log("GG")

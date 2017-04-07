@@ -77,7 +77,7 @@ export default {
           console.log(Login)
         if(Login == 'true'){
             console.log(1)
-          this.$http.post('http://192.168.1.11/cc/to/b/getIdentifyCode.action', {
+          this.$http.post('http://localhost:8080/cc/to/b/getIdentifyCode.action', {
             phoneNumber: this.UserPhone,
             validationCode: 'getValidationCode',
             loggedInFlag:'loggedIn'
@@ -110,7 +110,7 @@ export default {
           });
         }else if(Login == 'false'){
             console.log(2)
-          this.$http.post('http://192.168.1.11/cc/to/b/getIdentifyCode.action', {
+          this.$http.post('http://localhost:8080/cc/to/b/getIdentifyCode.action', {
             phoneNumber: this.UserPhone,
             validationCode: 'getValidationCode'
           }).then((response) => {
@@ -159,7 +159,7 @@ export default {
         this.phoneCode_ = '请输入正确的验证码';
       }
       if (this.phoneNumber_ == '' && this.phoneCode_ == '' ) {
-        this.$http.post('http://192.168.1.11/cc/to/b/identifyCodeValidation.action', {
+        this.$http.post('http://localhost:8080/cc/to/b/identifyCodeValidation.action', {
           phoneNumber: this.UserPhone,
           validationCode: this.userCode
         }).then((response) => {
@@ -188,7 +188,7 @@ export default {
       }
       var UserPhone_ = $.cookie('phoneNum');
       if (this.passNumber1 == '' && this.passNumber == '') {
-        this.$http.post('http://192.168.1.11/cc/to/b/updatePwd.action', {
+        this.$http.post('http://localhost:8080/cc/to/b/updatePwd.action', {
           phoneNumber: UserPhone_,
           newPwd: this.passWOrd1
         }).then((response) => {

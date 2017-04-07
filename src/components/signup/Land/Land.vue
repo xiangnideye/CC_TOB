@@ -55,7 +55,7 @@ export default {
         this.Prompt_Pass = '';
       }
       if((this.Prompt_Name == '') && (this.Prompt_Pass == '')){
-        this.$http.post('http://192.168.1.11/t/cc/receiveLogin.action',{phoneNumber:this.UserPhone,password:this.PassWord}).then((response) =>{
+        this.$http.post('http://localhost:8080/t/cc/receiveLogin.action',{phoneNumber:this.UserPhone,password:this.PassWord}).then((response) =>{
             console.log(response.body)
             if(response.body.loginSuccess === true && response.body.custComplete === false){
               $.cookie('userId',response.body.customerId);
