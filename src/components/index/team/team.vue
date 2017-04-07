@@ -1,38 +1,39 @@
 <template>
   <div class="team" id="team">
     <div class="team_body">
-      <div class="team_title">
-        <a>精英</a>团队
-        <span>TEAM</span>
+      <div class="server_title">
+          <p class="server_title1">精英团队</p>
+          <p class="server_title2"><i></i>TEAM<i></i></p>
       </div>
       <i></i>
       <ul class="team_Ul clear">
           <li class="team_Ul1">
             <span></span>
             <div class="font">
-              <h3>海外本土面试官</h3>
-              <p>拥有来华工作和生活经历，和目标人才沟通零时差，无代沟；</p>
+              <h3>海外精英团队</h3>
+              <p>英美澳加本土面试官：具备多年在华工作和生活经历，与目标外教沟通零时差，无代；</p>
             </div>
           </li>
           <li class="team_Ul2">
             <span></span>
             <div class="font">
-              <h3>国内资深招聘团队</h3>
-              <p>熟悉国内机构招聘需求，深谙机构招聘痛点，服务精准落地；</p>
+              <h3>业内资深签证团队</h3>
+              <p>熟悉中国法律法规和签证政策，善于对外沟通，专业签证服务全流程；
+</p>
             </div>
           </li>
           <li class="team_Ul3">
             <span></span>
             <div class="font">
-              <h3>业内资深签证团队</h3>
-              <p>熟悉中国法律法规和签证政策，善于对外沟通，熟悉签证业务；</p>
+              <h3>国内资深招聘团队</h3>
+              <p>熟悉国内机构招聘需求，深谙机构招聘痛点，完备周到的落地服务；</p>
             </div>
           </li>
           <li class="team_Ul4">
             <span></span>
             <div class="font">
               <h3>专业品牌宣传和市场推广团队</h3>
-              <p>多年中西方工作生活经历，擅长跨文化沟通和多国工作，专业为国内用人单位进行专业线上和线下品牌宣传和市场推广；</p>
+              <p>熟悉海内外网络社区，擅长品牌推广、活动策划、发布原创信息，增强用户品牌粘合度；</p>
           </div>
           </li>
       </ul>
@@ -55,22 +56,23 @@ export default {
     margin:0 auto
     width:1200px
     border-top:1px solid #000
-    .team_title
-     margin:80px 0 10px 100px
-     font-size:24px
-     color:#fff
-    span
-     vertical-align: -2px
-     margin-left:8px
-     color:#c7c7c7
-     font-size:18px
-    i
-     display:inline-block
-     margin-left: 102px;
-     vertical-align: 12px;
-     width:47px
-     height:1px
-     background:#c8c8c8
+    .server_title
+      padding-top: 67px
+      text-align:center
+      color:#fff
+      .server_title1
+        margin-bottom:16px
+        font-size:24px
+      .server_title2
+        font-size:14px
+        margin-bottom:28px
+        i
+         display:inline-block
+         width:30px
+         height:1px
+         vertical-align: 4px
+         margin:0 5px
+         background:#fff
     .team_Ul li
       float:left
       margin-bottom:101px

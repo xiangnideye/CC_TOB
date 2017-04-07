@@ -1,14 +1,15 @@
 <template>
   <div class="Reset" >
+    <a href="index.html" class="Link"></a>
       <p class="title" v-show="titleSHow">重置手机号</p>
       <div v-show="Reset_1">
         <div class="POsition">
-          <input type="text" @focus="phoneHide" v-model="UserPhone" class="Phone" placeholder="填写手机号">
-          <button id="code" class="code" @click="GetCode" :disabled="boolean" :class="None">{{Code}}</button>
+          <input type="text" @focus="phoneHide" v-model="UserPhone" class="Phone" placeholder="请填写新手机账号">
           <p class="NewPhoneNumer">{{NewPhoneNumer}}</p>
         </div>
         <div class="POsition1">
             <input type="text" @focus="codeHide"  v-model="userCode" class="Pleasecode" placeholder="请输入验证码">
+              <button id="code" class="code" @click="GetCode" :disabled="boolean" :class="None">{{Code}}</button>
             <p class="NewCode">{{NewCode}}</p>
         </div>
 
@@ -26,9 +27,14 @@
         <div class="Yes" @click="YesReset">确定</div>
       </div>
       <div class="Reset_3" v-show="Success">
-        <p class="title_3">密码修改成功，请重新登录</p>
+        <p class="title_3">
+          手机号重置成功，新手机号将作为登录账号。
+          <br>
+          <br>
+          请重新登录
+        </p>
         <i class="Pic"></i>
-        <a href="/module/index.html" class="Ok_">确定</a>
+        <a href="index.html" class="Ok_">确定</a>
       </div>
   </div>
 </template>
@@ -59,26 +65,33 @@ export default {
     GetCode (){
       //验证码
       if(!(/^1[34578]\d{9}$/.test(this.UserPhone))){
-          this.PhoneShow = true;
+          this.NewPhoneNumer = '请输入正确的手机号码';
       }else{
         this.$http.post('http://192.168.1.11/cc/to/b/getResetPhoneIdentifyCode.action',{newPhoneNumber:this.UserPhone,validationCode:'getValidationCode'}).then((response) =>{
-            console.log('发送成功')
-            var Code = document.getElementById('code')
-            var _this = this;
-            var time = 60;
-            clearInterval(timer);
-            var timer = setInterval(function(){
-              time --;
-              if(time > 0){
-                _this.Code = time + '秒获取验证码' ;
-                _this.boolean = true;
-                Code.style.backgroundColor = '#989898';
-              }else if(time === 0){
-                _this.boolean = false;
-                _this.Code ='从发验证码';
-                Code.style.backgroundColor = '#0ed666';
-              }
-            }, 1000);
+          console.log(response.body.getResetIndentifyCodeSuccess)
+            if(response.body.getResetIndentifyCodeSuccess == true){
+              var Code = document.getElementById('code')
+              var _this = this;
+              var time = 60;
+              clearInterval(timer);
+              var timer = setInterval(function(){
+                time --;
+                if(time > 0){
+                  _this.Code = time + '秒获取验证码' ;
+                  _this.boolean = true;
+                  Code.style.backgroundColor = '#989898';
+                }else if(time === 0){
+                  _this.boolean = false;
+                  _this.Code ='从发验证码';
+                  Code.style.backgroundColor = '#0ed666';
+                }
+              }, 1000);
+            }else{
+              console.log(response.body.register)
+              if(response.body.register == true){
+                 this.NewPhoneNumer = '该手机号已绑定，请填写其他手机号'
+             }
+            }
          },(response) =>{
             console.log('打印错误信息')
          });
@@ -98,13 +111,27 @@ export default {
       }else if(!Number(this.userCode) || (this.userCode).length != 4){
         this.NewCode = '请输入正确的验证码';
       }
-      if(this.UserPhone == '' && this.userCode == '' ){
+
+      if(this.NewCode == '' && this.NewPhoneNumer == '' ){
           this.$http.post('http://192.168.1.11/cc/to/b/resetAccountPhone.action',{newPhoneNumber:this.UserPhone,identifyCode:this.userCode}).then((response)=>{
             if(response.body.newPhoneNumberResetSuccess == true){
               this.Reset_1 = false;
               this.Reset_2 = false;
               this.Success = true;
-              $.cookie('userNum',this.UserPhone);
+              this.titleSHow = false;
+              $.cookie('loginSuccess','false');
+              $.cookie('userNum','');
+              $.cookie('userId',"");
+            }else {
+              if(response.body.newPhoneRegistered == true){
+                this.NewPhoneNumer = '该手机号已绑定，请填写其他手机号';
+              }
+            }
+            if(response.body.newPhoneRegistered == true){
+              this.NewPhoneNumer = '该手机号已绑定，请填写其他手机号';
+            }
+            if(response.body.validationCodeError == true){
+              this.NewCode = '验证码错误'
             }
           },(response) =>{
             console.log('错误')
@@ -128,7 +155,15 @@ export default {
               this.Reset_2 = false;
               this.Success = false;
             }else{
-              this.PassShow6 = true;
+              if(response.body.phoneNumberNotMatch == true){
+                this.PhoneNumber_ = '您的手机号与登录账号不一致';
+              }
+              if(response.body.pwdError == true){
+                this.PassNumber_ = '密码错误';
+              }
+            }
+            if(response.body.pwdError == true){
+              this.PassNumber_ = '密码错误';
             }
         },(response) =>{
 
@@ -161,11 +196,24 @@ export default {
     margin-left:-200px
     margin-top:-200px
     .title
-      margin-bottom:38px
+      margin-bottom:25px
+      margin-top:15px
       color:#3183e7
       font-size:18px
       font-weight:600
       text-align:center
+    .Link
+      background:url('../../ilb/image/cc logo-01.png') no-repeat
+      background-size:100% 100%
+      height:20px
+      padding-bottom: 30px
+      margin:auto
+      display:block
+      width:240px
+      font-weight:700
+      text-align:center
+      font-size:26px
+      color:#3183e7 !important
     .POsition,.Position1,.Position2,.POsition1
       position:relative
     .Phone,.Pleasecode,.pass1,.pass2
@@ -193,10 +241,10 @@ export default {
       border-bottom-right-radius:5px
       background:#0ed666
     .PhoneNumber_,.PassNumber_1,.NewPhoneNumer,.NewCode
-      width:140px
+      width:225px
       position: absolute
       top:15px
-      right: -95px
+      right: -180px
       font-size:14px
       color:#b14343
     .Yes
@@ -214,7 +262,7 @@ export default {
       .title_3
         margin-bottom:38px
         color:#3183e7
-        font-size:24px
+        font-size:20px
         font-weight:600
         text-align:center
       .Pic

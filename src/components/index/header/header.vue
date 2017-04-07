@@ -32,12 +32,12 @@
             <li class="login2 li">
               <a href="/module/login.html#/data">资料管理</a>
             </li>
-            <li class="login3 li">
+            <!-- <li class="login3 li">
               <a href="/module/login.html#/demand">需求管理</a>
             </li>
             <li class="login4 li">
               <a href="/module/login.html#/Order">订单管理</a>
-            </li>
+            </li> -->
             <li class="login5 li" @click="Sign_Up">退出</li>
           </ul>
         </li>
@@ -45,19 +45,27 @@
     </div>
     <div class="nav_Banner">
       <div class="nav_title">
-        <p class="nav_title1">中国最好的外教服务</p>
-        <p class="nav_title2">致力于打通机构与外教的沟通合作</p>
+        <p class="nav_title1">做中国更有品质的外教服务</p>
+        <p class="nav_title2">让客户招聘外教便捷更有效</p>
       </div>
-       <div class="button"><a class="play" href="/module/signup.html#/Land">客户申请</a></div>
+      <!-- <div class="button draw"><a class="play" href="/module/signup.html#/Land">我要外教</a></div> -->
+      <a class="button draw" href="/module/signup.html#/Land">我要外教</a>
+      <div class="Parent" @click="CLICK">
+        <video class="video" id="video1" >
+          </video>
+          <i class="suspend"  v-show="SHOWBG"></i>
+      </div>
+      </div>
     </div>
-    <span class="Bg"></span>
-  </div>
+    <!-- <span class="Bg"></span> -->
+
 </template>
 
 <script type="ecmascript-6">
-import $ from 'jquery';
-import '../../../common/js/jquery.cookie';
-export default {
+ import $ from 'jquery';
+ import '../../../common/js/jquery.cookie';
+
+ export default {
   created(){
       var userNum = $.cookie("userNum")
       var loginSuccess = $.cookie('loginSuccess');
@@ -77,16 +85,16 @@ export default {
     //->条件成立说明当前页面是运行在移动端设备中的
     if (reg1.test(navigator.userAgent) || reg2.test(navigator.userAgent)) {
         //->如果当前页面的URL是PC端项目的地址:我们需要跳转到移动端项目
-        if (window.location.href.indexOf("/module/index.html") >= 0) {
-              window.location.href="/module/terminal.html";
+        if (window.location.href.indexOf("index.html") >= 0) {
+              window.location.href="terminal.html";
         }
         return;
     }
     //->反之则说明当前的页面是运行在PC端设备中的,如果访问的URL地址是移动端的,我们需要跳转到PC端地址上
-    if (window.location.href.indexOf("/module/index.html") >= 0) {
-        alert(2)
+    if (window.location.href.indexOf("terminal.html") >= 0) {
+        window.location.href="index.html";
     }
-}();
+ }();
   },
   methods:{
     showForm() {
@@ -110,7 +118,19 @@ export default {
     },
     RE (){
         location.href = '/module/signup.html#/register'
-    }
+    },
+    CLICK (){
+      if(video1.paused){
+          video1.play();
+          $('#video1').attr('controls','controls')
+          $('.suspend').css('display','none')
+        }else{
+          $('.suspend').css('display','block')
+          video1.pause();
+        }
+
+    },
+
   },
   data(){
     return {
@@ -118,28 +138,18 @@ export default {
       successShow:false,
       LoSuccess:true,
       ulShow:false,
-      userNum:''
+      userNum:'',
+      SHOWBG:true
     }
   }
-}
+ }
 </script>
 
 <style lang="stylus" res="stylesheet/stylus">
   .header
     position:relative
     min-width:1200px
-    height:560px
-    background:#2773c1
-    .Bg
-      position: absolute
-      bottom: 0
-      left: 50%
-      z-index:0
-      margin-left: -430px
-      display: inline-block
-      width: 860px
-      height: 340px
-      background:url("../../../ilb/image/yinying.png") no-repeat
+    height:100%
     .nav
       margin:0 auto
       min-width:1200px
@@ -240,33 +250,115 @@ export default {
         color:#fff !important
       }
     .nav_Banner
-      margin:192px auto
-      width:450px
+      margin:0px auto 40px
+      padding-top: 55px
+      width: 100%
+      text-align: center
+      background:url('../../../ilb/image/bg-home-top.jpg') no-repeat
+      background-size:100% 100%
+      height:645px
       .nav_title
         .nav_title1
           text-align:center
-          font-size:48px
+          font-size:40px
           font-weight:600
           color:#fff
         .nav_title2
           margin-top:16px
-          font-size:30px
-          color:#dcdada
+          font-size:20px
+          color:#dbe5f6
       .button
-        position:relative
-        z-index:10
-        margin:45px auto
-        width:130px
-        height:36px
-        background:#fff
+        // position:relative
+        // z-index:
+        line-height:15px
+        display:block
+        width:240px
+        height:50px
+        margin:30px auto 35px
+        // border:1px solid #eee
         border-radius:4px
         cursor: pointer
-        box-shadow: 0 25px 70px rgba(0,0,0,0.3)
-        .play
-          display:inline-block
-          color:#2ba0f0
-          text-align:center
-          width:100%
-          height:36px
-          line-height:36px
-</style>
+        // box-shadow: 0 25px 70px rgba(0,0,0,0.3)
+        font-size:18px
+        background: none
+        border: 0
+        box-sizing: border-box
+        box-shadow: inset 0 0 0 2px #fff
+        color: #fff
+        font-weight: 700
+        // margin: 1em
+        padding: 1em 2em
+        text-align: center
+        text-transform: capitalize
+        position: relative
+        vertical-align: middle
+        // .play
+        //   display:inline-block
+        //   color:#fff
+        //   text-align:center
+        //   width:100%
+        //   height:40px
+        //   line-height:40px
+      .button::before, .button::after
+          box-sizing: border-box
+          content: ''
+          position: absolute
+          width: 100%
+          height: 100%
+      .draw
+          -webkit-transition: color 0.25s
+          transition: color 0.25s
+      .draw::before, .draw::after
+          border: 3px solid transparent;
+          width: 0;
+          height: 0;
+      .draw::before
+          top: 0;
+          left: 0;
+      .draw::after
+          bottom: 0
+          right: 0
+      .draw:hover
+          color: #fff;
+      .draw:hover::before, .draw:hover::after
+          width: 100%;
+          height: 100%;
+      .draw:hover::before
+          border-top-color: #fff
+          border-right-color: #fff
+          -webkit-transition: width 0.25s ease-out, height 0.25s ease-out 0.25s
+          transition: width 0.25s ease-out, height 0.25s ease-out 0.25s
+      .draw:hover::after
+              border-bottom-color: #fff;
+              border-left-color: #fff;
+              -webkit-transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+              transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+      .Parent
+        position:relative
+        width:705px
+        margin:auto
+        .video
+              display:block
+              position:relative
+              margin:auto
+              width:100%
+              height:400px
+              background:url('../../../ilb/image/bg-home-video.jpg') no-repeat
+              background-size:100% 100%
+              box-shadow: 8px 10px 30px rgba(0,0,0,.4)
+        .suspend
+                display:inline-block
+                position:absolute
+                top:50%
+                left:50%
+                margin-top:-40px
+                margin-left:-40px
+                cursor:pointer
+                width:80px
+                height:80px
+                background:url('../../../ilb/image/button-home-S.png') no-repeat
+                background-size:100% 100%
+      // .button:hover
+      //   font-size:20px
+      //   font-weight:600
+  </style>

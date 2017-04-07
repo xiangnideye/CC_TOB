@@ -11,12 +11,12 @@
       <li class="data">
         <router-link to="/data"><i></i>资料信息</router-link>
       </li>
-      <li class="demand">
+      <!-- <li class="demand">
         <router-link to="/demand" ><i></i>需求信息</router-link>
       </li>
       <li class="Order">
           <router-link to="/Order" ><i></i>订单管理</router-link>
-      </li>
+      </li> -->
     </ul>
     <router-view  :Data="Data"></router-view>
   </div>

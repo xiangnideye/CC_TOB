@@ -9,7 +9,7 @@
         <img src="../../../ilb/image/login/big.png" alt="" class="header_Pic">
         <div class="Login">
           <div class="Login1">
-            <span class="Login_A">登陆账号:</span>
+            <span class="Login_A">登录账号:</span>
             <span class="userName">{{Data.phoneNumber}}</span>
           </div>
           <div class="Login2">

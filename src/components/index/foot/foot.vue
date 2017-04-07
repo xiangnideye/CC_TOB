@@ -4,8 +4,8 @@
     <p class="title clear">Career China</p>
     <ul class="foot_left clear">
       <li class="about_us">联系我们：</li>
-      <li class="email">Email:service@careerchina.com</li>
-      <li class="tel">Tel:+86 10-84240926</li>
+      <li class="email">Email:business@careerchina.com</li>
+      <li class="tel">Tel:+86 400-669-7618</li>
       <li class="address">地址：北京市朝阳区和平街东土城路8号林大大厦B座5层C室</li>
       <li class="record">京ICP备16068124号-1</li>
     </ul>
@@ -13,7 +13,7 @@
       <p class="P1">关注公众号</p>
       <i class="pic"></i>
       <p class="P2">更多信息请关注我们的英文站点</p>
-      <p class="P3">www.careerchina.com</p>
+      <a  href="http://www.careerchina.com" target="_blank" class="P3"><span>www.careerchina.com</span></a>
     </div>
     <span class="Bg"></span>
   </div>
@@ -73,6 +73,9 @@ export default {
         background:url("../../../ilb/image/icon.png") no-repeat
         background-position:-14px -144px
       .P3
+        position:relative
+        z-index:1
+        display:inline-block
         font-size:18px
         color:#fff
         text-align:center

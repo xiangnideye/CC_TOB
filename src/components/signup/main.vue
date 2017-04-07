@@ -1,7 +1,9 @@
 <template>
 <div class="signup">
   <ul class="up_in" v-show="ulHide" v-on:UUP="UUP">
-    <li class="Logo">Career China</li>
+    <li class="Logo">
+      <a href="index.html" class="Link"></a>
+    </li>
     <li class="land">
       <router-link to="/Land">登录</router-link>
     </li>
@@ -38,7 +40,7 @@ export default {
     padding-top:8%
     .up_in
       margin:0px 0 67px 60px
-      padding-top:80px
+      padding-top:70px
       width:280px
       height:40px
       li
@@ -61,10 +63,21 @@ export default {
       .land
         color:#3183e7
       .Logo
-        padding-bottom: 30px
+        padding-bottom: 48px
+        display:block
         width:240px
         font-weight:700
         text-align:center
         font-size:26px
-        color:#3183e7
+        .Link
+          background:url('../../ilb/image/cc logo-01.png') no-repeat
+          background-size:100% 100%
+          height:50px
+          // padding-bottom: 30px
+          display:block
+          width:240px
+          font-weight:700
+          text-align:center
+          font-size:26px
+          color:#3183e7 !important
 </style>

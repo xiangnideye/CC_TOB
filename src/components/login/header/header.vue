@@ -20,12 +20,12 @@
           <li class="login2 li">
             <a href="/module/login.html#/data">资料管理</a>
           </li>
-          <li class="login3 li">
+          <!-- <li class="login3 li">
             <a href="/module/login.html#/demand">需求管理</a>
           </li>
           <li class="login4 li">
             <a href="/module/login.html#/Order">订单管理</a>
-          </li>
+          </li> -->
           <li class="login5 li" @click="Sign_Up">退出</li>
         </ul>
       </li>

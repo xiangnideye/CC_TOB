@@ -1,7 +1,7 @@
 <template>
   <div class="server" id="server">
     <div class="server_title">
-      <p class="server_title1">服务范围</p>
+      <p class="server_title1">特色服务</p>
       <p class="server_title2"><i></i>SERVICE<i></i></p>
     </div>
     <ul class="server_Img">
@@ -9,7 +9,7 @@
         <div class="bg"></div>
         <div class="content">
           <span></span>
-          <p>海外雇主品牌推广</p>
+          <p>雇主海外品牌推广</p>
           <div class="P_font1">
             “好酒也怕巷子深”，吸引国际化人才，首要推广自己！我们为您提供定制360度渠道推广方案，树立海外雇主品牌形象，从源头上加强海外人才吸引能力。
           </div>
@@ -46,7 +46,7 @@
         </div>
       </li>
     </ul>
-     <div class="button"><a class="play" href="/module/signup.html#/Land" >客户申请</a></div>
+     <div class="button"><a class="play" href="/module/signup.html#/Land" >服务申请</a></div>
   </div>
 </template>
 
@@ -137,13 +137,15 @@ export default {
          -o-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
       .server_1
-        background:url("../../../ilb/image/server.png") no-repeat
+        // background:url("../../../ilb/image/server.png") no-repeat
+        background:url('../../../ilb/image/bg-service.jpg') no-repeat
+        background-position:0 0
         span
           display:inline-block
           width:60px
           height:54px
-          background:url("../../../ilb/image/icon.png") no-repeat
-          background-position:0 0
+          background:url("../../../ilb/image/icon-home.png") no-repeat
+          background-position:-24px -22px
           -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
           -moz-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
           -o-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
@@ -176,13 +178,15 @@ export default {
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
 
       .server_2
-        background:url("../../../ilb/image/server.png") no-repeat
+        // background:url("../../../ilb/image/server.png") no-repeat
+        background:url('../../../ilb/image/bg-service.jpg') no-repeat
+        background-position:-257px  0px
         span
           display:inline-block
           width:60px
           height:54px
-          background:url("../../../ilb/image/icon.png") no-repeat
-          background-position:-75px 0
+          background:url("../../../ilb/image/icon-home.png") no-repeat
+          background-position:-103px -18px
           -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
           -moz-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
           -o-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
@@ -216,13 +220,15 @@ export default {
 
 
       .server_3
-        background:url("../../../ilb/image/server.png") no-repeat
+        // background:url("../../../ilb/image/server.png") no-repeat
+        background:url('../../../ilb/image/bg-service.jpg') no-repeat
+        background-position:-514px  0px
         span
           display:inline-block
           width:60px
           height:54px
-          background:url("../../../ilb/image/icon.png") no-repeat
-          background-position:-138px -3px
+          background:url("../../../ilb/image/icon-home.png") no-repeat
+          background-position:-170px -19px
         p
           margin-top:24px
           color:#fff
@@ -251,13 +257,15 @@ export default {
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
 
       .server_4
-        background:url("../../../ilb/image/server.png") no-repeat
+        // background:url("../../../ilb/image/server.png") no-repeat
+        background:url('../../../ilb/image/bg-service.jpg') no-repeat
+        background-position:-772px  0px
         span
           display:inline-block
           width:60px
           height:54px
-          background:url("../../../ilb/image/icon.png") no-repeat
-          background-position:-138px -3px
+          background:url("../../../ilb/image/icon-home.png") no-repeat
+          background-position:-240px -17px
         p
           margin-top:24px
           color:#fff
@@ -291,7 +299,7 @@ export default {
      background:#fff
      border-radius:4px
      cursor: pointer
-     box-shadow: 0 25px 70px rgba(0,0,0,0.3)
+     box-shadow: 0 20px 45px rgba(0,0,0,0.1)
      .play
       display:inline-block
       color:#2ba0f0
@@ -299,129 +307,7 @@ export default {
       width:100%
       height:36px
       line-height:36px
-    .form_body
-          position:fixed
-          top:0
-          left:0
-          z-index:100
-          width:100%
-          height:100%
-          background:rgba(000,000,000,.5)
-          .Form
-            position:fixed
-            top:50%
-            left:50%
-            margin-left:-300px
-            margin-top:-250px
-            z-index:500
-            width:600px
-            height:500px
-            background:#fff
-            .close
-              display:inline-block
-              width:22px
-              height:22px
-              position: absolute
-              right: 20px
-              top: 19px
-              background:url("../../../ilb/image/xx.png") no-repeat
-            .form_title
-              color:#3183e7
-              font-size:18px
-              text-align:center
-              margin:61px 0 31px 0
-            .From_Post
-              width:281px
-              height:334px
-              margin:0 auto
-              .server
-                width:283px
-                height:41px
-                .Server
-                  color:#b4b3b3
-                  width:283px
-                  option
-                    color:#000
-              .Name,.Photo,.Server,.School,.botton
-                width: 263px
-                padding-left:18px
-                height:41px
-                border:1px solid #e4e1e1
-                margin-bottom:14px
-                border-radius:5px
-              .botton
-                background:#3183e7
-                font-size:16px
-                cursor:pointer
-                color:#fff
-                text-align:center
-                height:41px
-                line-height:41px
-                margin-top:36px
-              .Required1
-                display:none
-                font-size:14px
-                color:red
-                margin-top:10px
-                text-align:center
-    .form_success
-        position:fixed
-        top:0
-        left:0
-        z-index:100
-        width:100%
-        height:100%
-        background:rgba(000,000,000,.5)
-        .success
-            position:fixed
-            top:50%
-            left:50%
-            margin-left:-300px
-            margin-top:-250px
-            z-index:500
-            width:600px
-            height:500px
-            background:#fff
-            .title
-                font-size:30px
-                color:#3183e7
-                font-weight:600
-                text-align:center
-                margin:75px 0 17px 0
-            .thanks
-                display:block
-                font-size:18px
-                color:#b4b3b3
-                text-align:center
-            .pic
-                display:block
-                width:136px
-                height:136px
-                background:url('../../../ilb/image/yes.png') no-repeat
-                background-size:136px 136px
-                margin:22px 233px 14px 231px
-            .callBack
-                display:block
-                font-size:14px
-                color:#b4b3b3
-                text-align:center
-            .success_close
-                width:289px
-                height:40px
-                line-height:40px
-                text-align:center
-                background:#3183e7
-                color:#fff
-                font-size:16px
-                border-radius:5px
-                margin:36px 161px 98px 159px
-                cursor:pointer
-            .close_top
-                display:inline-block
-                width:22px
-                height:22px
-                position: absolute
-                right: 20px
-                top: 19px
-                background:url("../../../ilb/image/xx.png") no-repeat
+    .button :hover
+      font-size:14px
+      font-weight:600
 </style>

@@ -71,8 +71,8 @@ export default {
           phoneNumber: this.UserPhone,
           validationCode: 'getValidationCode'
         }).then((response) => {
-          console.log(response.body.unregistered);
-          if (response.body.unregistered == true) {
+          console.log(response.body);
+          if (response.body.getRegistCodeSuccess == true) {
             console.log('发送成功')
             var Code = document.getElementById('code')
             var _this = this;
@@ -90,7 +90,8 @@ export default {
                 Code.style.backgroundColor = '#0ed666';
               }
             }, 1000);
-          } else {
+          }
+          if(response.body.unregistered == true) {
             this.ResNumber = '您的手机号已经注册';
           }
         }, (response) => {
@@ -123,8 +124,8 @@ export default {
       if (!Number(this.phoneCode) || (this.phoneCode).length != 4) {
         this.ResCode = '请输入验证码';
       }
-      if (!((this.UserWord).length >= 6 && (this.UserWord).length <= 20)) {
-        this.ResPass = '请输入密码';
+      if (!((this.UserWord).length >= 8&& (this.UserWord).length <= 20)) {
+        this.ResPass = '请将密码设置在8-20位';
       }
       if (this.UserName === '') {
         this.ResUser = '请输入联系人';
@@ -144,27 +145,32 @@ export default {
           contactPerson: this.UserName,
           contactNumber: this.ToBPhone
         }).then((response) => {
-          this.$http.post('http://192.168.1.11/cc/receiveLogin.action', {
-            phoneNumber: this.UserPhone,
-            password: this.UserWord
-          }).then((response) => {
-            console.log(response.body)
-            if (response.body.loginSuccess === true && response.body.custComplete === false) {
-              $.cookie('userId', response.body.customerId);
-              $.cookie('userNum', response.body.phoneNumber);
-              $.cookie('loginSuccess', response.body.loginSuccess);
-              location.href = '/module/success.html'
-            } else if (response.body.loginSuccess === true && response.body.custComplete === true) {
-              $.cookie('userId', response.body.customerId);
-              $.cookie('userNum', response.body.phoneNumber);
-              $.cookie('loginSuccess', response.body.loginSuccess);
-              location.href = '/module/index.html'
-            } else if (response.body.loginSuccess === false) {
-              this.ResNumber ='账号或者密码错误';
-            }
-          }, (response) => {
-            console.log('打印错误信息')
-          });
+          if(response.body.registerSuccess == true){
+            this.$http.post('http://192.168.1.11/cc/receiveLogin.action', {
+              phoneNumber: this.UserPhone,
+              password: this.UserWord
+            }).then((response) => {
+              console.log(response.body)
+              if (response.body.loginSuccess === true && response.body.custComplete === false) {
+                $.cookie('userId', response.body.customerId);
+                $.cookie('userNum', response.body.phoneNumber);
+                $.cookie('loginSuccess', response.body.loginSuccess);
+                location.href = '/module/success.html'
+              } else if (response.body.loginSuccess === true && response.body.custComplete === true) {
+                $.cookie('userId', response.body.customerId);
+                $.cookie('userNum', response.body.phoneNumber);
+                $.cookie('loginSuccess', response.body.loginSuccess);
+                location.href = '/module/index.html'
+              } else if (response.body.loginSuccess === false) {
+                this.ResNumber ='账号或者密码错误';
+              }
+            }, (response) => {
+              console.log('打印错误信息')
+            });
+          }
+          if(response.body.validationCodeError == true){
+            this.ResCode = '验证码错误'
+          }
         }, (response) => {
           console.log('打印错误信息')
         });
@@ -194,17 +200,10 @@ export default {
     .el-input__inner
       height:40px
   .ResNumber,.ResCode,.ResPass,.ResUser,.ResToB,.ResPhone
+    width:140px
     position:absolute
     top:15px
     right:-75px
-  .ResCode,.ResUser
-    right:-19px
-  .ResPass
-    right:-5px
-  .ResToB
-    right:-35px
-  .ResPhone
-    right:-45px
   .code
     position: absolute
     top:1px

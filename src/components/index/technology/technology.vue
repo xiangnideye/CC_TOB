@@ -17,25 +17,25 @@
               <div class="swiper-slide">
                 <i class="Com2"></i>
                 <p class="Sw_P1">
-                  我们采用先进的海外招聘ATS系统和海外招聘呼叫系统，严格执行SOP标准流程，确保对目标人才及时跟踪服务、记录和反馈，同时提供给管理团队招聘数据多维度分析，帮助团队有更清晰更客观的认知。
+                  采用先进的海外招聘ATS系统和海外招聘呼叫系统，严格执行SOP标准流程，精准对接海外优秀外教资源。
                 </p>
               </div>
               <div class="swiper-slide">
                 <i class="Com3"></i>
                 <p class="Sw_P1">
-                  我们为用人单位量身定做的外籍人才EHR管理系统，根据外籍人才证件管理和合同管理特点，帮助管理人员进行工作排序，及时提醒，确保从容地处理每个员工的续约、解约和签证办理手续，提高工作效率。
+                通过自主研发的外教EHR管理系统，对外教在华工作、生活进行全方位跟踪及管理服务，在降低用户人工成本，提高工作效率的同时，提升用户满意度。
                 </p>
               </div>
               <div class="swiper-slide">
                 <i class="Com4"></i>
                 <p class="Sw_P1">
-                  我们通过平台招聘服务系统及时向用人单位报备招聘进程，用人单位可以通过开通的单位账户对于服务流程进行随时查看，无需直接沟通即可确认来华招募人员的对接人，签约、签证办理状态和落地服务安排。
+                  通过签证管理服务系统，用户可以全程监管招聘服务流程，及时跟进服务状态。
                 </p>
               </div>
               <div class="swiper-slide">
                 <i class="Com5"></i>
                 <p class="Sw_P1">
-                  我们致力于为中国引流海量合格外籍人才资源，从源头上解决人力紧缺压力；我们有外事管理实战多年经验，愿意和用人单位分享心得积累，帮助团队成长壮大；我们和中国政府主管部门有着紧密的联系和沟通，愿意为用人机构提供中国法规政策正确的解读，和政府、机构为净化外籍人力市场一起努力，打造中国外籍人力市场的一抹蓝天！
+                  我们致力于开发海外优秀外教资源，从源头上解决国内外教紧缺的现状；通过分享我们的外事管理实战经验，与用户一起成长，帮助更多用户走出国门，成为海外知名的中国教育品牌。同时，我们保持着与中国政府主管部门政策上的紧密联系与沟通，第一时间为用户正确解读中国最新的政策法规，在海外传播中国好声音，为中国外教服务行业打造一抹蓝天，成为最受尊敬的外教服务商。
                 </p>
               </div>
             </div>
@@ -43,7 +43,7 @@
             <div class="swiper-button-next"></div>
             <div class="swiper-pagination"></div>
           </div>
-             <div class="button"><a class="play" href="/module/signup.html#/Land">客户申请</a></div>
+             <div class="button"><a class="play" href="/module/signup.html#/Land">服务申请</a></div>
         </div>
       </div>
     </div>
@@ -104,7 +104,7 @@
               <h3>海外校招代理</h3>
             </div>
             <div class="_hoverCon">
-              <b class="_hoverFont">走出国门，直接建立和海外高校的合作。貌似听起来容易，但真正做起来却很有调涨。投入高，产出效率低，没有专业经营，最终收获寥寥。我们可以为用人单位代理做海外校招业务，运用多重宣传手段，最快到达海外受众群体，招募合格人才。</b>
+              <b class="_hoverFont">走出国门，直接建立和海外高校的合作。貌似听起来容易，但真正做起来需要大量的资金投入和高昂的人力成本。投入高，产出效率低，最终收获寥寥。专业经营有奥妙，我们可以为用户代理做海外校招业务，运用多重宣传手段，最快到达海外受众群体，招募合格外教。</b>
             </div>
           </div>
         </li>
@@ -268,7 +268,7 @@ export default {
         background:#fff
         border-radius:4px
         cursor: pointer
-        box-shadow: 0 25px 70px rgba(0,0,0,0.3)
+        box-shadow: 0 20px 45px rgba(0,0,0,0.1)
         .play
           display:inline-block
           color:#2ba0f0
@@ -276,6 +276,9 @@ export default {
           width:100%
           height:36px
           line-height:36px
+      .button :hover
+          font-size:14px
+          font-weight:600
  .Life
   position: absolute;
   top: 532px;
@@ -317,8 +320,8 @@ export default {
       margin: 94px auto 0;
       width:60px
       height:54px
-      background:url("../../../ilb/image/icon2.png") no-repeat
-      background-position:-26px -16px
+      background:url("../../../ilb/image/icon-home.png") no-repeat
+      background-position:-21px -76px
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.15s
     .Life_Ul1
       ._hover
@@ -346,8 +349,8 @@ export default {
             width:55px
             height:44px
             margin: 30px 75px 15px
-            background:url("../../../ilb/image/icon2.png") no-repeat
-            background-position:-26px -78px
+            background:url("../../../ilb/image/icon-home.png") no-repeat
+            background-position:-167px -139px
         ._hoverCon
           background:#fff
           width:181px
@@ -372,8 +375,8 @@ export default {
       margin: 94px auto 0;
       width:60px
       height:54px
-      background:url("../../../ilb/image/icon2.png") no-repeat
-      background-position:-26px -16px
+      background:url("../../../ilb/image/icon-home.png") no-repeat
+      background-position:-103px -80px
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.15s
     .Life_Ul2
         ._hover
@@ -401,8 +404,8 @@ export default {
               width:55px
               height:44px
               margin: 30px 75px 15px
-              background:url("../../../ilb/image/icon2.png") no-repeat
-              background-position:-102px -78px
+              background:url("../../../ilb/image/icon-home.png") no-repeat
+              background-position:-240px -139px
           ._hoverCon
             background:#fff
             width:181px
@@ -427,8 +430,8 @@ export default {
       margin: 94px auto 0;
       width:60px
       height:54px
-      background:url("../../../ilb/image/icon2.png") no-repeat
-      background-position:-26px -16px
+      background:url("../../../ilb/image/icon-home.png") no-repeat
+      background-position:-164px -82px
     .Life_Ul3
           ._hover
             position:absolute
@@ -455,8 +458,8 @@ export default {
                 width:55px
                 height:44px
                 margin: 30px 75px 15px
-                background:url("../../../ilb/image/icon2.png") no-repeat
-                background-position:-185px -78px
+                background:url("../../../ilb/image/icon-home.png") no-repeat
+                background-position:-19px -203px
             ._hoverCon
               background:#fff
               width:181px
@@ -481,8 +484,8 @@ export default {
       margin: 94px auto 0;
       width:60px
       height:54px
-      background:url("../../../ilb/image/icon2.png") no-repeat
-      background-position:-26px -16px
+      background:url("../../../ilb/image/icon-home.png") no-repeat
+      background-position:-245px -82px
     .Life_Ul4
             ._hover
               position:absolute
@@ -509,8 +512,8 @@ export default {
                   width:55px
                   height:44px
                   margin: 30px 75px 15px
-                  background:url("../../../ilb/image/icon2.png") no-repeat
-                  background-position:-185px -78px
+                  background:url("../../../ilb/image/icon-home.png") no-repeat
+                  background-position:-97px -207px
               ._hoverCon
                 background:#fff
                 width:181px
@@ -535,8 +538,8 @@ export default {
       margin: 94px auto 0;
       width:60px
       height:54px
-      background:url("../../../ilb/image/icon2.png") no-repeat
-      background-position:-26px -16px
+      background:url("../../../ilb/image/icon-home.png") no-repeat
+      background-position:-19px -137px
     .Life_Ul5
           ._hover
                 position:absolute
@@ -563,8 +566,8 @@ export default {
                     width:55px
                     height:44px
                     margin: 30px 75px 15px
-                    background:url("../../../ilb/image/icon2.png") no-repeat
-                    background-position:-185px -78px
+                    background:url("../../../ilb/image/icon-home.png") no-repeat
+                    background-position:-167px -204px
                 ._hoverCon
                   background:#fff
                   width:181px
@@ -589,8 +592,8 @@ export default {
       margin: 94px auto 0;
       width:60px
       height:54px
-      background:url("../../../ilb/image/icon2.png") no-repeat
-      background-position:-26px -16px
+      background:url("../../../ilb/image/icon-home.png") no-repeat
+      background-position:-95px -139px
     .Life_Ul6
               ._hover
                 position:absolute
@@ -617,8 +620,8 @@ export default {
                     width:55px
                     height:44px
                     margin: 30px 75px 15px
-                    background:url("../../../ilb/image/icon2.png") no-repeat
-                    background-position:-185px -78px
+                    background:url("../../../ilb/image/icon-home.png") no-repeat
+                    background-position:-242px -204px
                 ._hoverCon
                   background:#fff
                   width:181px
@@ -637,129 +640,4 @@ export default {
     .Life_Ul6:hover .li_bg
             opacity:0
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.1s
- .form_body
-     position:fixed
-     top:0
-     left:0
-     z-index:100
-     width:100%
-     height:100%
-     background:rgba(000,000,000,.5)
-     .Form
-       position:fixed
-       top:50%
-       left:50%
-       margin-left:-300px
-       margin-top:-250px
-       z-index:500
-       width:600px
-       height:500px
-       background:#fff
-       .close
-         display:inline-block
-         width:22px
-         height:22px
-         position: absolute
-         right: 20px
-         top: 19px
-         background:url("../../../ilb/image/xx.png") no-repeat
-       .form_title
-         color:#3183e7
-         font-size:18px
-         text-align:center
-         margin:61px 0 31px 0
-       .From_Post
-         width:281px
-         height:334px
-         margin:0 auto
-         .server
-           width:283px
-           height:41px
-           .Server
-             color:#b4b3b3
-             width:283px
-             option
-               color:#000
-         .Name,.Photo,.Server,.School,.botton
-           width: 263px
-           padding-left:18px
-           height:41px
-           border:1px solid #e4e1e1
-           margin-bottom:14px
-           border-radius:5px
-         .botton
-           background:#3183e7
-           font-size:16px
-           cursor:pointer
-           color:#fff
-           text-align:center
-           height:41px
-           line-height:41px
-           margin-top:36px
-         .Required
-          display:none
-          font-size:14px
-          color:red
-          margin-top:10px
-          text-align:center
- .form_success
-      position:fixed
-      top:0
-      left:0
-      z-index:100
-      width:100%
-      height:100%
-      background:rgba(000,000,000,.5)
-      .success
-          position:fixed
-          top:50%
-          left:50%
-          margin-left:-300px
-          margin-top:-250px
-          z-index:500
-          width:600px
-          height:500px
-          background:#fff
-          .title
-            font-size:30px
-            color:#3183e7
-            font-weight:600
-            text-align:center
-            margin:75px 0 17px 0
-          .thanks
-            display:block
-            font-size:18px
-            color:#b4b3b3
-            text-align:center
-          .pic
-            display:block
-            width:136px
-            height:136px
-            background:url('../../../ilb/image/yes.png') no-repeat
-            background-size:136px 136px
-            margin:22px 233px 14px 231px
-          .callBack
-            display:block
-            font-size:14px
-            color:#b4b3b3
-            text-align:center
-          .success_close
-              width:289px
-              height:40px
-              line-height:40px
-              text-align:center
-              background:#3183e7
-              color:#fff
-              font-size:16px
-              border-radius:5px
-              margin:36px 161px 98px 159px
-              cursor:pointer
-          .close_top
-                display:inline-block
-                width:22px
-                height:22px
-                position: absolute
-                right: 20px
-                top: 19px
-                background:url("../../../ilb/image/xx.png") no-repeat
 </style>
