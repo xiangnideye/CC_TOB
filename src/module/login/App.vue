@@ -21,10 +21,10 @@ export default {
   name:'login',
   created() {
     var phoneNumber = $.cookie('userNum');
-     this.$http.get("http://localhost:8080/cc/responseAccountInfo.action?"+"phoneNumber"+"="+phoneNumber).then((response) =>{
+     this.$http.get("http://localhost:8888/cc/responseAccountInfo.action?"+"phoneNumber"+"="+phoneNumber).then((response) =>{
        this.Data = response.body;
      },(response) =>{
-       console.log("GG")
+       
      });
   },
   components:{

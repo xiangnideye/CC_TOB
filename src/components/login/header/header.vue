@@ -74,7 +74,7 @@ export default {
       margin-top:15px
       width:140px
       height:30px
-      background:url("../../../ilb/image/cc logo-01.png") no-repeat
+      background:url("../../../ilb/image/cclogo-01.png") no-repeat
       background-size:100% 100%
   .Success_login
     display:block

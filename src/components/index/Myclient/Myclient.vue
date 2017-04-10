@@ -16,6 +16,7 @@
     <div class="bg1"><img src="../../../ilb/image/Banner/icon-institutes-8.png" alt=""></div>
     <div class="bg1"><img src="../../../ilb/image/Banner/icon-institutes-9.png" alt=""></div>
     <div class="bg1"><img src="../../../ilb/image/Banner/icon-institutes-10.png" alt=""></div>
+    <div class="bg1"><img src="../../../ilb/image/Banner/icon-institutes-11.png" alt=""></div>
 
     </div>
      <div class="button"><a class="play" href="/module/signup.html#/Land">成为客户</a></div>

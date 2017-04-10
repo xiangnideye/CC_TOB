@@ -70,7 +70,7 @@ export default {
         text-align:center
         font-size:26px
         .Link
-          background:url('../../ilb/image/cc logo-01.png') no-repeat
+          background:url('../../ilb/image/cclogo-01.png') no-repeat
           background-size:100% 100%
           height:50px
           // padding-bottom: 30px

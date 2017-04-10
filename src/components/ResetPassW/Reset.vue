@@ -69,20 +69,20 @@ export default {
   methods: {
     GetCode() {
       var Login = $.cookie('loginSuccess');
-      console.log(Login)
+
       //验证码
       if (!(/^1[34578]\d{9}$/.test(this.UserPhone))) {
         this.phoneNumber_ = '请输入正确的手机号码';
       } else {
-          console.log(Login)
+
         if(Login == 'true'){
-            console.log(1)
-          this.$http.post('http://localhost:8080/cc/to/b/getIdentifyCode.action', {
+
+          this.$http.post('http://localhost:8888/cc/to/b/getIdentifyCode.action', {
             phoneNumber: this.UserPhone,
             validationCode: 'getValidationCode',
             loggedInFlag:'loggedIn'
           }).then((response) => {
-            console.log('发送成功')
+
             if(response.body.getSuccess == true){
               var Code = document.getElementById('code')
               var _this = this;
@@ -106,15 +106,15 @@ export default {
               }
             }
           }, (response) => {
-            console.log('打印错误信息')
+
           });
         }else if(Login == 'false'){
-            console.log(2)
-          this.$http.post('http://localhost:8080/cc/to/b/getIdentifyCode.action', {
+
+          this.$http.post('http://localhost:8888/cc/to/b/getIdentifyCode.action', {
             phoneNumber: this.UserPhone,
             validationCode: 'getValidationCode'
           }).then((response) => {
-            console.log('发送成功')
+
             if(response.body.getSuccess == true){
               var Code = document.getElementById('code')
               var _this = this;
@@ -138,7 +138,7 @@ export default {
               }
             }
           }, (response) => {
-            console.log('打印错误信息')
+
           });
         }
 
@@ -159,7 +159,7 @@ export default {
         this.phoneCode_ = '请输入正确的验证码';
       }
       if (this.phoneNumber_ == '' && this.phoneCode_ == '' ) {
-        this.$http.post('http://localhost:8080/cc/to/b/identifyCodeValidation.action', {
+        this.$http.post('http://localhost:8888/cc/to/b/identifyCodeValidation.action', {
           phoneNumber: this.UserPhone,
           validationCode: this.userCode
         }).then((response) => {
@@ -171,7 +171,7 @@ export default {
             this.phoneCode_ = '验证码错误'
           }
         }, (response) => {
-          console.log('错误')
+
         });
 
       }
@@ -239,7 +239,7 @@ export default {
       font-weight:600
       text-align:center
     .Link
-        background:url('../../ilb/image/cc logo-01.png') no-repeat
+        background:url('../../ilb/image/cclogo-01.png') no-repeat
         background-size:100% 100%
         height:20px
         padding-bottom: 30px

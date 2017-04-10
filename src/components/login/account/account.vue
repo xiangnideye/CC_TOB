@@ -51,15 +51,15 @@ export default {
     var loginSuccess = $.cookie('loginSuccess');
     if(loginSuccess === 'false'){
         console.log(loginSuccess)
-        location.href = 'index.html'
+        location.href = '/module/index.html'
     }
   },
   methods :{
     goReser (){
-      location.href="Reset.html";
+      location.href="/module/Reset.html";
     },
     goIPhone (){
-      location.href = 'ResetPhoto.html'
+      location.href = '/module/ResetPhoto.html'
     }
   }
 }

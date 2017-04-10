@@ -206,11 +206,11 @@ export default {
   created() {
     var loginSuccess = $.cookie('loginSuccess');
     if(loginSuccess === 'false'){
-        location.href = 'index.html'
+        location.href = '/module/index.html'
     };
      userId =  $.cookie('userId');
      var frequency = $.cookie('frequency');
-     this.$http.get('http://localhost:8080/cc/showCustomerInfo.action?'+'customerId'+'='+userId).then((response) =>{
+     this.$http.get('http://localhost:8888/cc/showCustomerInfo.action?'+'customerId'+'='+userId).then((response) =>{
         this.CANCEL = response.body.infoComplete;
          if(response.body.infoComplete == true){
             this.In_Hide = false;
@@ -238,7 +238,7 @@ export default {
            this.customerName = response.body.customerName;
          }
       },(response) =>{
-         console.log('打印错误信息')
+
       });
   },
   data (){
@@ -307,13 +307,13 @@ export default {
     },
     Cancel (){
       if(this.CANCEL == true){
-        console.log(1)
+
         this.infoHide = true;
         this.infoSHow = false;
         this.In_Hide = false;
         this.PHIDE = true;
       }else {
-          console.log(2)
+
         this.infoHide = false;
         this.infoSHow = true;
       }
@@ -372,7 +372,7 @@ export default {
       if(this.public1==true || this.public2==true || this.public3==true ||  this.public4==true|| this.public5==true || this.public6==true || this.public7==true || this.public8==true || this.public9==true || this.public10==true || this.public11==true || this.public12==true || this.public13==true || this.public14==true || this.public15==true){
         return false;
       }else{
-        this.$http.post('http://localhost:8080/cc/receiveFillCustomerInfo.action',{contactPerson:this.contactPerson,customerName:this.customerName,contactNumber:this.contactNumber,contactEmail:this.contactEmail,website:this.website,officeAddress:this.officeAddress,have_qualification:this.have_qualification,have_foreignstaff:this.have_foreignstaff,have_chineseTA:this.have_chineseTA,studentAgeStage:unique1(this.studentAgeStage),classScale:unique1(this.classScale),studentEnLevel:unique1(this.studentEnLevel),classContent:unique1(this.classContent),classContent_Others:this.classContent_Others,have_textbook:this.have_textbook,textbook_name:this.textbook_name,customerId:userId,triggerFlag:"true"}).then((response) =>{
+        this.$http.post('http://localhost:8888/cc/receiveFillCustomerInfo.action',{contactPerson:this.contactPerson,customerName:this.customerName,contactNumber:this.contactNumber,contactEmail:this.contactEmail,website:this.website,officeAddress:this.officeAddress,have_qualification:this.have_qualification,have_foreignstaff:this.have_foreignstaff,have_chineseTA:this.have_chineseTA,studentAgeStage:unique1(this.studentAgeStage),classScale:unique1(this.classScale),studentEnLevel:unique1(this.studentEnLevel),classContent:unique1(this.classContent),classContent_Others:this.classContent_Others,have_textbook:this.have_textbook,textbook_name:this.textbook_name,customerId:userId,triggerFlag:"true"}).then((response) =>{
            this.cust = response.body;
            this.cal1 = (this.cust.classScale).join(',');
            this.cal2 = (this.cust.studentAgeStage).join(',');
@@ -383,7 +383,7 @@ export default {
            this.infoHide = true;
            this.PHIDE = true;
          },(response) =>{
-            console.log('打印错误信息')
+
          });
       }
 

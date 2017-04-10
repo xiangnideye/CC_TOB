@@ -7,7 +7,7 @@
       </div>
       <div class="nav_right">
         <ul class="navR_Font clear">
-          <li><a href="index.html">首页</a></li>
+          <li><a href="#header">首页</a></li>
           <li><a href="#server">服务</a></li>
           <li><a href="#technology_Body">技术支持</a></li>
           <li><a href="#team">团队</a></li>
@@ -85,14 +85,14 @@
     //->条件成立说明当前页面是运行在移动端设备中的
     if (reg1.test(navigator.userAgent) || reg2.test(navigator.userAgent)) {
         //->如果当前页面的URL是PC端项目的地址:我们需要跳转到移动端项目
-        if (window.location.href.indexOf("index.html") >= 0) {
-              window.location.href="terminal.html";
+        if (window.location.href.indexOf("http://business.careerchina.com/module/index.html") >= 0 || window.location.href.indexOf("http://business.careerchina.com") >= 0) {
+              window.location.href="http://business.careerchina.com/module/terminal.html";
         }
         return;
     }
     //->反之则说明当前的页面是运行在PC端设备中的,如果访问的URL地址是移动端的,我们需要跳转到PC端地址上
-    if (window.location.href.indexOf("terminal.html") >= 0) {
-        window.location.href="index.html";
+    if (window.location.href.indexOf("http://business.careerchina.com/module/terminal.html") >= 0) {
+        window.location.href="http://business.careerchina.com/module/index.html";
     }
  }();
   },
@@ -165,7 +165,7 @@
           margin-left:40px
           width:140px
           height:30px
-          background:url("../../../ilb/image/cc logo-01.png") no-repeat
+          background:url("../../../ilb/image/cclogo-01.png") no-repeat
           background-size:100% 100%
         .vertical
           display:inline-block
@@ -344,7 +344,7 @@
               width:100%
               height:400px
               background:url('../../../ilb/image/bg-home-video.jpg') no-repeat
-              background-size:100% 100%
+              // background-size:100% 100%
               box-shadow: 8px 10px 30px rgba(0,0,0,.4)
         .suspend
                 display:inline-block

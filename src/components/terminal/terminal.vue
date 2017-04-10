@@ -23,22 +23,22 @@
               <li class="Li_1">
                 <i class="S_image"></i>
                 <span class="S_title">雇主海外品牌推广</span>
-                <p class="S_Content">"好酒也怕巷子深"，吸引国际化人才，首要推广自己！我们为您提供定制360度渠道推广方案，树立海外雇主品牌形象，从源头上加强海外人才吸引能力。</p>
+                <p class="S_Content">“好酒也怕巷子深”，吸引心仪的外教，首要推广自己！我们为您量身定制360度海外渠道推广方案，树立海外品牌形象，增强品牌吸引力。</p>
               </li>
               <li class="Li_2">
                 <i class="S_image"></i>
                 <span class="S_title">人力派遣管理</span>
-                <p class="S_Content">我们为您提供外籍人才招聘和管理全包解决方案，包括选拔、面试、签约、签证办理、来华后的管理和服务如薪酬核算、保险、法律法规培训等各种服务。</p>
+                <p class="S_Content">我们为您提供外教招聘、管理一站式服务解决方案。</p>
               </li>
               <li class="Li_3">
                 <i class="S_image"></i>
                 <span class="S_title">招聘代理服务</span>
-                <p class="S_Content">  专业的沟通和面试流程，可以帮助用人单位很快锁定目标人选。我们为您量身定制招聘方案，开展招聘服务，确保按时提供高质量人选。</p>
+                <p class="S_Content">  专业的沟通和面试流程，为您细化招聘方案，帮助用户轻松快速的锁定目标人选。</p>
               </li>
               <li class="Li_4">
                 <i class="S_image"></i>
                 <span class="S_title">签证代理服务</span>
-                <p class="S_Content">外籍人才来华工作，手续繁琐但要求时效性和准确性都很高。我们提供签证服务全流程解决方案和专业咨询服务，不仅授之以鱼，而且授之以渔。</p>
+                <p class="S_Content">专业的服务在这里！外教来华工作签证手续繁琐，我们为您提供的就是高效、准确。签证服务全流程解决方案和专业咨询服务，不仅授之以鱼，而且授之以渔。</p>
               </li>
             </ul>
         </div>
@@ -127,7 +127,7 @@
                 <div class="Left">
                     <i class="Pic1"></i>
                     <span class="Title">海外精英团队</span>
-                    <p class="P">英美澳加本土面试官：具备多年在华工作和生活经历，与目标外教沟通零时差，无代；</p>
+                    <p class="P">英美澳加本土面试官：具备多年在华工作和生活经历，与目标外教沟通零时差，无代沟；</p>
                 </div>
                 <div class="Right">
                     <i class="Pic2"></i>
@@ -202,14 +202,14 @@ export default {
   //->条件成立说明当前页面是运行在移动端设备中的
   if (reg1.test(navigator.userAgent) || reg2.test(navigator.userAgent)) {
       //->如果当前页面的URL是PC端项目的地址:我们需要跳转到移动端项目
-      if (window.location.href.indexOf("/module/index.html") >= 0) {
-            window.location.href="/module/terminal.html";
+      if (window.location.href.indexOf("http://business.careerchina.com/module/index.html") >= 0) {
+            window.location.href="http://business.careerchina.com/module/terminal.html";
       }
       return;
   }
   //->反之则说明当前的页面是运行在PC端设备中的,如果访问的URL地址是移动端的,我们需要跳转到PC端地址上
-  if (window.location.href.indexOf("/module/terminal.html") >= 0) {
-      window.location.href="/module/index.html";
+  if (window.location.href.indexOf("http://business.careerchina.com/module/terminal.html") >= 0) {
+      window.location.href="http://business.careerchina.com/module/index.html";
   }
 }();
   },
@@ -245,7 +245,7 @@ export default {
         color:#fff
         height:35px
         width:140px
-        background:url('../../ilb/image/cc logo-01.png') no-repeat
+        background:url('../../ilb/image/cclogo-01.png') no-repeat
         background-size:100% 100%
       .More
         float:right

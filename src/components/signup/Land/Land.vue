@@ -50,13 +50,13 @@ export default {
         this.Prompt_Name = '请输入正确的手机号码';
       }
       if (!((this.PassWord).length >= 8&& (this.PassWord).length <= 20)) {
-        this.Prompt_Pass = '请将密码设置在8-20位';
+        this.Prompt_Pass = '请输入正确的密码';
       }else{
         this.Prompt_Pass = '';
       }
       if((this.Prompt_Name == '') && (this.Prompt_Pass == '')){
-        this.$http.post('http://localhost:8080/t/cc/receiveLogin.action',{phoneNumber:this.UserPhone,password:this.PassWord}).then((response) =>{
-            console.log(response.body)
+        this.$http.post('http://localhost:8888/cc/receiveLogin.action',{phoneNumber:this.UserPhone,password:this.PassWord}).then((response) =>{
+          
             if(response.body.loginSuccess === true && response.body.custComplete === false){
               $.cookie('userId',response.body.customerId);
               $.cookie('userNum',response.body.phoneNumber);

@@ -67,7 +67,7 @@ export default {
       if(!(/^1[34578]\d{9}$/.test(this.UserPhone))){
           this.NewPhoneNumer = '请输入正确的手机号码';
       }else{
-        this.$http.post('http://localhost:8080/cc/to/b/getResetPhoneIdentifyCode.action',{newPhoneNumber:this.UserPhone,validationCode:'getValidationCode'}).then((response) =>{
+        this.$http.post('http://localhost:8888/cc/to/b/getResetPhoneIdentifyCode.action',{newPhoneNumber:this.UserPhone,validationCode:'getValidationCode'}).then((response) =>{
           console.log(response.body.getResetIndentifyCodeSuccess)
             if(response.body.getResetIndentifyCodeSuccess == true){
               var Code = document.getElementById('code')
@@ -93,7 +93,7 @@ export default {
              }
             }
          },(response) =>{
-            console.log('打印错误信息')
+
          });
       }
     },
@@ -113,7 +113,7 @@ export default {
       }
 
       if(this.NewCode == '' && this.NewPhoneNumer == '' ){
-          this.$http.post('http://localhost:8080/cc/to/b/resetAccountPhone.action',{newPhoneNumber:this.UserPhone,identifyCode:this.userCode}).then((response)=>{
+          this.$http.post('http://localhost:8888/cc/to/b/resetAccountPhone.action',{newPhoneNumber:this.UserPhone,identifyCode:this.userCode}).then((response)=>{
             if(response.body.newPhoneNumberResetSuccess == true){
               this.Reset_1 = false;
               this.Reset_2 = false;
@@ -134,7 +134,7 @@ export default {
               this.NewCode = '验证码错误'
             }
           },(response) =>{
-            console.log('错误')
+
           });
 
       }
@@ -149,7 +149,7 @@ export default {
         this.PassNumber_ = '密码不能为空';
       }
       if(this.PhoneNumber_ == '' && this.PassNumber_ == ''){
-        this.$http.post('http://localhost:8080/cc/to/b/checkPhoneAndPwd.action',{phoneNumber:this.PhotoNum,password:this.PhotoWord}).then((response) =>{
+        this.$http.post('http://localhost:8888/cc/to/b/checkPhoneAndPwd.action',{phoneNumber:this.PhotoNum,password:this.PhotoWord}).then((response) =>{
             if(response.body.phoneAndPwdPassCheck == true){
               this.Reset_1 = true;
               this.Reset_2 = false;
@@ -203,7 +203,7 @@ export default {
       font-weight:600
       text-align:center
     .Link
-      background:url('../../ilb/image/cc logo-01.png') no-repeat
+      background:url('../../ilb/image/cclogo-01.png') no-repeat
       background-size:100% 100%
       height:20px
       padding-bottom: 30px

@@ -67,7 +67,7 @@ export default {
       if (!(/^1[34578]\d{9}$/.test(this.UserPhone))) {
         this.ResNumber = '请输入正确的手机号码';
       } else {
-        this.$http.post('http://localhost:8080/cc/receiveRegisterValidationCode.action', {
+        this.$http.post('http://localhost:8888/cc/receiveRegisterValidationCode.action', {
           phoneNumber: this.UserPhone,
           validationCode: 'getValidationCode'
         }).then((response) => {
@@ -137,7 +137,7 @@ export default {
         this.ResPhone = '请输入机构phone'
       }
       if (this.ResNumber === '' && this.ResCode === '' && this.ResPass === '' && this.ResUser === '' && this.ResToB === '' && this.ResPhone === '') {
-        this.$http.post('http://localhost:8080/cc/receiveRegister.action', {
+        this.$http.post('http://localhost:8888/cc/receiveRegister.action', {
           phoneNumber: this.UserPhone,
           password: this.UserWord,
           validationCode: this.phoneCode,
@@ -146,7 +146,7 @@ export default {
           contactNumber: this.ToBPhone
         }).then((response) => {
           if(response.body.registerSuccess == true){
-            this.$http.post('http://localhost:8080/cc/receiveLogin.action', {
+            this.$http.post('http://localhost:8888/cc/receiveLogin.action', {
               phoneNumber: this.UserPhone,
               password: this.UserWord
             }).then((response) => {
