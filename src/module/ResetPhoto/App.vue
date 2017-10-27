@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import 'common/css/reset.min.css';
+  // import 'common/css/reset.min.css';
   import Reset from "../../components/ResetPhoto/ResetPhoto.vue"
 
   export default {

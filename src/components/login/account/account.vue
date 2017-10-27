@@ -2,19 +2,18 @@
   <div class="account_main">
     <div class="A_information">
       <div class="title">
-        <i class="account_Pic"></i>
-        <span class="account_Font">账户信息</span>
+        <span class="account_Font">我的账户</span>
       </div>
       <div class="content">
-        <img src="../../../ilb/image/login/big.png" alt="" class="header_Pic">
+        <div  class="header_Pic"></div>
         <div class="Login">
           <div class="Login1">
-            <span class="Login_A">登录账号:</span>
-            <span class="userName">{{Data.phoneNumber}}</span>
+            <span class="Login_A">登录账号</span>
+            <span class="userName">{{this.phoneNumber}}</span>
           </div>
           <div class="Login2">
-            <span class="Registration_T">注册时间:</span>
-            <span class="userTime">{{Data.createTime}}</span>
+            <span class="Registration_T">注册时间</span>
+            <span class="userTime">{{this.createTime}}</span>
           </div>
 
         </div>
@@ -23,7 +22,7 @@
     <div class="ChangePhone">
       <div class="Phone">
         <i class="phone_p"></i>
-        <span class="phone_user">{{Data.phoneNumber}}</span>
+        <span class="phone_user">{{this.phoneNumber}}</span>
       </div>
       <div class="changeP" @click="goIPhone">更换手机</div>
     </div>
@@ -38,21 +37,18 @@
 </template>
 
 <script>
-import $ from 'jquery';
-import '../../../common/js/jquery.cookie.js';
+
 
 export default {
-  props:{
-    Data:{
-      type:Object
+  data (){
+    return{
+      phoneNumber:'',
+      createTime:''
     }
   },
   created (){
-    var loginSuccess = $.cookie('loginSuccess');
-    if(loginSuccess === 'false'){
-        console.log(loginSuccess)
-        location.href = '/module/index.html'
-    }
+    this.phoneNumber = $.cookie('userNum');
+    this.createTime = $.cookie('B-createTime');
   },
   methods :{
     goReser (){
@@ -93,7 +89,10 @@ export default {
         background:url("../../../ilb/image/login/icon.png") no-repeat
         background-position:-93px -23px
       .account_Font
-        vertical-align: 5px
+        display:inline-block
+        font-size:18px
+        color:#333
+        margin:11px 0 0 25px
     .content
       width:100%
       height:254px
@@ -103,6 +102,7 @@ export default {
         width:120px
         height:120px
         border-radius:50%
+        background:url('../../../ilb/image/login/big.png')
       .Login
         float:left
         margin-top:74px
@@ -129,7 +129,7 @@ export default {
         display:inline-block
         width:25px
         height:40px
-        margin:44px 28px 43px 51px
+        margin:44px 10px 43px 51px
         background:url("../../../ilb/image/login/icon.png") no-repeat
         background-position:-93px -77px
       .phone_user,.Pass_user
@@ -154,7 +154,7 @@ export default {
       display:inline-block
       width:30px
       height:40px
-      margin:44px 28px 43px 51px
+      margin:44px 10px 43px 51px
       background:url("../../../ilb/image/login/icon.png") no-repeat
       background-position:-93px -135px
 </style>

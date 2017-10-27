@@ -20,25 +20,25 @@
       <input type="password" @focus="PassP" class="pass1" placeholder="请输入新密码(8-20位)" v-model="passWOrd1">
       <p class="Pass_">{{passNumber}}</p>
     </div>
-  <div class="position3">
-    <input type="password" @focus="PassP2" class="pass2" placeholder="再次输入新密码" v-model="passWOrd2">
-    <p class="Pass_2">{{passNumber1}}</p>
-  </div>
-
+    <div class="position3">
+      <input type="password" @focus="PassP2" class="pass2" placeholder="再次输入新密码" v-model="passWOrd2">
+      <p class="Pass_2">{{passNumber1}}</p>
+    </div>
     <div class="Yes" @click="YesReset">确定</div>
   </div>
   <div class="Reset_3" v-show="Success">
-    <p class="title_3">密码修改成功，请重新登录</p>
     <i class="Pic"></i>
+    <p class="title_3">密码修改成功，请重新登录</p>
     <a href="index.html" class="Ok_">确定</a>
   </div>
 </div>
 </template>
 
 <script>
-import $ from 'jquery';
-import '../../common/js/jquery.cookie.js';
-
+import localhost from '../../common/js/public.js';
+const access_token = $.cookie('B-access_token');
+const BcustomerId =  $.cookie('B-customerId');
+const loginSuccess = $.cookie('loginSuccess');
 export default {
   created() {
     var _this = this;
@@ -68,80 +68,35 @@ export default {
   },
   methods: {
     GetCode() {
-      var Login = $.cookie('loginSuccess');
-
-      //验证码
       if (!(/^1[34578]\d{9}$/.test(this.UserPhone))) {
-        this.phoneNumber_ = '请输入正确的手机号码';
+        this.ResNumber = '请输入您的手机号';
       } else {
-
-        if(Login == 'true'){
-
-          this.$http.post('http://localhost:8888/cc/to/b/getIdentifyCode.action', {
-            phoneNumber: this.UserPhone,
-            validationCode: 'getValidationCode',
-            loggedInFlag:'loggedIn'
-          }).then((response) => {
-
-            if(response.body.getSuccess == true){
-              var Code = document.getElementById('code')
-              var _this = this;
-              var time = 60;
-              clearInterval(timer);
-              var timer = setInterval(function() {
-                time--;
-                if (time > 0) {
-                  _this.Code = time + '秒获取验证码';
-                  _this.boolean = true;
-                  Code.style.backgroundColor = '#989898';
-                } else if (time === 0) {
-                  _this.boolean = false;
-                  _this.Code = '重新发送验证码';
-                  Code.style.backgroundColor = '#0ed666';
-                }
-              }, 1000);
-            }else {
-              if(response.body.phoneNumberNotMatch == true){
-                this.phoneNumber_ = '您的手机号与登录账号不一致'
-              }
-            }
-          }, (response) => {
-
-          });
-        }else if(Login == 'false'){
-
-          this.$http.post('http://localhost:8888/cc/to/b/getIdentifyCode.action', {
-            phoneNumber: this.UserPhone,
-            validationCode: 'getValidationCode'
-          }).then((response) => {
-
-            if(response.body.getSuccess == true){
-              var Code = document.getElementById('code')
-              var _this = this;
-              var time = 60;
-              clearInterval(timer);
-              var timer = setInterval(function() {
-                time--;
-                if (time > 0) {
-                  _this.Code = time + '秒获取验证码';
-                  _this.boolean = true;
-                  Code.style.backgroundColor = '#989898';
-                } else if (time === 0) {
-                  _this.boolean = false;
-                  _this.Code = '重新发送验证码';
-                  Code.style.backgroundColor = '#0ed666';
-                }
-              }, 1000);
-            }else {
-              if(response.body.unregister == true){
-                this.phoneNumber_ = '您的手机号为注册'
-              }
-            }
-          }, (response) => {
-
-          });
+        if(!this.CodeMask){
+          this.CodeMask = true;
         }
-
+        this.$http.get(localhost+'/cc/account/number/verifycode?phoneNumber='+this.UserPhone+'&access_token='+access_token+'&modifyPwdToken='+'true').then((response) =>{
+          if(response.body.error_code == 200){
+            let Code = document.getElementById('code');
+            let _this = this;
+                let time = 60;
+                clearInterval(timer);
+                let timer = setInterval(function() {
+                  time--;
+                  if (time > 0) {
+                    _this.Code = time + '秒获取验证码';
+                    _this.boolean = true;
+                    Code.style.backgroundColor = '#989898';
+                  } else if (time === 0) {
+                    _this.CodeMask = false;
+                    _this.boolean = false;
+                    _this.Code = '重新发送验证码';
+                    Code.style.backgroundColor = '#0ed666';
+                  }
+                }, 1000);
+          }else if (response.body.error_code == 1003) {
+            this.ResNumber = '您的手机号已经注册';
+          };
+        });
       }
     },
     phoneHide() {
@@ -159,21 +114,18 @@ export default {
         this.phoneCode_ = '请输入正确的验证码';
       }
       if (this.phoneNumber_ == '' && this.phoneCode_ == '' ) {
-        this.$http.post('http://localhost:8888/cc/to/b/identifyCodeValidation.action', {
-          phoneNumber: this.UserPhone,
-          validationCode: this.userCode
-        }).then((response) => {
-          if (response.body.IdentifyCodeCorrect == true) {
-            $.cookie('phoneNum', this.UserPhone);
-            this.Reset_1 = false;
-            this.Reset_2 = true;
-          }else{
+        this.$http.get(localhost+'/cc/account/reset/pwd/check?access_token='+access_token+'&phoneNumber='+this.newPhoto+'&numIdentifyCode='+this.phoneCode).then((response) => {
+          console.log(response.body)
+          if(response.body.error_code == 200){
+              $.cookie('phoneNum', this.UserPhone);
+              this.Reset_1 = false;
+              this.Reset_2 = true;
+          }else if (response.body.error_code == 1003) {
             this.phoneCode_ = '验证码错误'
+          }else if (response.body.error_code == 1002) {
+            this.phoneNumber_ = '手机号码不正确';
           }
-        }, (response) => {
-
         });
-
       }
     },
     YesReset() {
@@ -186,30 +138,29 @@ export default {
       if (!((this.passWOrd1).length >= 8&& (this.passWOrd1).length <= 20)) {
         this.passNumber = '请将密码设置在8-20位';
       }
-      var UserPhone_ = $.cookie('phoneNum');
       if (this.passNumber1 == '' && this.passNumber == '') {
-        this.$http.post('http://localhost:8080/cc/to/b/updatePwd.action', {
-          phoneNumber: UserPhone_,
-          newPwd: this.passWOrd1
-        }).then((response) => {
+        this.$http.post(localhost+'/cc/account/reset/pwd', {
+          phoneNumber: $.cookie('phoneNum'),
+          password: this.passWOrd1,
+          access_token:access_token
+        },{emulateJSON:true}).then((response) => {
           console.log(response.body)
-          if(response.body.updatePwdSuccess == true){
+          if(response.body.error_code == 200){
             this.titleSHow = false;
             this.Reset_2 = false;
             this.Success = true;
             $.cookie('loginSuccess','false');
             $.cookie('userNum','');
-            $.cookie('userId',"");
+            $.cookie('B-customerId',"");
           }else{
             this.passNumber = '修改不成功'
           }
-        }, (response) => {
-
         })
       }
     },
     codeHide() {
       this.phoneCode_ = '';
+      this.boolean = false;
     },
     PassP() {
       this.passNumber = '';
@@ -232,7 +183,7 @@ export default {
     margin-left:-200px
     margin-top:-200px
     .title
-      margin-bottom:25px
+      margin-bottom:10px
       margin-top:15px
       color:#3183e7
       font-size:18px
@@ -302,9 +253,10 @@ export default {
       cursor:pointer
     .Reset_3
       .title_3
-        margin-bottom:38px
+        margin-top:10px
+        margin-bottom:25px
         color:#3183e7
-        font-size:24px
+        font-size:18px
         font-weight:600
         text-align:center
       .Pic
@@ -315,7 +267,7 @@ export default {
         background:url("../../ilb/image/yes.png") no-repeat
       .Ok_
         display:block
-        margin:45px auto 0
+        margin:25px auto 0
         width:280px
         height:40px
         background:#3183e7

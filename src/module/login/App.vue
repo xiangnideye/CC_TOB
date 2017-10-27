@@ -6,26 +6,30 @@
 </template>
 
 <script>
+import localhost from '../../common/js/public.js';
 import Vue from 'vue';
-import $ from 'jquery';
-import '../../common/js/jquery.cookie';
-import '../../common/css/reset.min.css';
 import header from '../../components/login/header/header';
 import main from '../../components/login/main/main';
+const access_token = $.cookie('B-access_token');
+const BcustomerId =  $.cookie('B-customerId');
+/* eslint-disable no-new */
 export default {
   data (){
     return {
-      Data:{}
+      Data:0,
     }
   },
   name:'login',
   created() {
-    var phoneNumber = $.cookie('userNum');
-     this.$http.get("http://localhost:8888/cc/responseAccountInfo.action?"+"phoneNumber"+"="+phoneNumber).then((response) =>{
-       this.Data = response.body;
-     },(response) =>{
-       
-     });
+    if(!$.cookie('B-access_token')){
+      this.$http.get(localhost+'/cc/bg/user/accesstoken').then((response) =>{
+        if(response.body.error_code == 200){
+          $.cookie('B-access_token',response.body.resultObj.access_token)
+        }
+      },(response) =>{
+
+      });
+    }
   },
   components:{
     'v-header':header,
@@ -38,4 +42,7 @@ export default {
   #login
     float:left
     min-width:100%
+  .el-cascader-menu
+      min-width:100px
+      height:200px
 </style>

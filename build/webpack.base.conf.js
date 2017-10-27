@@ -4,6 +4,7 @@ var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
 var glob = require('glob');
 var entries = getEntry('./src/module/**/*.js'); // 获得入口js文件
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 var env = process.env.NODE_ENV
 // check env & config/index.js to decide weither to enable CSS Sourcemaps for the
@@ -11,7 +12,6 @@ var env = process.env.NODE_ENV
 var cssSourceMapDev = (env === 'development' && config.dev.cssSourceMap)
 var cssSourceMapProd = (env === 'production' && config.build.productionSourceMap)
 var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
-
 module.exports = {
   entry: entries,
   output: {
@@ -64,16 +64,19 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      }
-    ]
+      },
+      // {
+      //     test: /\.css$/,
+      //     loader: ExtractTextPlugin.extract("css-loader")
+      //  }
+     ]
   },
   vue: {
-    loaders: utils.cssLoaders({ sourceMap: useCssSourceMap }),
-    postcss: [
-      require('autoprefixer')({
-        browsers: ['last 2 versions']
-      })
-    ]
+  // loaders: {
+  //     css: ExtractTextPlugin.extract("css"),
+  //     // 你也能包含 <style lang="less"> 或其他语言
+  //     stylus: ExtractTextPlugin.extract("css!stylus")
+  //   }
   }
 }
 

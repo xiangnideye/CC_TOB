@@ -11,14 +11,14 @@
             <span></span>
             <div class="font">
               <h3>海外精英团队</h3>
-              <p>英美澳加本土面试官：具备多年在华工作和生活经历，与目标外教沟通零时差，无代沟；</p>
+              <p>英美澳加本土面试官：具备多年在华工作和生活经历，与目标外教沟通零时差，无代沟</p>
             </div>
           </li>
           <li class="team_Ul2">
             <span></span>
             <div class="font">
               <h3>业内资深签证团队</h3>
-              <p>熟悉中国法律法规和签证政策，善于对外沟通，专业签证服务全流程；
+              <p>熟悉中国法律法规和签证政策，善于对外沟通，专业签证服务全流程
 </p>
             </div>
           </li>
@@ -26,14 +26,14 @@
             <span></span>
             <div class="font">
               <h3>国内资深招聘团队</h3>
-              <p>熟悉国内机构招聘需求，深谙机构招聘痛点，完备周到的落地服务；</p>
+              <p>熟悉国内机构招聘需求，深谙机构招聘痛点，完备周到的落地服务</p>
             </div>
           </li>
           <li class="team_Ul4">
             <span></span>
             <div class="font">
               <h3>专业品牌宣传和市场推广团队</h3>
-              <p>熟悉海内外网络社区，擅长品牌推广、活动策划、发布原创信息，增强用户品牌粘合度；</p>
+              <p>熟悉海内外网络社区，擅长品牌推广、活动策划、发布原创信息，增强用户品牌粘合度</p>
           </div>
           </li>
       </ul>
@@ -51,13 +51,12 @@ export default {
   background:url('../../../ilb/image/heiban.jpg') no-repeat
   background-size:100% 100%
   min-width:1200px
-  height:630px
   .team_body
     margin:0 auto
     width:1200px
     border-top:1px solid #000
     .server_title
-      padding-top: 67px
+      padding-top: 90px
       text-align:center
       color:#fff
       .server_title1
@@ -65,7 +64,7 @@ export default {
         font-size:24px
       .server_title2
         font-size:14px
-        margin-bottom:28px
+        margin-bottom:60px
         i
          display:inline-block
          width:30px
@@ -75,7 +74,7 @@ export default {
          background:#fff
     .team_Ul li
       float:left
-      margin-bottom:101px
+      margin-bottom:60px
       margin-left: 105px
       height:162px
       .font
@@ -99,9 +98,9 @@ export default {
     .team_Ul2
       background:url("../../../ilb/image/qianzheng.png") no-repeat
     .team_Ul3
-      margin-bottom:66px !important
+      margin-bottom:90px !important
       background:url("../../../ilb/image/waishi.png") no-repeat
     .team_Ul4
-      margin-bottom:66px !important
+      margin-bottom:90px !important
       background:url("../../../ilb/image/tuiguang.png") no-repeat
 </style>

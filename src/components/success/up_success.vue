@@ -2,7 +2,7 @@
   <div class="Success" v-show="Success_">
     <div class="GoCareer">
       <p class="title">欢迎来到Career China</p>
-      <span class="font">我们注意到，您还没有完善基本资料的填写，现在完善资料填写，便可理解获得优质的外教人才服务</span>
+      <span class="font">您还没有完善相关基本资料的填写。我们建议您现在完善这些资料，便可立即获得优质的外教人才服务。</span>
       <a class="GoData" href="/module/login.html#/data">去完善资料  </a>
       <a href="index.html" class="GoHome">我先看看，稍后完善</a>
     </div>
@@ -42,7 +42,7 @@ export default {
         font-size:18px
         line-height:28px
         color:#989999
-        width:400px
+        width:414px
         text-align:center
     .GoData
       display:block

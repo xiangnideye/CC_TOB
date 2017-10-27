@@ -5,13 +5,22 @@
 </template>
 
 <script>
-  import 'common/css/reset.min.css';
-  import main from "../../components/signup/main"
 
+  import main from "../../components/signup/main"
+  import localhost from '../../common/js/public.js'
   export default {
     name: 'signup',
     components: {
       'v-main':main,
+    },
+    created(){
+      if(!$.cookie('B-access_token') || $.cookie('B-access_token') == 'null'){
+        this.$http.get(localhost+'/cc/bg/user/accesstoken').then((response) =>{
+          if(response.body.error_code == 200){
+            $.cookie('B-access_token',response.body.resultObj.access_token)
+          }
+        });
+      }
     }
   }
 </script>

@@ -3,29 +3,25 @@
     <div class="title clear">
       <a href="index.html" class="title_C"></a>
     </div>
-    <!-- <div class="information clear">
-      <div class="Headportrait clear"></div>
-      <div class="userName">{{Data.phoneNumber}}</div>
-    </div> -->
     <ul class="Success_login">
       <li class="Header">
         <i class="hea_p"></i>
-        <span class="_data">{{Data.phoneNumber}}</span>
+        <span class="_data">{{this.phoneNumber}}</span>
       </li>
       <li class="main">
         <ul class="main_content">
           <li class="login1 li">
-            <a href="/module/login.html#/account">账户信息</a>
+            <a href="/module/login.html#/account">我的账户</a>
           </li>
           <li class="login2 li">
-            <a href="/module/login.html#/data">资料管理</a>
+            <a href="/module/login.html#/data">机构信息</a>
           </li>
-          <!-- <li class="login3 li">
-            <a href="/module/login.html#/demand">需求管理</a>
+          <li class="login3 li">
+            <a href="/module/login.html#/demand">岗位需求</a>
           </li>
           <li class="login4 li">
             <a href="/module/login.html#/Order">订单管理</a>
-          </li> -->
+          </li>
           <li class="login5 li" @click="Sign_Up">退出</li>
         </ul>
       </li>
@@ -34,22 +30,22 @@
 </template>
 
 <script>
-import $ from 'jquery';
-import '../../../common/js/jquery.cookie';
+
 export default {
-  props:{
-      Data:{
-        type:Object
-      }
+  data (){
+    return {
+      phoneNumber:'',
+    }
   },
   created(){
-
+    this.phoneNumber = $.cookie('userNum');
   },
   methods:{
     Sign_Up (){
         $.cookie('loginSuccess',"false");
         $.cookie('userId',"");
         $.cookie('userNum',"");
+        $.cookie('UUId',"");
         location.href="/module/index.html";
     },
   }
@@ -59,10 +55,10 @@ export default {
 <style lang="stylus" res="stylesheet/stylus">
 .nav
   position:relative
-  z-index:10
+  z-index:100
   width:100%
   height:60px
-  box-shadow:0px 0px 4px #000
+  box-shadow:0px 2px 7px rgba(83,110,136,.15)
   .title
     float:left
     height:100%
@@ -79,7 +75,7 @@ export default {
   .Success_login
     display:block
     position:absolute
-    top:1px
+    top:0px
     right:27px
     width:196px
     background#fff

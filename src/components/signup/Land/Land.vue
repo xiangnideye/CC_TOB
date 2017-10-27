@@ -3,7 +3,7 @@
     <div class="Login">
       <el-input @focus="FocusPhide" v-model="UserPhone" placeholder="请输入手机号" class="userPhone"></el-input>
       <p class="Prompt_Name">{{Prompt_Name}}</p>
-      <el-input @focus="FocusWhide" type="password" v-model="PassWord" placeholder="请输入密码"></el-input>
+      <el-input @focus="FocusWhide" type="password" v-model="PassWord" placeholder="请输入密码" @change="clearNotice" id="PassWordInput"></el-input>
       <p class="Prompt_Pass">{{Prompt_Pass}}</p>
       <a href="/module/Reset.html" class="Forget">忘记密码</a>
       <div class="login" @click="LoginUp">登录</div>
@@ -13,13 +13,9 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import $ from 'jquery';
-import '../../../common/js/jquery.cookie'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
-Vue.use(ElementUI);
-
+import localhost from '../../../common/js/public.js';
+// const access_token = $.cookie('B-access_token');
+// console.log(access_token)
 
 export default {
   mounted (){
@@ -44,9 +40,9 @@ export default {
     }
   },
   methods:{
+    //登陆
     LoginUp (){
-      if(!(/^1[34578]\d{9}$/.test(this.UserPhone))){
-        // this.Pshow = true;
+      if(!(/^1[234578]\d{9}$/.test(this.UserPhone))){
         this.Prompt_Name = '请输入正确的手机号码';
       }
       if (!((this.PassWord).length >= 8&& (this.PassWord).length <= 20)) {
@@ -55,28 +51,30 @@ export default {
         this.Prompt_Pass = '';
       }
       if((this.Prompt_Name == '') && (this.Prompt_Pass == '')){
-        this.$http.post('http://localhost:8888/cc/receiveLogin.action',{phoneNumber:this.UserPhone,password:this.PassWord}).then((response) =>{
-          
-            if(response.body.loginSuccess === true && response.body.custComplete === false){
-              $.cookie('userId',response.body.customerId);
-              $.cookie('userNum',response.body.phoneNumber);
-              $.cookie('loginSuccess',response.body.loginSuccess);
+        this.$http.get(localhost+'/cc/account/login?phoneNumber='+this.UserPhone+'&password='+this.PassWord+'&access_token='+$.cookie('B-access_token')).then((response) =>{
+          if(response.body.error_code == 200){
+            console.log(response.body)
+            //customerId
+            $.cookie('B-customerId',response.body.resultObj.customerId);
+            //创建时间
+            $.cookie('B-createTime',response.body.resultObj.createTime);
+            //机构是否审批
+            $.cookie('B-custInfoComplete',response.body.resultObj.custInfoComplete);
+            //当前登陆的手机号
+            $.cookie('userNum', this.UserPhone);
+            //是否登陆成功
+            $.cookie('loginSuccess', 'true');
+            if(response.body.resultObj.approved == false){
               location.href = '/module/success.html';
-              $.cookie("frequency","first");
-            }else if(response.body.loginSuccess === true && response.body.custComplete === true){
-              $.cookie('userId',response.body.customerId);
-              $.cookie('userNum',response.body.phoneNumber);
-              $.cookie('loginSuccess',response.body.loginSuccess);
-              location.href = '/module/index.html'
-            }else if(response.body.loginSuccess === false ||  response.body.phone_unexist === true){
-                this.Prompt_Name = '账号或密码错误';
-            }
-            if(response.body.unregistered == true){
-                this.Prompt_Name = '账号没有注册';
-            }
-         },(response) =>{
-            console.log('打印错误信息')
-         });
+            }else {
+              location.href = '/module/index.html';
+            };
+          }else if (response.body.error_code == 1002) {
+            this.Prompt_Name = '账号没有注册';
+          }else if (response.body.error_code == 1003) {
+            this.Prompt_Name = '账号或密码错误';
+          }
+        });
       }
     },
     FocusPhide (){
@@ -87,7 +85,11 @@ export default {
     FocusWhide (){
       // this.Wshow = false;
       this.Prompt_Pass = '';
+      this.Prompt_Name = '';
     },
+    clearNotice (){
+      this.Prompt_Name = '';
+    }
   }
 }
 </script>
@@ -106,7 +108,7 @@ export default {
     .el-input__inner
       height:40px
   .el-input
-    margin-bottom:19px
+    margin-bottom:12px
   .PhoneShow
     position:absolute
     top: 10px
@@ -121,7 +123,7 @@ export default {
     font-size:14px
     color:#b14343
   .Prompt_Pass
-    top:75px
+    top:67px
   .PasswordShow
     position:absolute
     top: 72px
@@ -131,10 +133,10 @@ export default {
   .Forget
     position:absolute
     right: 78px
-    bottom: 90px
+    top: 105px
     color:#777
   .login
-    margin:56px 0 0 58px
+    margin:30px 0 0 58px
     cursor:pointer
     width:260px
     height:40px
@@ -143,4 +145,6 @@ export default {
     color:#fff
     text-align:center
     border-radius:5px
+  .login:hover
+    background:#286cd5
 </style>

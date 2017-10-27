@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import 'common/css/reset.min.css';
+  //  import 'common/css/reset.min.css';
   import success from "../../components/success/up_success.vue"
 
   export default {

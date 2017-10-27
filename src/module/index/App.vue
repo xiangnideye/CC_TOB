@@ -11,7 +11,6 @@
 </template>
 
 <script>
-  import 'common/css/reset.min.css';
   import header from 'components/index/header/header'
   import server from "components/index/server/server"
   import technology from "components/index/technology/technology"
@@ -19,6 +18,7 @@
   import team from "components/index/team/team"
   import aboutUs from "components/index/AboutUS/AboutUs"
   import foot from "components/index/foot/foot"
+  import localhost from '../../common/js/public.js'
 
   export default {
     name: 'app',
@@ -30,6 +30,15 @@
       'v-Myclient': Myclient,
       'v-AboutUs': aboutUs,
       'v-foot': foot
+    },
+    created (){
+      if($.cookie('B-access_token') === undefined || $.cookie('B-access_token') == 'null'){
+        this.$http.get(localhost+'/cc/bg/user/accesstoken').then((response) =>{
+          if(response.body.error_code == 200){
+            $.cookie('B-access_token',response.body.resultObj.access_token)
+          }
+        });
+      }
     }
   }
 </script>

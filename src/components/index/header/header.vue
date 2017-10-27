@@ -1,18 +1,19 @@
 <template>
   <div class="header" id="header">
     <div class="nav">
-      <div class="nav_left">
-        <a href="index.html"  class="nav_CC">
+      <h1 class="nav_left">
+        <a href="http://business.careerchina.com/module/index.html"  class="nav_CC">
         </a><i class="vertical"></i><a href="http://www.100tal.com/" target="_blank" class="nav_TAL"></a>
-      </div>
+      </h1>
+      <h2 style="display:none">careerchina</h2>
       <div class="nav_right">
         <ul class="navR_Font clear">
-          <li><a href="#header">首页</a></li>
-          <li><a href="#server">服务</a></li>
-          <li><a href="#technology_Body">技术支持</a></li>
-          <li><a href="#team">团队</a></li>
-          <li><a href="#Myclient">客户</a></li>
-          <li><a href="#about">关于我们</a></li>
+          <li class="LI1"><a href="#header">首页</a></li>
+          <li class="LI1"><a href="#server">服务</a></li>
+          <li class="LI1"><a href="#technology_Body">技术支持</a></li>
+          <li class="LI1"><a href="#team">团队</a></li>
+          <li class="LI1"><a href="#Myclient">客户</a></li>
+          <li class="LI1"><a href="#about">关于我们</a></li>
         </ul>
       </div>
       <div class="Login" v-show="LoSuccess">
@@ -27,17 +28,17 @@
         <li class="main">
           <ul class="main_content">
             <li class="login1 li">
-              <a href="/module/login.html#/account">账户信息</a>
+              <a href="/module/login.html#/account">我的账户</a>
             </li>
             <li class="login2 li">
-              <a href="/module/login.html#/data">资料管理</a>
+              <a href="/module/login.html#/data">机构信息</a>
             </li>
-            <!-- <li class="login3 li">
-              <a href="/module/login.html#/demand">需求管理</a>
+            <li class="login3 li">
+              <a href="/module/login.html#/demand">岗位需求</a>
             </li>
             <li class="login4 li">
               <a href="/module/login.html#/Order">订单管理</a>
-            </li> -->
+            </li>
             <li class="login5 li" @click="Sign_Up">退出</li>
           </ul>
         </li>
@@ -49,52 +50,65 @@
         <p class="nav_title2">让客户招聘外教便捷更有效</p>
       </div>
       <!-- <div class="button draw"><a class="play" href="/module/signup.html#/Land">我要外教</a></div> -->
-      <a class="button draw" href="/module/signup.html#/Land">我要外教</a>
+      <a class="button draw" @click="Login">我要外教</a>
       <div class="Parent" @click="CLICK">
-        <video class="video" id="video1" >
-          </video>
-          <i class="suspend"  v-show="SHOWBG"></i>
+        <video class="video" id="video1"  src="http://material.careerchina.com/video/c3a88780-4e6d-4fb4-b0d7-eb8ab0c0ad49.mp4" preload='None'>  </video>
+        <i class="suspend"  v-show="SHOWBG"></i>
       </div>
       </div>
     </div>
-    <!-- <span class="Bg"></span> -->
-
 </template>
 
-<script type="ecmascript-6">
- import $ from 'jquery';
- import '../../../common/js/jquery.cookie';
+<script>
 
  export default {
   created(){
       var userNum = $.cookie("userNum")
       var loginSuccess = $.cookie('loginSuccess');
       if(loginSuccess == "true"){
-          this.userNum = userNum;
-          this.LoSuccess = false;
-          this.ulShow = true;
+        this.userNum = userNum;
+        this.LoSuccess = false;
+        this.ulShow = true;
       }else if(loginSuccess == "false"){
         this.LoSuccess = true;
         this.ulShow = false;
-      }
+      };
 
-      ~function () {
-    var reg1 = /AppleWebKit.*Mobile/i,
-        reg2 = /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/;
+  ~function () {
+       var reg1 = /AppleWebKit.*Mobile/i,
+           reg2 = /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/;
 
-    //->条件成立说明当前页面是运行在移动端设备中的
-    if (reg1.test(navigator.userAgent) || reg2.test(navigator.userAgent)) {
-        //->如果当前页面的URL是PC端项目的地址:我们需要跳转到移动端项目
-        if (window.location.href.indexOf("http://business.careerchina.com/module/index.html") >= 0 || window.location.href.indexOf("http://business.careerchina.com") >= 0) {
-              window.location.href="http://business.careerchina.com/module/terminal.html";
-        }
-        return;
-    }
-    //->反之则说明当前的页面是运行在PC端设备中的,如果访问的URL地址是移动端的,我们需要跳转到PC端地址上
-    if (window.location.href.indexOf("http://business.careerchina.com/module/terminal.html") >= 0) {
-        window.location.href="http://business.careerchina.com/module/index.html";
-    }
- }();
+       //->条件成立说明当前页面是运行在移动端设备中的
+       if (reg1.test(navigator.userAgent) || reg2.test(navigator.userAgent)) {
+           //->如果当前页面的URL是PC端项目的地址:我们需要跳转到移动端项目
+           if (window.location.href.indexOf("https://business.careerchina.com/module/index.html") >= 0 || window.location.href.indexOf("https://business.careerchina.com") >= 0) {
+                 window.location.href="https://business.careerchina.com/module/terminal.html";
+           }
+           return;
+       }
+       //->反之则说明当前的页面是运行在PC端设备中的,如果访问的URL地址是移动端的,我们需要跳转到PC端地址上
+       if (window.location.href.indexOf("https://business.careerchina.com/module/terminal.html") >= 0) {
+           window.location.href="https://business.careerchina.com/module/index.html";
+       }
+
+    //  var reg1 = /AppleWebKit.*Mobile/i,
+    //      reg2 = /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/;
+     //
+    //  //->条件成立说明当前页面是运行在移动端设备中的
+    //  if (reg1.test(navigator.userAgent) || reg2.test(navigator.userAgent)) {
+    //      //->如果当前页面的URL是PC端项目的地址:我们需要跳转到移动端项目
+    //      if (window.location.href.indexOf("/module/index.html") >= 0 || window.location.href.indexOf("devb.careerchina.com:8077")>= 0) {
+    //            window.location.href="/module/terminal.html";
+    //      }
+    //      return;
+    //  }
+    //  //->反之则说明当前的页面是运行在PC端设备中的,如果访问的URL地址是移动端的,我们需要跳转到PC端地址上
+    //  if (window.location.href.indexOf("/module/terminal.html") >= 0) {
+    //      window.location.href="/module/index.html";
+    //  }
+
+
+    }();
   },
   methods:{
     showForm() {
@@ -112,6 +126,7 @@
         $.cookie('loginSuccess',"false");
         $.cookie('userId',"");
         $.cookie('userNum',"");
+        // $.cookie('B-access_token',null);
     },
     LO (){
         location.href = '/module/signup.html#/Land'
@@ -128,9 +143,15 @@
           $('.suspend').css('display','block')
           video1.pause();
         }
-
     },
-
+    Login (){
+      console.log($.cookie('loginSuccess'))
+      if($.cookie('loginSuccess') == 'true'){
+          location.href="/module/login.html#/data";
+      }else{
+          location.href="/module/signup.html#/register";
+      }
+    }
   },
   data(){
     return {
@@ -170,27 +191,31 @@
         .vertical
           display:inline-block
           margin-left:18px
-          width:2px
+          width:1px
           height:30px
-          background:#4583c8
+          background:#ddd
         .nav_TAL
           display:inline-block
           width:126px
           height:30px
           margin-left:18px
-          background:url("../../../ilb/image/好未来logo-01.png") no-repeat
+          background:url("../../../ilb/image/TALlogo-01.png") no-repeat
           background-size:100% 100%
       .nav_right
         height: 60px;
         line-height: 60px
         float:left
-        margin-left: 11%
+        margin-left: 12%
         .navR_Font li
           float:left
           margin-right:50px
           font-size:16px
           a
             color:#949494
+          .LI1 :hover a
+            color:red
+        .LI1:hover a
+          color:#2ba0f0
       .Login
           width:100px
           float: right
@@ -202,6 +227,8 @@
             color:#949494
           .Re
             margin-left:10px
+      .Login :hover
+        color:#2ba0f0
       .Success_login
         display:block
         position:absolute
@@ -243,19 +270,17 @@
       .Success_login:hover .main{
           display:block
       }
-      .li:hover{
+      .li:hover
         background:#3183e7
-      }
-      .li:hover a{
+      .li:hover a
         color:#fff !important
-      }
     .nav_Banner
-      margin:0px auto 40px
+      margin:0px auto 0px
       padding-top: 55px
       width: 100%
       text-align: center
-      background:url('../../../ilb/image/bg-home-top.jpg') no-repeat
-      background-size:100% 100%
+      background:url('../../../ilb/image/bg-home-top.jpg') no-repeat center
+      background-size:cover
       height:645px
       .nav_title
         .nav_title1
@@ -283,7 +308,7 @@
         background: none
         border: 0
         box-sizing: border-box
-        box-shadow: inset 0 0 0 2px #fff
+        box-shadow: inset 0 0 0 1px #fff
         color: #fff
         font-weight: 700
         // margin: 1em
@@ -328,23 +353,24 @@
           border-right-color: #fff
           -webkit-transition: width 0.25s ease-out, height 0.25s ease-out 0.25s
           transition: width 0.25s ease-out, height 0.25s ease-out 0.25s
+          border-radius:4px
       .draw:hover::after
               border-bottom-color: #fff;
               border-left-color: #fff;
               -webkit-transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
               transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+              border-radius:4px
       .Parent
         position:relative
-        width:705px
+        width:710px
         margin:auto
+        background:url('../../../ilb/image/bg-home-video.jpg') no-repeat
         .video
               display:block
               position:relative
               margin:auto
               width:100%
               height:400px
-              background:url('../../../ilb/image/bg-home-video.jpg') no-repeat
-              // background-size:100% 100%
               box-shadow: 8px 10px 30px rgba(0,0,0,.4)
         .suspend
                 display:inline-block
@@ -356,9 +382,6 @@
                 cursor:pointer
                 width:80px
                 height:80px
-                background:url('../../../ilb/image/button-home-S.png') no-repeat
+                background:url('../../../ilb/image/button-home-video.png') no-repeat
                 background-size:100% 100%
-      // .button:hover
-      //   font-size:20px
-      //   font-weight:600
   </style>

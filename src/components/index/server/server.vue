@@ -11,7 +11,7 @@
           <span></span>
           <p>雇主海外品牌推广</p>
           <div class="P_font1">
-          “好酒也怕巷子深”，吸引心仪的外教，首要推广自己！我们为您量身定制360度海外渠道推广方案，树立海外品牌形象，增强品牌吸引力。
+          “酒香也怕巷子深”，吸引心仪的外教，首先要推广自己！我们为用户量身定制360度海外渠道推广方案，树立海外品牌形象，增强品牌吸引力。
           </div>
         </div>
       </li>
@@ -21,7 +21,7 @@
           <span></span>
           <p>人力派遣管理</p>
           <div class="P_font1">
-            我们为您提供外教招聘、管理一站式服务解决方案。
+            我们提供个性化的外教一站式人力资源服务解决方案，把繁琐复杂的外事工作交给我们专业的团队，让您的精力更聚焦。
           </div>
         </div>
       </li>
@@ -31,7 +31,7 @@
           <span></span>
           <p>招聘代理服务</p>
           <div class="P_font1">
-            专业的沟通和面试流程，为您细化招聘方案，帮助用户轻松快速的锁定目标人选。
+            细致的招聘方案，完善的沟通和面试流程，帮助用户轻松快速的锁定心仪的外教。
           </div>
         </div>
       </li>
@@ -41,12 +41,12 @@
           <span></span>
           <p>签证代理服务</p>
           <div class="P_font1">
-            专业的服务在这里！外教来华工作签证手续繁琐，我们为您提供的就是高效、准确。签证服务全流程解决方案和专业咨询服务，不仅授之以鱼，而且授之以渔。
+            专业的服务在这里！高效、合法、准确的签证全流程是我们对服务的保证；专注招聘符合工作签证的外教，是我们对品质的承诺。
           </div>
         </div>
       </li>
     </ul>
-     <div class="button"><a class="play" href="/module/signup.html#/Land" >服务申请</a></div>
+     <div class="button"><a class="play" @click="Login1">外教服务申请</a></div>
   </div>
 </template>
 
@@ -62,6 +62,13 @@ export default {
     },
     successHide() {
       this.successShow = false
+    },
+    Login1 (){
+      if($.cookie('loginSuccess') == 'true'){
+          location.href="/module/login.html#/data";
+      }else {
+          location.href="/module/signup.html#/register";
+      }
     }
   },
   data(){
@@ -77,23 +84,24 @@ export default {
   .server
     margin:0 auto
     width:1200px
-    height:675px
     .server_title
-      padding-top: 67px
+      padding-top: 90px
       text-align:center
       .server_title1
         margin-bottom:16px
         font-size:24px
+        color:#333
       .server_title2
         font-size:14px
-        margin-bottom:28px
+        margin-bottom:60px
+        color:#333
         i
          display:inline-block
          width:30px
          height:1px
          vertical-align: 4px
          margin:0 5px
-         background:#000
+         background:#333
     .server_Img
       margin: 0 auto;
       height: 360px;
@@ -293,7 +301,7 @@ export default {
           -o-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
     .button
-     margin:59px auto 77px
+     margin:60px auto 90px
      width:130px
      height:36px
      background:#fff
