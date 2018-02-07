@@ -66,7 +66,8 @@ export default {
     }
   },
   created (){
-
+    //1e4974fb-12ac-43b6-84f8-a72a42421638
+    console.log()
   },
   methods :{
     SignIn (){
@@ -96,7 +97,7 @@ export default {
             $.cookie('userNum', this.UserName);
             //是否登陆成功
             $.cookie('loginSuccess', 'true');
-            location.href = '/module/Login_home.html';
+            //location.href = '/module/Login_home.html';
             this.$http.post(localhost+'/cc/wechat/blindWechat',{
               openid:this.openid,
               access_token:access_token,

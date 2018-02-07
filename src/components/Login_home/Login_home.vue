@@ -55,7 +55,7 @@
       CloseAll (){
         var mymessage=confirm("你确定退出么？");
         if(mymessage){
-            location.href = '/module/terminal.html';
+            location.href = '/module/M_index.html';
             $.cookie('loginSuccess','false');
             $.cookie('B-customerId','');
             $.cookie('userNum','');

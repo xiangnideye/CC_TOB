@@ -345,7 +345,7 @@ import localhost from '../../common/js/public.js';
       $('.PassWord_input').css('border','none');
     },
     Return (){
-      location.href='/module/terminal.html'
+      location.href='/module/M_index.html'
     }
   }
 }

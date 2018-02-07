@@ -1126,7 +1126,7 @@ export default {
           .footer-Employment,.footer-Interview,.footer-refuse
             width:88px
             height:40px
-            margin-right:10px
+            margin-right:8px
             float:left
             color:#fff
             font-size:14px

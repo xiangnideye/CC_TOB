@@ -22,7 +22,7 @@ export default {
   name:'login',
   created() {
     if(!$.cookie('B-access_token')){
-      this.$http.get(localhost+'/cc/bg/user/accesstoken').then((response) =>{
+      this.$http.get(localhost+'/cc/bg/user/accesstoken?client=B').then((response) =>{
         if(response.body.error_code == 200){
           $.cookie('B-access_token',response.body.resultObj.access_token)
         }

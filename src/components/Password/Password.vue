@@ -40,7 +40,8 @@
 <script>
 import Localhost from '../../common/js/public.js';
 // var UUID = $.cookie('UUId');
-var Login = $.cookie('loginSuccess');
+const Login = $.cookie('loginSuccess');
+const access_token = $.cookie('B-access_token');
 export default {
   created (){
     Login == 'true'?this.True_Flase = true:this.True_Flase = false;
@@ -65,6 +66,7 @@ export default {
   },
   methods:{
     oldDetermine (){
+      console.log(access_token)
       if(this.newPhoto == ''){
         this.Error_3 = true;
         $('.NewPhoto').css('border','1px solid #ffcfd1');
@@ -77,22 +79,32 @@ export default {
         $('.NumCode').css('border','1px solid #ffcfd1');
       }
       if (this.Error_3 !=true  && this.Error_4 !=true ) {
-        this.$http.post(Localhost+'/cc/to/b/identifyCodeValidation.action', {
-          phoneNumber: this.newPhoto,
-          validationCode: this.phoneCode
-        }).then((response) => {
+        // this.$http.post(Localhost+'/cc/to/b/identifyCodeValidation.action', {
+        //   phoneNumber: this.newPhoto,
+        //   validationCode: this.phoneCode,
+        //   access_token:access_token
+        // },{emulateJSON:true}).then((response) => {
+        //   console.log(response.body)
+        //   if (response.body.IdentifyCodeCorrect == true) {
+        //     $.cookie('phoneNum', this.newPhoto);
+        //     this.oldInformation = false;
+        //     this.newInformation = true;
+        //   }else{
+        //     alert('验证码错误');
+        //   }
+        // });
+        this.$http.get(Localhost+'/cc/account/reset/pwd/check?access_token='+access_token+'&phoneNumber='+this.newPhoto+'&numIdentifyCode='+this.phoneCode).then((response) => {
           console.log(response.body)
-          if (response.body.IdentifyCodeCorrect == true) {
-            $.cookie('phoneNum', this.newPhoto);
-            this.oldInformation = false;
-            this.newInformation = true;
-          }else{
+          if(response.body.error_code == 200){
+              $.cookie('phoneNum', this.newPhoto);
+              this.oldInformation = false;
+              this.newInformation = true;
+          }else if (response.body.error_code == 1003) {
             alert('验证码错误');
+          }else if (response.body.error_code == 1002) {
+            alert('手机号码不正确');
           }
-        }, (response) => {
-
         });
-
       }
     },
     newInformations (){
@@ -113,22 +125,21 @@ export default {
       };
       var UserPhone_ = $.cookie('phoneNum');
       if (this.Error_1 != true && this.Error_2 != true) {
-        this.$http.post(Localhost+'/cc/to/b/updatePwd.action', {
-          phoneNumber: UserPhone_,
-          newPwd: this.NewPassword
-        }).then((response) => {
-          if(response.body.updatePwdSuccess == true){
+        this.$http.post(Localhost+'cc/account/reset/pwd', {
+          phoneNumber: this.newPhoto,
+          password: this.NewPassword,
+          access_token:access_token
+        },{emulateJSON:true}).then((response) => {
+          if(response.body.error_code == 200){
             this.newInformation = false;
             this.oldInformation = false;
             this.ModifySuccess = true;
             $.cookie('loginSuccess','false');
             $.cookie('userNum','');
-            $.cookie('userId',"");
+            $.cookie('B-customerId',"");
           }else{
             alert('修改不成功');
           }
-        }, (response) => {
-
         })
       }
     },
@@ -138,69 +149,29 @@ export default {
         alert('请输入正确的手机号码');
       } else {
         this.mask = true;
-        if(Login == 'true'){
-          this.$http.post(Localhost+'/cc/to/b/getIdentifyCode.action', {
-            phoneNumber: this.newPhoto,
-            validationCode: 'getValidationCode',
-            loggedInFlag:'loggedIn',
-            uuid:UUID,
-          }).then((response) => {
-            if(response.body.getSuccess == true){
-              var Code = document.getElementById('code');
-              var _this = this;
-              var time = 60;
-              clearInterval(timer);
-              var timer = setInterval(function() {
-                time--;
-                if (time > 0) {
-                  _this.Code = time + '秒获取验证码';
-                  Code.style.backgroundColor = '#989898';
-                } else if (time === 0) {
-                  this.mask = false;
-                  _this.Code = '重新发送验证码';
-                  Code.style.backgroundColor = '#0ed666';
-                }
-              }, 1000);
-            }else {
-              if(response.body.phoneNumberNotMatch == true){
-                alert('您的手机号与登录账号不一致');
-                this.mask = false;
-              }
-            }
-          }, (response) => {
-
-          });
-        }else{
-          this.$http.post(Localhost+'/cc/to/b/getIdentifyCode.action', {
-            phoneNumber: this.newPhoto,
-            validationCode: 'getValidationCode'
-          }).then((response) => {
-            if(response.body.getSuccess == true){
-              var Code = document.getElementById('code');
-              var _this = this;
-              var time = 60;
-              clearInterval(timer);
-              var timer = setInterval(function() {
-                time--;
-                if (time > 0) {
-                  _this.Code = time + '秒获取验证码';
-                  Code.style.backgroundColor = '#989898';
-                } else if (time === 0) {
-                  _this.Code = '重新发送验证码';
-                  this.mask = false;
-                  Code.style.backgroundColor = '#0ed666';
-                }
-              }, 1000);
-            }else {
-              if(response.body.unregister == true){
-                alert('您的手机号未注册');
-                this.mask = false;
-              }
-            }
-          }, (response) => {
-
-          });
-        }
+        this.$http.get(Localhost+'/cc/account/number/verifycode?phoneNumber='+this.newPhoto+'&access_token='+access_token+'&modifyPwdToken='+'true').then((response) =>{
+          console.log(response.body)
+          if(response.body.error_code == 200){
+            let Code = document.getElementById('code');
+            let _this = this;
+                let time = 60;
+                clearInterval(timer);
+                let timer = setInterval(function() {
+                  time--;
+                  if (time > 0) {
+                    _this.Code = time + '秒获取验证码';
+                    _this.boolean = true;
+                    Code.style.backgroundColor = '#989898';
+                  } else if (time === 0) {
+                    _this.boolean = false;
+                    _this.Code = '重新发送验证码';
+                    Code.style.backgroundColor = '#0ed666';
+                  }
+                }, 1000);
+          }else if (response.body.error_code == 1003) {
+            alert('您的手机号已经注册');
+          };
+        });
       }
     },
     focus_Photo (){

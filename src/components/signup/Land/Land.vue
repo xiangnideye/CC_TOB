@@ -54,21 +54,37 @@ export default {
         this.$http.get(localhost+'/cc/account/login?phoneNumber='+this.UserPhone+'&password='+this.PassWord+'&access_token='+$.cookie('B-access_token')).then((response) =>{
           if(response.body.error_code == 200){
             console.log(response.body)
+            let resData = response.body.resultObj;
+            //用户账号
+            $.cookie('B-userAccount',this.UserPhone);
+            //用户密码
+            $.cookie('B-userPassword',this.PassWord);
             //customerId
-            $.cookie('B-customerId',response.body.resultObj.customerId);
+            $.cookie('B-customerId',resData.customerId);
             //创建时间
-            $.cookie('B-createTime',response.body.resultObj.createTime);
+            $.cookie('B-createTime',resData.createTime);
             //机构是否审批
-            $.cookie('B-custInfoComplete',response.body.resultObj.custInfoComplete);
+            $.cookie('B-custInfoComplete',resData.custInfoComplete);
             //当前登陆的手机号
             $.cookie('userNum', this.UserPhone);
             //是否登陆成功
             $.cookie('loginSuccess', 'true');
-            if(response.body.resultObj.approved == false){
-              location.href = '/module/success.html';
-            }else {
-              location.href = '/module/index.html';
-            };
+
+            //是否完善所有信息
+            $.cookie('basicInfoComplete', resData.basicInfoComplete);
+            //是否需要设置空闲时间
+            $.cookie('needSetFreeTime', resData.needSetFreeTime);
+            if(resData.interviewer){
+              //时区
+              $.cookie('timezone', resData.interviewer.zone);
+              //面试官ID
+              $.cookie('interviewId', resData.interviewer.id);
+              //是否启用周视图
+              $.cookie('isEnable',resData.interviewer.enableRegular);
+            }
+            //只缺少logo
+            $.cookie('oldUserOnlyAbsentLogo', resData.oldUserOnlyAbsentLogo);
+            location.href = '/module/login.html#/homePage';
           }else if (response.body.error_code == 1002) {
             this.Prompt_Name = '账号没有注册';
           }else if (response.body.error_code == 1003) {

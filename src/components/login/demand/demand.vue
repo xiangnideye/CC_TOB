@@ -221,32 +221,24 @@ Personal Career Development Planning"></textarea>
         <div class="Course-information" v-show="information">
           <div class="Student F_Box clear">
             <label class="label"><span class="Stars">* </span> 学生年龄</label>
-            <!-- <i class="main_i-2 Student-hover">
-              <div class="main-div Student-hover-Details">
-                <span class="main-left">
-                  <span class="main-right">
-                    即您所在企业的法律主体是否具有办学许可证。办学许可证将允许您具备聘请外籍教师来华工作的合法资格。我们的专业人士将根据您的实际情况，为您提供最佳的人才招聘策略。
-                  </span>
-                </span>
-              </div> -->
             </i>
             <div class="Div-box">
-              <input type="checkbox" class="Input_" v-model="studentAgeStage" value="0" name="Student" @focus="Student_focus">
+              <input type="checkbox" class="Input_" v-model="studentAgeStage" value="0" name="Student" @click="Student_focus">
               <span class="m-right67">3岁以下</span>
-              <input type="checkbox" v-model="studentAgeStage"  class="Input_" value="1" name="Student" @focus="Student_focus">
+              <input type="checkbox" v-model="studentAgeStage"  class="Input_" value="1" name="Student" @click="Student_focus">
               <span class="m-right">3-5岁</span>
               <br>
-              <input type="checkbox" class="Input_" v-model="studentAgeStage" value="2" name="Student" @focus="Student_focus">
+              <input type="checkbox" class="Input_" v-model="studentAgeStage" value="2" name="Student" @click="Student_focus">
               <span class="m-right80">6-8岁</span>
-              <input type="checkbox" class="Input_"  v-model="studentAgeStage" value="3" name="Student" @focus="Student_focus">
+              <input type="checkbox" class="Input_"  v-model="studentAgeStage" value="3" name="Student" @click="Student_focus">
               <span>9-12岁</span>
               <br>
-              <input type="checkbox" class="Input_"  v-model="studentAgeStage" value="4" name="Student" @focus="Student_focus">
+              <input type="checkbox" class="Input_"  v-model="studentAgeStage" value="4" name="Student" @click="Student_focus">
               <span class="m-right67">12-15岁</span>
-              <input type="checkbox" class="Input_"  v-model="studentAgeStage" value="5" name="Student" @focus="Student_focus">
+              <input type="checkbox" class="Input_"  v-model="studentAgeStage" value="5" name="Student" @click="Student_focus">
               <span>15-18岁</span>
               <br>
-              <input type="checkbox" class="Input_"  v-model="studentAgeStage" value="6" name="Student" @focus="Student_focus">
+              <input type="checkbox" class="Input_"  v-model="studentAgeStage" value="6" name="Student" @click="Student_focus">
               <span>18岁以上</span>
             </div>
             <p class="Sex_P public" v-show="public7">必填</p>
@@ -267,17 +259,17 @@ Personal Career Development Planning"></textarea>
           <div class="scale F_Box clear">
             <label class="label"><span class="Stars">* </span> 班级规模</label>
             <div class="Div-box">
-              <input type="radio" class="Input_" value="1" v-model="classScale" name="scale" @focus="Scale_focus">
+              <input type="radio" class="Input_" value="1" v-model="classScale" name="scale" @click="Scale_focus">
               <span class="m-right80">5人内</span>
-              <input type="radio" class="Input_" value="2" v-model="classScale" name="scale" @focus="Scale_focus">
+              <input type="radio" class="Input_" value="2" v-model="classScale" name="scale" @click="Scale_focus">
               <span>5-15人</span>
               <br>
-              <input type="radio" class="Input_" value="3" v-model="classScale" name="scale" @focus="Scale_focus">
+              <input type="radio" class="Input_" value="3" v-model="classScale" name="scale" @click="Scale_focus">
               <span class="m-right67">15-25人</span>
-              <input type="radio" class="Input_" value="4" v-model="classScale" name="scale" @focus="Scale_focus">
+              <input type="radio" class="Input_" value="4" v-model="classScale" name="scale" @click="Scale_focus">
               <span class="">25-40人</span>
               <br>
-              <input type="radio"  class="Input_" value="5" v-model="classScale" name="scale" @focus="Scale_focus">
+              <input type="radio"  class="Input_" value="5" v-model="classScale" name="scale" @click="Scale_focus">
               <span>40人以上</span>
             </div>
             <p class="Sex_P public" v-show="public8">必填</p>
@@ -344,10 +336,10 @@ Personal Career Development Planning"></textarea>
           <div class="Train F_Box clear">
             <label class="label" style="width:140px;"><span class="Stars">* </span>有无岗前培训</label>
             <div class="Div-box">
-              <input type="radio" name="Train" class="Input_" value='1' v-model="Train" @focus="Train_focus">
+              <input type="radio" name="Train" class="Input_" value='1' v-model="Train" @click="Train_focus">
               <span class="m-right98">有</span>
 
-              <input type="radio" name="Train"  class="Input_" value='0'  v-model="Train" @focus="Train_focus">
+              <input type="radio" name="Train"  class="Input_" value='0'  v-model="Train" @click="Train_focus">
               <span>无</span>
             </div>
             <p class="CourseP public" v-show="public13">必填</p>
@@ -442,14 +434,14 @@ Personal Career Development Planning"></textarea>
           <div class="Cycle F_Box clear">
             <label class="label"><span class="Stars">* </span>  绩效考核方式</label>
             <div class="Div-box">
-              <input type="radio" v-model="Cycle" name="cycle" class="Input_" value="0" @focus="Cycle_mo">
+              <input type="radio" v-model="Cycle" name="cycle" class="Input_" value="0" @click="Cycle_mo">
               <span class="m-right80">月度</span>
-              <input type="radio" v-model="Cycle" name="cycle" class="Input_" value="1" @focus="Cycle_mo">
+              <input type="radio" v-model="Cycle" name="cycle" class="Input_" value="1" @click="Cycle_mo">
               <span>季度</span>
               <br>
-              <input type="radio" v-model="Cycle" name="cycle" class="Input_" value="2" @focus="Cycle_mo">
+              <input type="radio" v-model="Cycle" name="cycle" class="Input_" value="2" @click="Cycle_mo">
               <span span class="m-right80">年度</span>
-              <input type="radio" v-model="Cycle" name="cycle" class="Input_" value="3" @focus="Cycle_mo">
+              <input type="radio" v-model="Cycle" name="cycle" class="Input_" value="3" @click="Cycle_mo">
               <span>其他</span>
             </div>
             <p class="Salary_P public" v-show="public16">必填</p>
@@ -492,10 +484,10 @@ Personal Career Development Planning"></textarea>
           <div class="Insurance F_Box clear">
             <label class="label"><span class="Stars">* </span> 保险类型</label>
             <div class="Div-box">
-              <input type="radio" v-model="Insurance" name="Insurance" class="Input_" value="1" @click="ISHow" @focus="Insurance_focus">
+              <input type="radio" v-model="Insurance" name="Insurance" class="Input_" value="1" @click="ISHow">
               <span class="m-right67">机构已有保险可以供给外教</span>
 
-              <input type="radio" v-model="Insurance" name="Insurance" class="Input_" value="0" @click="IHide" @focus="Insurance_focus">
+              <input type="radio" v-model="Insurance" name="Insurance" class="Input_" value="0" @click="IHide">
               <span>机构暂无保险</span>
             </div>
             <p class="Salary_P public" v-show="public18">必填</p>
@@ -749,12 +741,6 @@ Personal Career Development Planning"></textarea>
     </ul>
   </div>
   <div class="demand demand_" v-show="New_Demand">
-    <!-- <div class="Stop" @click="BottomUp" v-show="stop1">
-      <div class="Stop_">
-        <i class="Stop_p"></i>
-      </div>
-      <span class="Stop_s">收起</span>
-    </div> -->
     <div class="Stop2" @click="BottomDown" v-show="stop2">
       <div class="Stop_s">
         <span>提交需求</span>
@@ -1042,139 +1028,6 @@ export default {
       this.CustBasicInfoImperfect = responseBody.approved;
       this.New = response.body.custInfoComplete;
       this.positionTotalCount = responseBody.totalNumber;
-      // if(responseBody.approved == false){
-      //     //没有审批
-      //     // this.In_Hide = false;
-      //     // this.newAdd = false;
-      //     // this.Apply_No = true;
-      //
-      //     this.In_Hide = true;
-      //     this.newAdd = true;
-      //     this.Apply_No = false;
-      //     this.Edit_Flag = true;
-      //   }else if(responseBody.approved == true && responseBody.custInfoComplete == false){
-      //     //审批通过，机构信息没有保存
-      //     this.In_Hide = true;
-      //     this.newAdd = true;
-      //     this.Apply_No = false;
-      //     this.Edit_Flag = true;
-      //   }else if(responseBody.custInfoComplete == true && responseBody.approved == true && posiList.length === 0){
-      //     //审批通过，机构信息保存,没有需求
-      //     this.In_Hide = true;
-      //     this.newAdd = true;
-      //     this.Apply_No = false;
-      //     this.Edit_Flag = true;
-      //   }else if(responseBody.custInfoComplete == true && responseBody.approved == true){
-      //     this.PostMain_show = false;//填写信息
-      //     this.List_ = true;//展示信息
-      //     this.newAdd = true;
-      //     this.In_Hide = false;
-      //     this.Apply_No = false;
-      //     this.Edit_Flag = true;
-      //     var Array_List = responseBody.postList;
-      //     for(var j = 0;j < Array_List.length;j++){
-      //       //性别
-      //       if(Array_List[j].gender == 0){
-      //         Array_List[j].gender = '男'
-      //       }else if(Array_List[j].gender == 1){
-      //         Array_List[j].gender = '女'
-      //       }else if(Array_List[j].gender == 2){
-      //         Array_List[j].gender = '不限'
-      //       };
-      //       //学历学位要求
-      //       if(Array_List[j].educationBg == 1){
-      //         Array_List[j].educationBg = '学士及以上';
-      //       }else if (Array_List[j].educationBg == 2) {
-      //         Array_List[j].educationBg = '硕士及以上';
-      //       }else if (Array_List[j].educationBg == 3) {
-      //         Array_List[j].educationBg = '博士及以上';
-      //       }else if (Array_List[j].educationBg == 4) {
-      //         Array_List[j].educationBg = '不限';
-      //       }
-      //       //国籍要求
-      //       var NAT = Array_List[j].nationalityArr;
-      //       for(i = 0;i<NAT.length;i++){
-      //         if(NAT[i] == 0){
-      //           NAT[i] = '美国';
-      //         }else if (NAT[i] == 1) {
-      //           NAT[i] = '英国';
-      //         }else if (NAT[i] == 2) {
-      //           NAT[i] = '加拿大';
-      //         }else if (NAT[i] == 3) {
-      //           NAT[i] = '澳大利亚';
-      //         }else if (NAT[i] == 4) {
-      //           NAT[i] = '新西兰';
-      //         }else if (NAT[i] == 5) {
-      //           NAT[i] = '爱尔兰';
-      //         }else if (NAT[i] == 6) {
-      //           NAT[i] = '南非';
-      //         }else if (NAT[i] == 7) {
-      //           NAT[i] = '英/美/澳/加华裔ABC';
-      //         }else if (NAT[i] == 8) {
-      //           NAT[i] = '无国籍要求';
-      //         }
-      //       }
-      //       //年龄
-      //       if(Array_List[j].ageStage == 1){
-      //         Array_List[j].ageStage = '35岁以下';
-      //       }else if (Array_List[j].ageStage == 2) {
-      //         Array_List[j].ageStage = '50岁以下';
-      //       }else if (Array_List[j].ageStage == 3) {
-      //         Array_List[j].ageStage = '60岁以下';
-      //       }else if (Array_List[j].ageStage == 4) {
-      //         Array_List[j].ageStage = '不限';
-      //       };
-      //       //专业要求
-      //       var MAJ = Array_List[j].majorArr;
-      //       if(!MAJ){
-      //         for(i = 0;i<MAJ.length;i++){
-      //           if(MAJ[i] == 0){
-      //             MAJ[i] = '语言学/文学、历史';
-      //           }else if (MAJ[i] == 1) {
-      //             MAJ[i] = '商务';
-      //           }else if (MAJ[i] == 2) {
-      //             MAJ[i] = '数学';
-      //           }else if (MAJ[i] == 3) {
-      //             MAJ[i] = '物理';
-      //           }else if (MAJ[i] == 4) {
-      //             MAJ[i] = '化学';
-      //           }else if (MAJ[i] == 5) {
-      //             MAJ[i] = '艺术';
-      //           }else if (MAJ[i] == 6) {
-      //             MAJ[i] = '可教授AP、IB课程';
-      //           }else if (MAJ[i] == 7) {
-      //             MAJ[i] = '无专业要求';
-      //           }
-      //         }
-      //       }
-      //       //工作地点
-      //       var SAL = Array_List[j].salary_types;
-      //       if(!SAL){
-      //
-      //         }else {
-      //           for(i = 0;i<SAL.length;i++){
-      //             if(SAL[i] == 'grosspay'){
-      //               SAL[i] = '税前'
-      //             }else if (SAL[i] == 'netpay') {
-      //               SAL[i] = '税后'
-      //             }
-      //           }
-      //         };
-      //     };
-      //     for(var i = 0;i < Array_List.length;i++){
-      //       this.Lists.push({
-      //         name: Array_List[i].positionName,
-      //         sex:  Array_List[i].gender,
-      //         nat:  Array_List[i].nationalityArr.join(','),
-      //         edu:  Array_List[i].educationBg,
-      //         age:  Array_List[i].ageStage,
-      //         ID:Array_List[i].id,
-      //         details:this.details,
-      //         requests:Array_List[i].demandList,
-      //         requestsLength:Array_List[i].demandList.length
-      //       });
-      //   }
-      // }
       if(responseBody.custInfoComplete == false){
         //审批通过，机构信息没有保存
         this.In_Hide = false;
@@ -1326,7 +1179,8 @@ export default {
       this.Job_Duty=this.Job_Duty.replace(/(^\s*)|(\s*$)/g,"");
       this.Job_Pay=this.Job_Pay.replace(/(^\s*)|(\s*$)/g,"");
       if(this.public1 == true || this.public2 == true || this.public3 == true || this.public4 == true || this.public5 == true || this.public6 == true){
-          document.body.scrollTop = 0+'px';
+          // document.body.scrollTop = 0+'px';
+          $(window).scrollTop(0);
           return false;
       }else {
         this.$http.post(localhost+'/cc/position/create',{
@@ -1348,14 +1202,13 @@ export default {
             this.Position_ID = response.body.resultObj;
             this.requirements = false;
             this.information = true;
-            this.Index1 = true;
+            //this.Index1 = true;
             $('.number-2').addClass('active');
             $('.line-1').addClass('active');
             $('.font-2').addClass('active-font');
-            document.body.scrollTop = 0+'px';
+            // document.body.scrollTop = 0+'px';
+            $('html , body').animate({scrollTop: 0},'slow');
           }
-        },(response) =>{
-
         });
       };
     },
@@ -1370,6 +1223,7 @@ export default {
       if(this.have_textbook.length === 0){
         this.public9 = true;
       };
+
       this.Week = this.Week === null?'':this.Week;
       this.Week=this.Week.replace(/(^\s*)|(\s*$)/g,"");
       if(this.Week.length === 0){
@@ -1393,7 +1247,8 @@ export default {
 
       this.Study=this.Study.replace(/(^\s*)|(\s*$)/g,"");
       if(this.public7 == true || this.public8 == true || this.public9 == true || this.public11 == true || this.public12 == true || this.public13 == true){
-        document.body.scrollTop = 0+'px';
+        // document.body.scrollTop = 0+'px';
+        $(window).scrollTop(0);
         return false;
       }else {
         this.$http.post(localhost+'/cc/position/update',{
@@ -1428,7 +1283,8 @@ export default {
           this.Position_ID = response.body.resultObj;
           this.information = false;
           this.benefits = true;
-          document.body.scrollTop = 0+'px';
+          // document.body.scrollTop = 0+'px';
+          $(window).scrollTop(0);
           $('.number-3').addClass('active');
           $('.line-2').addClass('active');
           $('.font-3').addClass('active-font');
@@ -1468,7 +1324,8 @@ export default {
       this.Overtime=this.Overtime.replace(/(^\s*)|(\s*$)/g,"");
       this.Remarks=this.Remarks.replace(/(^\s*)|(\s*$)/g,"");
       if(this.public14 == true || this.public15 == true || this.public16 == true || this.public17 == true || this.public18 == true || this.public19 == true){
-        document.body.scrollTop = 0+'px';
+        // document.body.scrollTop = 0+'px';
+        $(window).scrollTop(0);
         return false;
       }else {
         this.$http.post(localhost+'/cc/position/update',{
@@ -1507,7 +1364,8 @@ export default {
           this.Position_ID = response.body.resultObj;
           this.Exh = true;
           this.benefits = false;
-          document.body.scrollTop = 0+'px';
+          // document.body.scrollTop = 0+'px';
+          $(window).scrollTop(0);
           this.Index2 = false;
           this.Details(response.body.resultObj);
         },(response) =>{
@@ -1529,7 +1387,8 @@ export default {
       $('.Brea-1').removeClass('NoActive-Color');
       this.Index2 = true;
       this.NewlyAdded = '／任职要求';
-      document.body.scrollTop = 0+'px';
+      // document.body.scrollTop = 0+'px';
+      $(window).scrollTop(0);
       this.New_Demand = false;
       this.Edit_Flag = false;
       this.PostMain_show = true;
@@ -1568,7 +1427,8 @@ export default {
       $('.Brea-1').addClass('active Active-Color');
       $('.Brea-1').removeClass('NoActive-Color');
       this.NewlyAdded = '／课程信息';
-      document.body.scrollTop = 0+'px';
+      // document.body.scrollTop = 0+'px';
+      $(window).scrollTop(0);
       this.Index2 = true;
       this.New_Demand = false;
       this.PostMain_show = true;
@@ -1615,7 +1475,8 @@ export default {
       this.New_Demand = false;
       $('.Brea-1').addClass('active Active-Color');
       $('.Brea-1').removeClass('NoActive-Color');
-      document.body.scrollTop = 0+'px';
+      // document.body.scrollTop = 0+'px';
+      $(window).scrollTop(0);
       this.NewlyAdded = '／福利待遇';
       this.Index2 = true;
       this.PostMain_show = true;
@@ -1623,6 +1484,7 @@ export default {
       this.requirements = false;
       this.benefits_Save = false;
       this.benefits_Save_Edit = true;
+      this.Edit_Flag = false;
       this.CallBackFunction();
     },
     //任职要求 -》修改 -》保存
@@ -1653,7 +1515,8 @@ export default {
       this.Job_Duty=this.Job_Duty.replace(/(^\s*)|(\s*$)/g,"");
       this.Job_Pay=this.Job_Pay.replace(/(^\s*)|(\s*$)/g,"");
       if(this.public1 == true || this.public2 == true || this.public3 == true || this.public4 == true || this.public5 == true || this.public6 == true){
-          document.body.scrollTop = 0+'px';
+          //document.body.scrollTop = 0+'px';
+          $(window).scrollTop(0);
           return false;
       }else {
         this.$http.post(localhost+'/cc/position/update',{
@@ -1683,8 +1546,6 @@ export default {
             $('.Brea-1').removeClass('active Active-Color');
             this.Details(response.body.resultObj);
           }
-        },(response) =>{
-
         });
       };
     },
@@ -1699,9 +1560,12 @@ export default {
       if(this.have_textbook.length === 0){
         this.public9 = true;
       };
+      // this.Week = this.Week === null?'':this.Week;
+      // this.Week=this.Week.replace(/(^\s*)|(\s*$)/g,"");
       if(this.Week.length === 0){
         this.public10 = true;
       }
+      $(window).scrollTop(0);
       if(this.ClassH.length === 0){
         this.public11 = true;
       };
@@ -1717,7 +1581,8 @@ export default {
       this.classContent_Others=this.classContent_Others.replace(/(^\s*)|(\s*$)/g,"");
       this.Study=this.Study.replace(/(^\s*)|(\s*$)/g,"");
       if(this.public7 == true || this.public8 == true || this.public9 == true || this.public11 == true || this.public12 == true || this.public13 == true){
-        document.body.scrollTop = 0+'px';
+        // document.body.scrollTop = 0+'px';
+        $(window).scrollTop(0);
         return false;
       }else {
         this.$http.post(localhost+'/cc/position/update',{
@@ -1797,7 +1662,8 @@ export default {
       this.Remarks=this.Remarks.replace(/(^\s*)|(\s*$)/g,"");
 
       if(this.public14 == true || this.public15 == true || this.public16 == true || this.public17 == true || this.public18 == true || this.public19 == true){
-        document.body.scrollTop = 0+'px';
+        // document.body.scrollTop = 0+'px';
+        $(window).scrollTop(0);
         return false;
       }else {
         this.$http.post(localhost+'/cc/position/update',{
@@ -1851,7 +1717,8 @@ export default {
       this.contentFont = '／详情';
       $('.title_Data').addClass('active');
       $('.Brea-1').addClass('NoActive-Color');
-      document.body.scrollTop = 0+'px';
+      // document.body.scrollTop = 0+'px';
+      $(window).scrollTop(0);
       this.Index1 = true;
       this.paging = false;
       this.List_ = false;
@@ -2204,7 +2071,8 @@ export default {
     Cancel_ (){
       $('.Brea-1').addClass('NoActive-Color');
       $('.Brea-1').removeClass('active Active-Color');
-      document.body.scrollTop = 0+'px';
+      // document.body.scrollTop = 0+'px';
+      $(window).scrollTop(0);
       this.New_Demand = false;
       if(this.Edit_Flag){
         this.paging = true;
@@ -2236,7 +2104,8 @@ export default {
       this.requirements = true;
       this.information = false;
       this.Save_Flag = true;
-      document.body.scrollTop = 0+'px';
+      // document.body.scrollTop = 0+'px';
+      $(window).scrollTop(0);
       $('.number-2').removeClass('active');
       $('.line-2').removeClass('active');
       $('.font-2').removeClass('active-font');
@@ -2245,7 +2114,8 @@ export default {
     benefits_step (){
       this.information = true;
       this.benefits = false;
-      document.body.scrollTop = 0+'px';
+      // document.body.scrollTop = 0+'px';
+      $(window).scrollTop(0);
       $('.number-3').removeClass('active');
       $('.font-3').removeClass('active-font');
     },
@@ -2288,43 +2158,7 @@ export default {
        //
       //  this.approved = response.body.resultObj.approved;
        this.Created(response);
-      //  if(this.postList.length === 0 && this.approved == true){
-      //    //没有岗位，审批通过
-      //    this.Index1 = false;
-      //    this.Index2 = false;
-      //    this.Exh = false;
-      //    this.In_Hide = false;
-      //    this.Apply_No = false;
-      //    this.PostMain_show = false;
-      //    this.List_ = false;
-      //    this.paging = true;
-      //    this.newAdd = false;
-      //    this.New_Demand = false;
-      //  }else if(this.postList.length != 0 && this.approved == true){
-      //    //有岗位，审批通过
-      //    this.Index1 = false;
-      //    this.Index2 = false;
-      //    this.Exh = false;
-      //    this.In_Hide = false;
-      //    this.Apply_No = false;
-      //    this.PostMain_show = false;
-      //    this.List_ = true;
-      //    this.paging = true;
-      //    this.newAdd = true;
-      //    this.New_Demand = false;
-      //  }else if(this.postList.length === 0 && this.approved == false){
-      //    //没有岗位，审批没有通过
-      //     this.Index1 = false;
-      //     this.Index2 = false;
-      //     this.Exh = false;
-      //     this.In_Hide = false;
-      //     this.Apply_No = true;
-      //     this.PostMain_show = false;
-      //     this.List_ = false;
-      //     this.paging = true;
-      //     this.newAdd = false;
-      //     this.New_Demand = false;
-      //  }
+
       if(responseBody.custInfoComplete == false){
         //审批通过，机构信息没有保存
         this.Index1 = false;
@@ -2809,10 +2643,12 @@ export default {
     ISHow() {
       this.In_Show = true;
       this.In_Buy = false;
+      this.public18 = false;
     },
     IHide() {
       this.In_Buy = true;
       this.In_Show = false;
+      this.public18 = false;
     },
     TimeShow() {
       this.TimeHide = true;
@@ -3289,7 +3125,7 @@ export default {
             color:#b14343
             position:absolute
             top: 3px
-            right:154px
+            right:135px
           input
             float:left
             height:29px

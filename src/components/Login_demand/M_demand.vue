@@ -47,7 +47,7 @@
             <div class="Div-box">
               <input v-model="PostName" type="text" class="Input_211" @focus="PostName_focus" maxlength="40">
             </div>
-            <p class="PostName_P public" v-show="public1">必填</p>
+            <p class="PostName_P public" v-show="public1"></p>
           </div>
           <div class="Sex F_Box clear">
             <label class="label"><span class="Stars">* </span> 性别:</label>
@@ -59,7 +59,7 @@
               <input type="radio" name="Sex" class="Input_" v-model="sex" value="2" @click="Sex_focus">
               <span class="span-font18 m-right20">不限</span>
             </div>
-            <p class="Sex_P public" v-show="public2">必填</p>
+            <p class="Sex_P public" v-show="public2"></p>
           </div>
           <div class="Inter F_Box clear">
             <label class="label"><span class="Stars">* </span> 国籍:</label>
@@ -84,7 +84,7 @@
               <input type="checkbox" name="Inter" class="clear-left Input_" v-model="Inter" value="8" @click="Reverse1">
               <span class="span-font18 m-right20">无国籍要求</span>
             </div>
-            <p class="Inter_P public" v-show="public5">必填</p>
+            <p class="Inter_P public" v-show="public5"></p>
           </div>
           <div class="BackEdu F_Box clear">
             <label class="label"><span class="Stars">* </span>学历:</label>
@@ -99,7 +99,7 @@
               <input type="radio" name="BackEdu" v-model="BackEdu" class="Input_" value="3" @click="BackEdu_focus">
               <span class="span-font18 m-right20">不限</span>
             </div>
-            <p class="BackEdu_P public" v-show="public3">必填</p>
+            <p class="BackEdu_P public" v-show="public3"></p>
           </div>
           <div class="Age F_Box clear">
             <label class="label"><span class="Stars">* </span> 年龄:</label>
@@ -114,7 +114,7 @@
               <input type="radio" name="Age" class="Input_" value="4" v-model="Age" @click="Age_focus">
               <span class="span-font18 m-right20">不限</span>
             </div>
-            <p class="Age_P public" v-show="public6">必填</p>
+            <p class="Age_P public" v-show="public6"></p>
           </div>
           <div class="Major F_Box clear">
             <label class="label"><span class="Stars">* </span> 专业要求:
@@ -139,7 +139,7 @@
               <input type="checkbox" v-model="Major" name="Major" class="clear-left Input_" value="6" @click="Reverse">
               <span class="span-font18 m-right20">无专业要求</span>
             </div>
-            <p class="Major_P public" v-show="public4">必填</p>
+            <p class="Major_P public" v-show="public4"></p>
           </div>
           <div class="Text F_Box clear">
             <label class="label">
@@ -205,7 +205,7 @@
               <input type="checkbox" class="Input_"  v-model="studentAgeStage" value="6" name="Student" @focus="Student_focus">
               <span class="span-font18 m-right20">18岁以上</span>
             </div>
-            <p class="Sex_P public" v-show="public7">必填</p>
+            <p class="Sex_P public" v-show="public7"></p>
           </div>
           <div class="Grade F_Box clear">
             <label class="label"><span class="Stars Stars_">* </span>英语程度:</label>
@@ -236,7 +236,7 @@
               <input type="radio"  class="Input_" value="5" v-model="classScale" name="scale" @focus="Scale_focus">
               <span class="span-font18 m-right20">40人以上</span>
             </div>
-            <p class="Sex_P public" v-show="public8">必填</p>
+            <p class="Sex_P public" v-show="public8"></p>
           </div>
           <div class="Assistant F_Box clear">
             <label class="label"><span class="Stars Stars_">* </span> 双语助教:</label>
@@ -257,7 +257,7 @@
               <input type="radio" name="Course_"  class="Input_" value='0'  v-model="have_textbook" @focus="Course_focus">
               <span class="span-font18 m-right20">无</span>
             </div>
-            <p class="Sex_P public" v-show="public9">必填</p>
+            <p class="Sex_P public" v-show="public9"></p>
           </div>
           <div class="CourseName F_Box clear" v-show="CourseHide">
             <label class="label"> 教材名称:</label>
@@ -278,18 +278,18 @@
             </div>
           </div>
           <div class="Week F_Box clear">
-            <label class="label"><span class="Stars">* </span>课时量:</label>
+            <label class="label"><span class="Stars">* </span>课时量(节／周):</label>
             <div class="Div-box">
-              <input v-model="Week" type="text" class="Input_211" id="Week" maxlength="30" @click='Curriculum_focus'>
+              <input v-model="Week" type="tel" class="Input_211" id="Week" maxlength="30" @click='Curriculum_focus' placeholder="请输入数字">
             </div>
-            <p class="CurriculumP public" v-show="public10">必填</p>
+            <p class="CurriculumP public" v-show="public10"></p>
           </div>
           <div class="ClassH F_Box clear">
-            <label class="label"><span class="Stars">* </span>课时长:</label>
+            <label class="label"><span class="Stars">* </span>课时长(分钟／节):</label>
             <div class="Div-box">
-              <input v-model="ClassH" type="text" class="Input_211" id="ClassH" maxlength="30" @focus="ClassH_focus">
+              <input v-model="ClassH" type="tel" class="Input_211" id="ClassH" maxlength="30" @focus="ClassH_focus" placeholder="请输入数字">
             </div>
-            <p class="CurriculumP public" v-show="public11">必填</p>
+            <p class="CurriculumP public" v-show="public11"></p>
           </div>
           <div class="Text F_Box clear">
             <label class="label"><span class="Stars">* </span>
@@ -297,7 +297,7 @@
               <i class="main_i-2 Order-hover" @click="DetailsClick(6)"></i>
             </label>
             <textarea class="JD" v-model="WorkH" @click='WorkH_focus'></textarea>
-            <p class="CurriculumP public" v-show="public12">必填</p>
+            <p class="CurriculumP public" v-show="public12"></p>
           </div>
           <div class="Train F_Box clear">
             <label class="label" style="width:140px;"><span class="Stars">* </span>有无岗前培训:</label>
@@ -308,7 +308,7 @@
               <input type="radio" name="Train"  class="Input_" value='0'  v-model="Train"@focus="Train_focus">
               <span class="span-font18 m-right20">无</span>
             </div>
-            <p class="CourseP public" v-show="public13">必填</p>
+            <p class="CourseP public" v-show="public13"></p>
           </div>
           <div class="Text F_Box clear">
             <label class="label" style="width:140px"><span class="Stars Stars_">* </span> 培训安排介绍:</label>
@@ -336,7 +336,7 @@
               <input v-model="monthAverage2" type="text" class="Input_105" maxlength="30" @focus="Salary_mo">
               <span class="RMB">RMB</span>
             </div>
-            <p class="Salary_P public" v-show="public15">必填</p>
+            <p class="Salary_P public" v-show="public15"></p>
           </div>
           <div class="Salary F_Box clear" style="position:relative;" @click="Salary_focus">
             <label class="label"><span class="Stars">* </span>基本薪资
@@ -351,7 +351,7 @@
                 <input v-model="Salary" type="text" class="Input_105"  maxlength="30" style="margin-left:5px;">
                 <span class="RMB">RMB</span>
               </div>
-            <p class="Salary_P public" v-show="public14">必填</p>
+            <p class="Salary_P public" v-show="public14"></p>
           </div>
           <div class="Home F_Box clear">
             <label class="label"><span class="Stars">* </span>是否提供住宿:</label>
@@ -361,7 +361,7 @@
               <input type="radio" name="Home" v-model="Home" class="Input_" value="0" @click="HHide" @focus="Home_focus">
               <span class="span-font18 m-right20">否</span>
             </div>
-            <p class="Salary_P public" v-show="public17">必填</p>
+            <p class="Salary_P public" v-show="public17"></p>
           </div>
           <div class="Room F_Box clear" v-show="RoomHide">
             <label class="label"><span class="Stars Stars_">* </span> 住宿情况:</label>
@@ -393,7 +393,7 @@
               <input type="radio" v-model="Cycle" name="cycle" class="Input_" value="3" @focus="Cycle_mo">
               <span class="span-font18 m-right20">其他</span>
             </div>
-            <p class="Salary_P public" v-show="public16">必填</p>
+            <p class="Salary_P public" v-show="public16"></p>
           </div>
           <div class="Money F_Box clear">
             <label class="label"><span class="Stars Stars_">* </span>
@@ -433,12 +433,12 @@
               <input type="radio" v-model="Insurance" name="Insurance" class="Input_" value="0" @click="IHide" @focus="Insurance_focus">
               <span class="span-font18 m-right20">机构暂无保险</span>
             </div>
-            <p class="Salary_P public" v-show="public18">必填</p>
+            <p class="Salary_P public" v-show="public18"></p>
           </div>
           <div class="Text F_Box clear">
             <label class="label"><span class="Stars">* </span> 假期描述:</label>
             <textarea name="name" rows="8" cols="80" v-model="Annual_D" class="JD" @focus="Annual_D_focus"></textarea>
-            <p class="Annual_D_P public" v-show="public19">必填</p>
+            <p class="Annual_D_P public" v-show="public19"></p>
           </div>
           <div class="Text F_Box clear">
             <label class="label"><span class="Stars Stars_">* </span> 备注:</label>
@@ -1213,13 +1213,22 @@
           this.Study = this.LIST_D.jobTrainDesc;
           //-------------
           let aleft,bright;
-          aleft = this.LIST_D.salaryAveRange.split('-')[0]
-          bright = this.LIST_D.salaryAveRange.split('-')[1]
+          aleft = this.LIST_D.salaryAveRange.split('-')[0];
+          bright = this.LIST_D.salaryAveRange.split('-')[1];
+          console.log(this.LIST_D.salaryAveRange)
           //月平均薪资范围:
-          if(this.LIST_D.salaryAveRange){
+          // if(this.LIST_D.salaryAveRange){
+          //   this.monthAverage = aleft.toString();
+          // }
+          // if(this.LIST_D.salaryAveRange){
+          //   console.log(bright)
+          //   this.monthAverage2 = bright.toString();
+          // }
+          if(this.LIST_D.salaryAveRange && aleft){
             this.monthAverage = aleft.toString();
           }
-          if(this.LIST_D.salaryAveRange){
+          if(this.LIST_D.salaryAveRange && bright){
+            console.log(bright)
             this.monthAverage2 = bright.toString();
           }
           //月薪:
@@ -1475,6 +1484,7 @@
           this.Edit_Flag = true;
           this.AddNewdata = true;
           var Array_List = responseBody.postList;
+          console.log(Array_List)
           for(var j = 0;j < Array_List.length;j++){
             //性别
             if(Array_List[j].gender == 0){
@@ -1667,6 +1677,7 @@
              this.currentPage = this.size;
              this.pageSize = this.pageSize_;
              this.$http.get(localhost+'/cc/position/list?access_token='+access_token+'&customerId='+BcustomerId+'&pageIndex='+this.currentPage+'&pageSize='+this.pageSize).then((response) =>{
+               console.log(response.body.resultObj)
                if(this.Exh == true && this.List_ == false){
                  this.listTrue_flag = false;
                }else {
@@ -1783,18 +1794,23 @@
       //后退
       BackOff (){
         if(this.Apply_No == true || this.In_Hide == true){
+          alert(1)
           location.href = "/module/Login_home.html";
         };
         if(this.List_ == true){
+          alert(2)
           location.href = "/module/Login_home.html";
           this.List_ = false;
         };
         if(this.Exh == true && this.List_ == false){
+          alert(3)
           location.href="/module/Login_demand.html"
         };
         if(this.PostMain_show == true && this.StepsHide == true){
+          alert(4)
           location.href="/module/Login_demand.html"
         }else if(this.PostMain_show == true && this.StepsHide == false){
+          alert(5)
           this.headerTitle = '需求管理';
           this.List_ = false;
           this.Exh = true;
@@ -1832,7 +1848,8 @@
         this.Job_Duty=this.Job_Duty.replace(/(^\s*)|(\s*$)/g,"");
         this.Job_Pay=this.Job_Pay.replace(/(^\s*)|(\s*$)/g,"");
         if(this.public1 == true || this.public2 == true || this.public3 == true || this.public4 == true || this.public5 == true || this.public6 == true){
-            document.body.scrollTop = 0+'px';
+            document.documentElement.scrollTop = 0 +'px';
+            document.body.scrollTop = 0 +'px';
             return false;
         }else {
           this.$http.post(localhost+'/cc/position/create',{
@@ -1859,7 +1876,8 @@
               $('.number-2').addClass('active');
               $('.line-1').addClass('active');
               $('.font-2').addClass('active-font');
-              document.body.scrollTop = 0+'px';
+              document.documentElement.scrollTop = 0 +'px';
+              document.body.scrollTop = 0 +'px';
             }
           },(response) =>{
 
@@ -1900,7 +1918,8 @@
 
         this.Study=this.Study.replace(/(^\s*)|(\s*$)/g,"");
         if(this.public7 == true || this.public8 == true || this.public9 == true || this.public11 == true || this.public12 == true || this.public13 == true){
-          document.body.scrollTop = 0+'px';
+          document.documentElement.scrollTop = 0 +'px';
+          document.body.scrollTop = 0 +'px';
           return false;
         }else {
           this.$http.post(localhost+'/cc/position/update',{
@@ -1932,11 +1951,11 @@
             //培训安排介绍
             jobTrainDesc:this.Study
           },{emulateJSON:true}).then((response) =>{
-            console.log(response.body)
             this.Position_ID = response.body.resultObj;
             this.information = false;
             this.benefits = true;
-            document.body.scrollTop = 0+'px';
+            document.documentElement.scrollTop = 0 +'px';
+            document.body.scrollTop = 0 +'px';
             $('.number-3').addClass('active');
             $('.line-2').addClass('active');
             $('.font-3').addClass('active-font');
@@ -1976,7 +1995,8 @@
         this.Overtime=this.Overtime.replace(/(^\s*)|(\s*$)/g,"");
         this.Remarks=this.Remarks.replace(/(^\s*)|(\s*$)/g,"");
         if(this.public14 == true || this.public15 == true || this.public16 == true || this.public17 == true || this.public18 == true || this.public19 == true){
-          document.body.scrollTop = 0+'px';
+          document.documentElement.scrollTop = 0 +'px';
+          document.body.scrollTop = 0 +'px';
           return false;
         }else {
           this.$http.post(localhost+'/cc/position/update',{
@@ -2016,7 +2036,8 @@
             this.Position_ID = response.body.resultObj;
             this.Exh = true;
             this.benefits = false;
-            document.body.scrollTop = 0+'px';
+            document.documentElement.scrollTop = 0 +'px';
+            document.body.scrollTop = 0 +'px';
             this.Index2 = false;
             this.Details(response.body.resultObj);
           },(response) =>{
@@ -2039,7 +2060,8 @@
         $('.Brea-1').removeClass('NoActive-Color');
         this.Index2 = true;
         this.NewlyAdded = '／任职要求';
-        document.body.scrollTop = 0+'px';
+        document.documentElement.scrollTop = 0 +'px';
+        document.body.scrollTop = 0 +'px';
         this.New_Demand = false;
         this.Edit_Flag = false;
         this.PostMain_show = true;
@@ -2079,7 +2101,8 @@
         $('.Brea-1').addClass('active Active-Color');
         $('.Brea-1').removeClass('NoActive-Color');
         this.NewlyAdded = '／课程信息';
-        document.body.scrollTop = 0+'px';
+        document.documentElement.scrollTop = 0 +'px';
+        document.body.scrollTop = 0 +'px';
         this.Index2 = true;
         this.New_Demand = false;
         this.PostMain_show = true;
@@ -2127,7 +2150,8 @@
         this.New_Demand = false;
         $('.Brea-1').addClass('active Active-Color');
         $('.Brea-1').removeClass('NoActive-Color');
-        document.body.scrollTop = 0+'px';
+        document.documentElement.scrollTop = 0 +'px';
+        document.body.scrollTop = 0 +'px';
         this.NewlyAdded = '／福利待遇';
         this.Index2 = true;
         this.PostMain_show = true;
@@ -2135,6 +2159,7 @@
         this.requirements = false;
         this.benefits_Save = false;
         this.benefits_Save_Edit = true;
+        this.Edit_Flag = false;
         this.CallBackFunction();
       },
       //任职要求 -》修改 -》保存
@@ -2165,7 +2190,8 @@
         this.Job_Duty=this.Job_Duty.replace(/(^\s*)|(\s*$)/g,"");
         this.Job_Pay=this.Job_Pay.replace(/(^\s*)|(\s*$)/g,"");
         if(this.public1 == true || this.public2 == true || this.public3 == true || this.public4 == true || this.public5 == true || this.public6 == true){
-            document.body.scrollTop = 0+'px';
+            document.documentElement.scrollTop = 0 +'px';
+            document.body.scrollTop = 0 +'px';
             return false;
         }else {
           this.$http.post(localhost+'/cc/position/update',{
@@ -2233,7 +2259,8 @@
         this.classContent_Others=this.classContent_Others.replace(/(^\s*)|(\s*$)/g,"");
         this.Study=this.Study.replace(/(^\s*)|(\s*$)/g,"");
         if(this.public7 == true || this.public8 == true || this.public9 == true || this.public11 == true || this.public12 == true || this.public13 == true){
-          document.body.scrollTop = 0+'px';
+          document.documentElement.scrollTop = 0 +'px';
+          document.body.scrollTop = 0 +'px';
           return false;
         }else {
           this.$http.post(localhost+'/cc/position/update',{
@@ -2313,7 +2340,8 @@
         this.Remarks=this.Remarks.replace(/(^\s*)|(\s*$)/g,"");
 
         if(this.public14 == true || this.public15 == true || this.public16 == true || this.public17 == true || this.public18 == true || this.public19 == true){
-          document.body.scrollTop = 0+'px';
+          document.documentElement.scrollTop = 0 +'px';
+          document.body.scrollTop = 0 +'px';
           return false;
         }else {
           this.$http.post(localhost+'/cc/position/update',{
@@ -2365,9 +2393,10 @@
       },
       //详情
       Details (id,index){
+        document.documentElement.scrollTop = 0 +'px';
+        document.body.scrollTop = 0 +'px';
         event.stopPropagation();
         this.AddNewDemandShow = true;
-        document.body.scrollTop = 0+'px';
         this.AddNewdata = false;
         this.paging = false;
         this.List_ = false;
@@ -2687,7 +2716,8 @@
         $('.Brea-1').removeClass('active Active-Color');
         this.AddNewDemandShow = true;
         this.headerTitle = '需求管理';
-        document.body.scrollTop = 0+'px';
+        document.documentElement.scrollTop = 0 +'px';
+        document.body.scrollTop = 0 +'px';
         this.New_Demand = false;
         if(this.Edit_Flag){
           this.paging = true;
@@ -2719,7 +2749,8 @@
         this.requirements = true;
         this.information = false;
         this.Save_Flag = true;
-        document.body.scrollTop = 0+'px';
+        document.documentElement.scrollTop = 0 +'px';
+        document.body.scrollTop = 0 +'px';
         $('.number-2').removeClass('active');
         $('.line-2').removeClass('active');
         $('.font-2').removeClass('active-font');
@@ -2791,7 +2822,7 @@
          }
        }
        this.public5 = false;
-     },
+      },
       //新增需求
       AddPost() {
         if(this.New == true){
@@ -3232,7 +3263,7 @@
             margin: 0 0 10px 12px
             .RMB
               position: absolute
-              right: 80px
+              right: 60px
               top: 0px
               font-size: 14px
               color: #a1a1a1

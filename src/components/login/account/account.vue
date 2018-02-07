@@ -35,7 +35,6 @@
     </div>
   </div>
 </template>
-
 <script>
 
 
@@ -63,9 +62,6 @@ export default {
 
 <style lang="stylus" res="stylesheet/stylus">
 .account_main
-  // position:absolute
-  // top:66px
-  // left:299px
   float:right
   margin-top:66px
   background:#fff

@@ -5,6 +5,18 @@
     </div>
     <div class="Data_main">
       <form class="Data_Form clear" v-show="infoSHow">
+        <div class="recruit-div clear">
+          <span class="lineHeight70"><span class="required">*</span>机构LOGO</span>
+          <div class="recruit-header">
+            <img :src="headerImg" alt="" class="recruit-header-img">
+            <input type="file" id="upload2" style="position:absolute; clip:rect(0 0 0 0);" accept="image/png, image/jpeg, image/gif, image/jpg" @change="uploadImg($event, 2)">
+          </div>
+          <span class="recruit-font">
+            支持jpg、jpeg、png图片文件
+            <br>
+            图片大小需小于10MB
+          </span>
+        </div>
         <div class="Name form-div clear">
           <label><span class="Stars">* </span> 联系人</label>
           <input @focus="Name_" v-model="contactPerson" type="text" class="UserName" id="UserName" maxlength=30>
@@ -90,6 +102,10 @@
             <span class="edit">编辑</span>
         </div>
         <div class="Name bottom clear">
+          <span class="userKey img-header" >机构LOGO</span>
+          <img :src="this.cust.logoUrl" alt="" class="recruit-header-img">
+        </div>
+        <div class="Name bottom clear">
           <span class="userKey">联系人</span>
           <span class="userVal">{{this.cust.contactPerson}}</span>
         </div>
@@ -131,17 +147,44 @@
         </div>
       </div>
     </div>
+    <div class="Mask-page" v-show="maskHide">
+      <!--上传头像-->
+      <div class="header-mask" :class="{opacityHide:isopacityHide}">
+        <vueCropper
+          ref="cropper"
+          :img="example.img"
+          :outputSize="example.size"
+          :outputType="example.outputType"
+          :info="example.info"
+          :canScale="example.canScale"
+          :autoCrop="example.autoCrop"
+          :autoCropWidth="example.autoCropWidth"
+          :autoCropHeight="example.autoCropHeight"
+          :fixed="example.fixed"
+          :fixedNumber="example.fixedNumber"
+          >
+        </vueCropper>
+        <div class="button-center">
+          <button @click="finish2('base64')" class="btn">preview(base64)</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import localhost from '../../../common/js/public.js';
+import VueCropper from 'vue-cropper'
 const access_token = $.cookie('B-access_token');
 const BcustomerId =  $.cookie('B-customerId');
 const loginSuccess = $.cookie('loginSuccess');
 export default {
   data (){
     return {
+      imgUrl:'',
+      maskHide:false,
+      isopacityHide:true,
+      headerImg:require('../../../common/img/icon-interview-photo@2x.png'),
       have_foreignstaffHide:true,
       cancelShow:true,
       wechatShow:true,
@@ -192,8 +235,29 @@ export default {
       cal10:'',
       cal11:'',
       infoSHow:true,
-      infoHide:false
+      infoHide:false,
+      example:{
+        img: require('../../../common/img/icon-interview-photo@2x.png'),
+        info: true,
+        size: 1,
+        outputType: 'jpeg',
+        canScale: true,
+        autoCrop: true,
+        // 只有自动截图开启 宽度高度才生效
+        autoCropWidth: 300,
+        autoCropHeight: 250,
+        // 开启宽度和高度比例
+        fixed: true,
+        fixedNumber: [4, 3],
+        fixedBox:false,
+        canMove:true,
+        canMoveBox:true,
+        original:true
+      },
     }
+  },
+  components:{
+    'VueCropper':VueCropper,
   },
   created() {
     if(loginSuccess === 'false'){
@@ -271,8 +335,6 @@ export default {
       this.public15 = false;
     },
     Cancel (){
-      // this.infoHide = true;
-      // this.infoSHow = false;
       this.Created();
     },
     Save (){
@@ -332,6 +394,7 @@ export default {
       }else{
         this.$http.post(localhost+'/cc/customer/b/update',
         {
+          logoUrl:this.imgUrl,
           contactPerson:this.contactPerson,
           customerName:this.customerName,
           contactNumber:this.contactNumber,
@@ -458,211 +521,531 @@ export default {
     have_focus (){
       this.public8 = false;
     },
+    //转化图片
+    uploadImg (e, num) {
+        //上传图片
+        // this.option.img
+      var file = e.target.files[0]
+      if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
+         alert('图片类型必须是.gif,jpeg,jpg,png,bmp中的一种')
+         return false
+       }
+      var reader = new FileReader()
+      reader.onload = (e) => {
+        let data
+        if (typeof e.target.result === 'object') {
+          // 把Array Buffer转化为blob 如果是base64不需要
+          data = window.URL.createObjectURL(new Blob([e.target.result]))
+        } else {
+          data = e.target.result
+        }
+        if (num === 1) {
+          this.option.img = data
+        } else if (num === 2) {
+          this.example.img = data
+        }
+      }
+      this.maskHide = true;
+      this.isopacityHide = false;
+      this.informationHide = false;
+      reader.readAsArrayBuffer(file)
+    },
+    //将头像生成URL
+    finish2 (type) {
+      this.$refs.cropper.getCropData((data) => {
+        this.headerImg = data;
+        this.maskHide = false;
+        this.isopacityHide = true;
+        this.informationHide = true;
+        this.$http.post(localhost+'cc/blog/uploadImg/str',{
+          imgStr:data,
+          progressId:Date.parse(new Date()),
+          access_token:access_token
+        },{emulateJSON:true}).then((response)=>{
+          console.log(response.body.resultObj.url);
+          this.imgUrl = response.body.resultObj.url;
+        })
+      })
+    },
   }
 }
 </script>
 
 <style lang="stylus" res="stylesheet/stylus">
-.Data_body
-  float:right
-  margin-top:66px
-  margin-bottom: 30px
-  background:#fff
-  border-radius:4px
-  width:1000px
-  box-shadow: 0px 1px 3px rgba(0,0,0,0.4)
-  .title
-    width:100%
-    height:46px
-    background:#ebebeb
-    border-top-left-radius:4px
-    border-top-right-radius:4px
-    .title_Data
-      display:inline-block
-      font-size:18px
-      color:#333
-      margin:11px 0 0 25px
-  .Initialization
-        .Initialization_p
-          margin:53px 40px 60px
-          width:920px
-          height:132px
-          line-height:132px
-          font-size:14px
-          color:#3183e7
-          text-align:center
-          background:#f9f9f9
-  .Data_main
-    width:100%
-    padding-top: 50px
-    .ToBTiele
-      font-size:18px
-      color:#3183e7
-      text-align:center
-      margin:56px auto 65px
-    .Data_Form
-      margin:0 250px 0 185px
-      .Stars
-        font-size:14px
-        color:red
-      .Stars_
-        opacity:0
-      .form-div
-        position:relative
-        width:100%
-        margin-bottom:10px
-        .main_i-2
-          position:relative
-          width:20px
-          height:20px
-          background:url('../../../ilb/image/login/icon-b-1.png') no-repeat
-          background-position:-103px -17px
-          vertical-align:-8px
-          display:inline-block
-          margin:0 22px 0 6px
-          .main-div
-            position: absolute
-            top: -13px
-            left: 4px
-            z-index:100
-            display:none
-            .main-left
-              width: 0
-              height: 0
-              border-right: 6px solid transparent
-              border-top: 6px solid #525252
-              border-left: 6px solid transparent
-              border-bottom: 6px solid transparent
-              float:left
-              position:relative
-              z-index:150
-              .main-right
-                position:absolute
-                top:-146px
-                left:-146px
-                width:260px
-                min-height:20px
-                background:#525252
-                float:left
-                padding:20px
-                color:#b5b5b5
-                z-index:100
-                box-shadow: 0px 0px 10px 0px rgba(34,34,34,.36)
-                font-style:normal
-                font-size:14px
-        .main_i-2:hover .main-div
-          display:block
-        label
-          display:inline-block
-          float:left
-          width:187px
-          font-size:14px
-          color:#a1a1a1
-          height: 31px
-          line-height: 31px
-          text-align:right
-          margin-right:51px
-        input
-          float:left
-          height:29px
-          width:300px
-          border-radius:3px
-          border: 1px solid #dee5ed
-          padding-left:11px
-        .width100
-            width:91px
-            display:inline-block
-        .width50
-            width:50px
-            display:inline-block
-        .right95_
-          margin-right:97px
-        .right96_
-          width:98px
-        .public
-          font-size:14px
-          color:#b14343
-          position:absolute
-          top: 5px
-          right: 20px
-        .ToBEmailE
-          right: -63px
-        .m-Right
-          margin-right:40px
-        .div-box
-          width:200px
-          float:left
-      .Student
-        height:56px
-      .Grade,.Curriculum,.scale
-        height:87px
-      .Qualifications,.staff,.Assistant,.Student,.scale,.Course,.Grade,.Curriculum,.School
-        .UserYes,.UserNo,.UserS5,.UserS10,.UserS20,.User3,.UserS5_,.UserS15_,.UserS25_,.UserS35_,.UserS50_,.CourseYse,.CourseNo,.UserGrade1,.UserGrade2,.UserGrade3,.UserCurr1,.UserCurr2,.UserCurr3,.UserCurr4,.UserCurr5,.UserCurr6
-          width:20px
-          height:31px
-          float:none
-          vertical-align: -10px
-        .UserGrade1
-          line-height:31px
-        .UserGrade2,.UserGrade3,.UserCurr3,.UserCurr5
-          margin:0 0px 0 190px
-        .UserS10,.UserS25_,.UserS50_
-          margin-left:191px
-      .cancel,.Save
+  .Data_body
+    float:right
+    margin-top:66px
+    margin-bottom: 30px
+    background:#fff
+    border-radius:4px
+    width:1000px
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.4)
+    .title
+      width:100%
+      height:46px
+      background:#ebebeb
+      border-top-left-radius:4px
+      border-top-right-radius:4px
+      .title_Data
         display:inline-block
-        border-radius:4px
-        cursor:pointer
-        width:100px
-        height:29px
-        color:#fff
-        line-height:29px
+        font-size:18px
+        color:#333
+        margin:11px 0 0 25px
+    .Data_main
+      width:100%
+      padding-top: 50px
+      .ToBTiele
+        font-size:18px
+        color:#3183e7
         text-align:center
-        margin:73px 0 44px 0
-      .cancel
-        margin-left:230px
-        background:#9db4d1
-      .cancel:hover
-        background:#88a2c2
-      .Save
-        float:right
-        background:#3183e7
-        margin-right: 120px
-      .Save:hover
-        background:#0062db
-    .Exhibition
-      position:relative
-      margin:0 100px 50px 185px
-      .Edit
-        position:absolute
-        top:-87px
-        right:-82px
-        cursor: pointer
-        width: 80px
-        height: 28px
-        line-height: 28px
-        text-align: center
-        border-radius: 4px
-        background: #3082e7
-        .edit
-          vertical-align: 5px
-          color: #fff
-      .Edit:hover
-        background:#0062db
-      .userKey
-        display: inline-block
-        width: 150px
-        font-size: 14px
-        color: #a1a1a1
-        float:left
-        text-align: right
-      .userVal
-        margin-left:50px
-        font-size: 14px
-        color: #4b4b4b
-        // min-height:41px
-        // line-height: 41px
-        width: 360px !important
-        display: inline-block
-      .bottom
-        margin-bottom:20px
+        margin:56px auto 65px
+      .Data_Form
+        margin:0 250px 0 185px
+        .recruit-div
+          margin: 20px auto 12px;
+          .lineHeight70
+            line-height: 70px;
+            float: left;
+            font-size: 14px;
+            color: #999999;
+            height:70px;
+            text-align: right;
+            width:187px;
+            .required
+              font-size: 14px;
+              color: #EA3522;
+              display: inline-block;
+              margin: 0 10px 0 0;
+          .recruit-header
+            float: left;
+            margin: 0 14px 0 51px;
+            position: relative;
+            .recruit-header-img
+              width: 70px;
+              height: 70px;
+              display: inline-block;
+              cursor: pointer;
+              border-radius: 50%;
+          .recruit-font
+            float: left;
+            width: 159px;
+            font-size: 12px;
+            margin-top: 15px;
+            color: #999999;
+            line-height: 20px;
+          .recruit-right
+            margin: 0 0 0 30px;
+            float: left;
+            .recruit-input
+              width: 348px;
+              height: 34px;
+              padding-left: 12px;
+              display: inline-block;
+              border: 1px solid #D8E1EB;
+        .Stars
+          font-size:14px
+          color:red
+        .Stars_
+          opacity:0
+        .form-div
+          position:relative
+          width:100%
+          margin-bottom:10px
+          .main_i-2
+            position:relative
+            width:20px
+            height:20px
+            background:url('../../../ilb/image/login/icon-b-1.png') no-repeat
+            background-position:-103px -17px
+            vertical-align:-8px
+            display:inline-block
+            margin:0 22px 0 6px
+            .main-div
+              position: absolute
+              top: -13px
+              left: 4px
+              z-index:100
+              display:none
+              .main-left
+                width: 0
+                height: 0
+                border-right: 6px solid transparent
+                border-top: 6px solid #525252
+                border-left: 6px solid transparent
+                border-bottom: 6px solid transparent
+                float:left
+                position:relative
+                z-index:150
+                .main-right
+                  position:absolute
+                  top:-146px
+                  left:-146px
+                  width:260px
+                  min-height:20px
+                  background:#525252
+                  float:left
+                  padding:20px
+                  color:#b5b5b5
+                  z-index:100
+                  box-shadow: 0px 0px 10px 0px rgba(34,34,34,.36)
+                  font-style:normal
+                  font-size:14px
+          .main_i-2:hover .main-div
+            display:block
+          label
+            display:inline-block
+            float:left
+            width:187px
+            font-size:14px
+            color:#a1a1a1
+            height: 31px
+            line-height: 31px
+            text-align:right
+            margin-right:51px
+          input
+            float:left
+            height:29px
+            width:300px
+            border-radius:3px
+            border: 1px solid #dee5ed
+            padding-left:11px
+          .width100
+              width:91px
+              display:inline-block
+          .width50
+              width:50px
+              display:inline-block
+          .right95_
+            margin-right:97px
+          .right96_
+            width:98px
+          .public
+            font-size:14px
+            color:#b14343
+            position:absolute
+            top: 5px
+            right: 20px
+          .ToBEmailE
+            right: -63px
+          .m-Right
+            margin-right:40px
+          .div-box
+            width:200px
+            float:left
+        .Student
+          height:56px
+        .Grade,.Curriculum,.scale
+          height:87px
+        .Qualifications,.staff,.Assistant,.Student,.scale,.Course,.Grade,.Curriculum,.School
+          .UserYes,.UserNo,.UserS5,.UserS10,.UserS20,.User3,.UserS5_,.UserS15_,.UserS25_,.UserS35_,.UserS50_,.CourseYse,.CourseNo,.UserGrade1,.UserGrade2,.UserGrade3,.UserCurr1,.UserCurr2,.UserCurr3,.UserCurr4,.UserCurr5,.UserCurr6
+            width:20px
+            height:31px
+            float:none
+            vertical-align: -10px
+          .UserGrade1
+            line-height:31px
+          .UserGrade2,.UserGrade3,.UserCurr3,.UserCurr5
+            margin:0 0px 0 190px
+          .UserS10,.UserS25_,.UserS50_
+            margin-left:191px
+        .cancel,.Save
+          display:inline-block
+          border-radius:4px
+          cursor:pointer
+          width:100px
+          height:29px
+          color:#fff
+          line-height:29px
+          text-align:center
+          margin:73px 0 44px 0
+        .cancel
+          margin-left:230px
+          background:#9db4d1
+        .cancel:hover
+          background:#88a2c2
+        .Save
+          float:right
+          background:#3183e7
+          margin-right: 120px
+        .Save:hover
+          background:#0062db
+      .Exhibition
+        position:relative
+        margin:0 100px 50px 185px
+        .Edit
+          position:absolute
+          top:-87px
+          right:-82px
+          cursor: pointer
+          width: 80px
+          height: 28px
+          line-height: 28px
+          text-align: center
+          border-radius: 4px
+          background: #3082e7
+          .edit
+            vertical-align: 5px
+            color: #fff
+        .Edit:hover
+          background:#0062db
+        .userKey
+          display: inline-block
+          width: 150px
+          font-size: 14px
+          color: #a1a1a1
+          float:left
+          text-align: right
+        .recruit-header-img
+          width: 70px;
+          height: 70px;
+          display: inline-block;
+          cursor: pointer;
+          border-radius: 50%;
+          margin-left: 50px;
+        .img-header
+          height:70px;
+          line-height:70px;
+        .userVal
+          margin-left:50px
+          font-size: 14px
+          color: #4b4b4b
+          // min-height:41px
+          // line-height: 41px
+          width: 360px !important
+          display: inline-block
+        .bottom
+          margin-bottom:20px
+  .Mask-page{
+    position: fixed;
+    z-index: 100;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .header-mask{
+    position: fixed;
+    top:50%;
+    left: 50%;
+    margin:-250px 0 0 -500px;
+    width: 1000px;
+    height: 500px;
+    z-index: 100;
+  }
+  #upload2{
+    top: 0;
+    left: 0px;
+    width: 70px;
+    height: 70px;
+    opacity: 0;
+    z-index: 1;
+    clip:auto !important;
+  }
+  .opacityHide{
+    opacity: 0;
+    z-index: -1;
+  }
+  .button-center{
+    width: 1200px;
+    .btn{
+      display: block;
+      width: 180px;
+      height: 44px;
+      text-align: center;
+      background: #4C9DFF;
+      color: #fff;
+      font-size: 14px;
+      margin:20px auto ;
+      border-radius: 2px;
+    }
+  }
+  .vue-cropper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      direction: ltr;
+      touch-action: none;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC');
+  }
+  .cropper-box, .cropper-box-canvas, .cropper-drag-box, .cropper-crop-box, .cropper-face{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    user-select: none;
+  }
+  .cropper-box-canvas img {
+    position: relative;
+    user-select: none;
+    transform: none;
+    max-width: none;
+    max-height: none;
+  }
+  .cropper-box {
+    overflow: hidden;
+  }
+  .cropper-move {
+    cursor: move;
+  }
+  .cropper-crop {
+    cursor: crosshair;
+  }
+  .cropper-modal {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .cropper-crop-box {
+    /*border: 2px solid #39f;*/
+  }
+  .cropper-view-box {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    outline: 1px solid #39f;
+    outline-color: rgba(51, 153, 255, 0.75);
+    user-select: none;
+  }
+  .cropper-view-box img {
+    user-select: none;
+    max-width: none;
+    max-height: none;
+  }
+  .cropper-face {
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    opacity: 0.1;
+  }
+  .crop-info {
+    position: absolute;
+    left: 0px;
+    min-width: 65px;
+    text-align: center;
+    color: white;
+    line-height: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    font-size: 12px;
+  }
+  .crop-line {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: .1;
+  }
+  .line-w {
+    top: -3px;
+    left: 0;
+    height: 5px;
+    cursor: n-resize;
+  }
+  .line-a {
+    top: 0;
+    left: -3px;
+    width: 5px;
+    cursor: w-resize;
+  }
+  .line-s {
+    bottom: -3px;
+    left: 0;
+    height: 5px;
+    cursor: s-resize;
+  }
+  .line-d {
+    top: 0;
+    right: -3px;
+    width: 5px;
+    cursor: e-resize;
+  }
+  .crop-point {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    opacity: .75;
+    background-color: #39f;
+    border-radius: 100%;
+  }
+  .point1 {
+    top: -4px;
+    left: -4px;
+    cursor: nw-resize;
+  }
+  .point2 {
+    top: -5px;
+    left: 50%;
+    margin-left: -3px;
+    cursor: n-resize;
+  }
+  .point3 {
+    top: -4px;
+    right: -4px;
+    cursor: ne-resize;
+  }
+  .point4 {
+    top: 50%;
+    left: -4px;
+    margin-top: -3px;
+    cursor: w-resize;
+  }
+  .point5 {
+    top: 50%;
+    right: -4px;
+    margin-top: -3px;
+    cursor: w-resize;
+  }
+  .point6 {
+    bottom: -5px;
+    left: -4px;
+    cursor: sw-resize;
+  }
+  .point7 {
+    bottom: -5px;
+    left: 50%;
+    margin-left: -3px;
+    cursor: s-resize;
+  }
+  .point8 {
+    bottom: -5px;
+    right: -4px;
+    cursor: nw-resize;
+  }
+  @media screen and (max-width: 500px) {
+    .crop-point {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      opacity: .45;
+      background-color: #39f;
+      border-radius: 100%;
+    }
+    .point1 {
+      top: -10px;
+      left: -10px;
+    }
+    .point2, .point4, .point5, .point7 {
+      display: none;
+    }
+    .point3 {
+      top: -10px;
+      right: -10px;
+    }
+    .point4 {
+      top: 0;
+      left: 0;
+    }
+    .point6 {
+      bottom: -10px;
+      left: -10px;
+    }
+    .point8 {
+      bottom: -10px;
+      right: -10px;
+    }
+  }
 </style>

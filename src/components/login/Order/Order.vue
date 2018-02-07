@@ -474,7 +474,7 @@
                </li>
                <li class="feedback-list-liHide" v-show="LIHide">当前状态下没有外教记录</li>
              </ul>
-           </el-tab-pane>
+            </el-tab-pane>
            <el-tab-pane label="新简历" name="feedback">
              <ul class="feedback-list">
                <li class="feedback-list-title">
@@ -494,7 +494,27 @@
                </li>
                <li class="feedback-list-liHide" v-show="LIHide">当前状态下没有外教记录</li>
              </ul>
-           </el-tab-pane>
+             </el-tab-pane>
+           <el-tab-pane label="约面中" name="refuse">
+             <ul class="feedback-list">
+               <li class="feedback-list-title">
+                 <span class="name margin-Left">姓名</span>
+                 <span class="nationality margin-Left">国籍</span>
+                 <span class="number margin-Left">评分</span>
+                 <span class="time margin-Left">更新时间</span>
+                 <span class="state margin-Left">状态</span>
+               </li>
+               <li class="feedback-list-li" v-for="(list,index) in feedbackArr" @click="goToResume(list.profileId,list.id,list.orderId,list.orderNum,list.state)">
+                 <img :src="list.url" alt="" class="feedback-li-img">
+                 <span class="feedback-li-name">{{list.name}}</span>
+                 <span class="feedback-li-nationality">{{list.nat}}</span>
+                 <span class="feedback-li-number">{{list.number}}</span>
+                 <span class="feedback-li-time">{{list.time}}</span>
+                 <span class="feedback-li-state">{{list.state}}</span>
+               </li>
+               <li class="feedback-list-liHide" v-show="LIHide">当前状态下没有外教记录</li>
+             </ul>
+            </el-tab-pane>
            <el-tab-pane label="面试中" name="Interview">
              <ul class="feedback-list">
                <li class="feedback-list-title">
@@ -515,8 +535,8 @@
                </li>
                <li class="feedback-list-liHide" v-show="LIHide">当前状态下没有外教记录</li>
              </ul>
-           </el-tab-pane>
-           <el-tab-pane label="已通过" name="adopt">
+            </el-tab-pane>
+           <el-tab-pane label="已录用" name="adopt">
              <ul class="feedback-list">
                <li class="feedback-list-title">
                  <span class="name margin-Left">姓名</span>
@@ -535,8 +555,8 @@
                </li>
                <li class="feedback-list-liHide" v-show="LIHide">当前状态下没有外教记录</li>
              </ul>
-           </el-tab-pane>
-           <el-tab-pane label="已拒绝" name="refuse">
+            </el-tab-pane>
+           <el-tab-pane label="已签约" name="Employment">
              <ul class="feedback-list">
                <li class="feedback-list-title">
                  <span class="name margin-Left">姓名</span>
@@ -555,27 +575,7 @@
                </li>
                <li class="feedback-list-liHide" v-show="LIHide">当前状态下没有外教记录</li>
              </ul>
-           </el-tab-pane>
-           <el-tab-pane label="已录用" name="Employment">
-             <ul class="feedback-list">
-               <li class="feedback-list-title">
-                 <span class="name margin-Left">姓名</span>
-                 <span class="nationality margin-Left">国籍</span>
-                 <span class="number margin-Left">评分</span>
-                 <span class="time margin-Left">更新时间</span>
-                 <span class="state margin-Left">状态</span>
-               </li>
-               <li class="feedback-list-li" v-for="(list,index) in feedbackArr" @click="goToResume(list.profileId,list.id,list.orderId,list.orderNum,list.state)">
-                 <img :src="list.url" alt="" class="feedback-li-img">
-                 <span class="feedback-li-name">{{list.name}}</span>
-                 <span class="feedback-li-nationality">{{list.nat}}</span>
-                 <span class="feedback-li-number">{{list.number}}</span>
-                 <span class="feedback-li-time">{{list.time}}</span>
-                 <span class="feedback-li-state">{{list.state}}</span>
-               </li>
-               <li class="feedback-list-liHide" v-show="LIHide">当前状态下没有外教记录</li>
-             </ul>
-           </el-tab-pane>
+            </el-tab-pane>
            <el-tab-pane label="已关闭" name="Close">
              <ul class="feedback-list">
                <li class="feedback-list-title">
@@ -595,7 +595,7 @@
                </li>
                <li class="feedback-list-liHide" v-show="LIHide">当前状态下没有外教记录</li>
              </ul>
-           </el-tab-pane>
+            </el-tab-pane>
         </el-tabs>
         <div class="block">
           <el-pagination
@@ -634,38 +634,54 @@
           <div class="mask-success-submit" @click="OkFooter">确定</div>
         </div>
       </div>
-      <!-- d -->
-      <div class="mask-feedback-Interview" v-show="feedbackInterview">
+      <div class="InterviewFeedback" v-show="feedbackInterview">
         <div class="mask-feedback-title">
-          {{this.feedbackTitle}}
+          面试反馈
           <i class="mask-feedback-close" @click="MaskClose"></i>
         </div>
-        <div class="mask-feedback-box Interview-feedback-box">
+        <div class="Feedback-content">
           <img :src="this.headeImg" alt="" class="mask-feedback-img">
           <span class="mask-feedback-name">{{this.userName}}</span>
-          <div class="mask-Interview">
-            <span class="Interview-start">*</span>
-            <span class="Interview-title">面试结果</span>
-            <div class="Interview-state-parent">
-              <div class="Interview-state-left" @click="InterviewYes">
-                <span class="Interview-img-yes"></span>
-                <span class="Interview-font-left">通过</span>
-              </div>
-              <div class="Interview-state-right" @click="InterviewNo">
-                <span class="Interview-img-no"></span>
-                <span class="Interview-font-right">拒绝</span>
-              </div>
+          <div class="Feedback-center">
+            <div class="Interview-title">
+              <span class="require-icon">*</span>
+              <span class="require-name">面试结果</span>
             </div>
-            <span class="Prompt" v-show="Prompt">必填</span>
-            <div class="mask-feedback-bottom" v-show="FeedbackContent">
-              <i class="mask-feedback-stars">*</i>
-              <span class="mask-feedback-Reason">{{this.Reason}}</span>
-              <textarea name="name" rows="8" cols="80" class="mask-feedback-text" :placeholder="this.placeholder" v-model="Interview" @click="InterviewFocus"></textarea>
-              <span class="Prompt1" v-show="Prompt1">必填</span>
+            <div class="Interview-status">
+              <!-- 同意 -->
+              <span class="status-agree" @click="InterviewYes" :class="{isAgreeBg:isAgreeBg}">
+                <i class="agree-icon" :class="{ActiveYes:isIcon1}"></i>
+                <span class="agree-text" :class="{IsAgree:IsAgree1}">通过</span>
+               </span>
+               <!-- 拒绝 -->
+              <span class="status-Refuse" :class="{isAgreeBg:isRefuseBg}" @click='InterviewNo'>
+                <i class="Refuse-icon" :class="{ActiveNo:isIcon2}"></i>
+                <span class="Refuse-text" :class="{IsAgree:IsAgree2}">拒绝</span>
+               </span>
+               <!-- 没出现  -->
+              <span class="status-No" :class="{isAgreeBg:isNoBg}" @click='InterviewNoShow'>
+                <i class="No-icon" :class="{ActiveNoShow:isIcon3}"></i>
+                <span class="No-text" :class="{IsAgree:IsAgree3}">应聘者没出现</span>
+               </span>
             </div>
-            <div class="Button"></div>
+            <div class="Interview-text" v-show='agreeHide'>
+              <span class="text-title">相关要求</span>
+              <textarea rows="8" cols="80" class="input-textarea"></textarea>
+            </div>
+            <div class="Interview-text" v-show='refuseHide'>
+              <div class="text-header">
+                <span class="require-icon">*</span>
+                <span class="text-title">相关要求</span>
+              </div>
+              <div class="refuse-reason">
+                <span class="reason-1 reason" :class="{Active:isActive1}" @click='clickReason(1)'>相貌不合适</span>
+                <span class="reason-2 reason" :class="{Active:isActive2}" @click='clickReason(2)'>有口音</span>
+                <span class="reason-3 reason" :class="{Active:isActive3}" @click='clickReason(3)'>年龄大</span>
+              </div>
+              <textarea rows="8" cols="80" class="input-textarea"></textarea>
+            </div>
           </div>
-          <div class="mask-feedback-submit" @click="successFooter">确认反馈</div>
+          <span class="button-submit" @click="maskButton">确认反馈</span>
         </div>
       </div>
     </div>
@@ -692,6 +708,20 @@ export default {
   },
   data (){
     return {
+      //
+      isIcon1:false,
+      isAgreeBg:false,
+      isRefuseBg:false,
+      isNoBg:false,
+      IsAgree1:false,
+      IsAgree2:false,
+      IsAgree3:false,
+      isIcon2:false,
+      isIcon3:false,
+      viderFlag:true,
+      isActive1:false,
+      isActive2:false,
+      isActive3:false,
       //新增
       NumberArray:'',
       statusNumber:'',
@@ -713,7 +743,7 @@ export default {
       userNumber:5,
       orderId:'',
       orderNumber:'',
-      state:'1007',
+      state:'9999',
       ExhibitionOpen:true,
       ExhibitionHide:false,
       ExhibitionMainHide:false,
@@ -721,7 +751,6 @@ export default {
       feedbackArr:[],
       InterviewShow:false,
       MaskShow:false,
-      FeedbackContent:false,
       feedbackTitle:'面试反馈',
       headeImg:'',
       userName:'',
@@ -801,6 +830,124 @@ export default {
     }
   },
   methods :{
+    //没有出现
+    InterviewNoShow () {
+      //没有出现展示
+      this.isNoBg = true;
+      this.isIcon3 = true;
+      this.IsAgree3 = true;
+      //拒绝隐藏
+      this.isRefuseBg = false;
+      this.isIcon2 = false;
+      this.IsAgree2 = false;
+      this.refuseHide = false;
+      //同意隐藏
+      this.isAgreeBg = false;
+      this.IsAgree1 = false;
+      this.isIcon1 = false;
+      this.agreeHide = false;
+    },
+    //拒绝原因
+    clickReason (index) {
+      if(index == 1){
+        this.isActive1 = this.isActive1 == true?false:true;
+      }else if (index == 2) {
+        this.isActive2 = this.isActive2 == true?false:true;
+      }else {
+        this.isActive3 = this.isActive3 == true?false:true;
+      }
+    },
+    //确认反馈
+    maskButton (){
+        this.AntiClickShow = true;
+        if(this.ClickState == '1003'){
+          this.ClickState = '1003';
+          this.$http.post(localhost+'/cc/talent/order/relationship/update',{
+            access_token:access_token,
+            id:this.id,
+            profileId:profileId,
+            orderId:orderId,
+            currentDesc:this.FeedBack,
+            optStatus:this.ClickState,
+            profileId:profileId,
+            orderId:orderId
+          },{emulateJSON:true}).then((response) =>{
+              this.AntiClickShow = false;
+              status = this.ClickState;
+              this.successState = response.body.error_msg;
+              this.$http.get(localhost+'/cc/order/talent/detail?access_token='+access_token+'&profileId='+profileId+'&orderId='+Number(orderId)+'&optStatus='+status+'&orderNum='+orderNum).then((response) =>{
+                this.PublicCreated(response);
+              });
+              window.opener.location.reload();
+              this.feedbackHide = false;
+              this.footerReason = false;
+              this.feedbackSuccess = true;
+              this.feedbackTitle = '反馈成功';
+              this.feedbackInterview = false;
+          });
+        };
+        if(this.ClickState == '1002'){
+          this.ClickState = '1002';
+          this.$http.post(localhost+'/cc/talent/order/relationship/update',{
+            access_token:access_token,
+            id:this.id,
+            profileId:profileId,
+            orderId:orderId,
+            currentDesc:this.FeedBack,
+            optStatus:this.ClickState,
+            profileId:profileId,
+            orderId:orderId
+          },{emulateJSON:true}).then((response) =>{
+              this.AntiClickShow = false;
+              status = this.ClickState;
+              this.successState = response.body.error_msg;
+              this.$http.get(localhost+'/cc/order/talent/detail?access_token='+access_token+'&profileId='+profileId+'&orderId='+Number(orderId)+'&optStatus='+status+'&orderNum='+orderNum).then((response) =>{
+                this.PublicCreated(response);
+              });
+              window.opener.location.reload();
+              this.feedbackHide = false;
+              this.feedbackSuccess = true;
+              this.feedbackTitle = '反馈成功';
+              this.feedbackInterview = false;
+              this.footerReason = false;
+          });
+        };
+        if(this.ClickState == '1004'){
+          this.ClickState = '1004';
+          if(this.FeedBack === ''){
+            this.public = true;
+          }else {
+            this.public = false;
+          };
+          if(this.public == true){
+            return false
+          }else {
+            this.$http.post(localhost+'/cc/talent/order/relationship/update',{
+              access_token:access_token,
+              id:this.id,
+              profileId:profileId,
+              orderId:orderId,
+              currentDesc:this.FeedBack,
+              optStatus:this.ClickState,
+              profileId:profileId,
+              orderId:orderId
+            },{emulateJSON:true}).then((response) =>{
+                this.AntiClickShow = false;
+                status = this.ClickState;
+                this.successState = response.body.error_msg;
+                this.$http.get(localhost+'/cc/order/talent/detail?access_token='+access_token+'&profileId='+profileId+'&orderId='+Number(orderId)+'&optStatus='+status+'&orderNum='+orderNum).then((response) =>{
+                  this.PublicCreated(response);
+                });
+                window.opener.location.reload();
+                this.feedbackHide = false;
+                this.feedbackSuccess = true;
+                this.feedbackTitle = '反馈成功';
+                this.feedbackInterview = false;
+                this.footerReason = false;
+            });
+          };
+        };
+    },
     //公共调用
     publicResumeList (){
       this.$http.get(localhost+'/cc/order/talent/list?access_token='+access_token+'&orderId='+this.Position_ID+'&pageSize='+this.userNumber+'&pageIndex='+this.userSize+'&optStatus='+this.state).then((response) =>{
@@ -827,18 +974,18 @@ export default {
              this.NumberArray[i].candidateOrder.opt_status = '面试中';
            };
            if(this.NumberArray[i].candidateOrder.opt_status == '1003'){
-             this.NumberArray[i].candidateOrder.opt_status = '已通过';
-           };
-           if(this.NumberArray[i].candidateOrder.opt_status == '1004'){
-             this.NumberArray[i].candidateOrder.opt_status = '已拒绝';
-           };
-           if(this.NumberArray[i].candidateOrder.opt_status == '1005'){
              this.NumberArray[i].candidateOrder.opt_status = '已录用';
+           };
+           if(this.NumberArray[i].candidateOrder.opt_status == '1007'){
+             this.NumberArray[i].candidateOrder.opt_status = '约面中';
+           };
+           if(this.NumberArray[i].candidateOrder.opt_status == '1005' || this.NumberArray[i].candidateOrder.opt_status == '1008' ||this.NumberArray[i].candidateOrder.opt_status == '1009' ){
+             this.NumberArray[i].candidateOrder.opt_status = '已签约';
            };
            if(this.NumberArray[i].candidateOrder.opt_status == '1006'){
              this.NumberArray[i].candidateOrder.opt_status = '已关闭';
            };
-           if(this.NumberArray[i].candidateOrder.opt_status == '1007'){
+           if(this.NumberArray[i].candidateOrder.opt_status == '9999'){
              this.NumberArray[i].candidateOrder.opt_status = '全部';
            };
            if(this.NumberArray[i].candidateOrder.opt_status == '面试中'){
@@ -846,17 +993,16 @@ export default {
            }else {
              this.InterviewShow = false;
            };
-           console.log(this.NumberArray[i].nationality)
            this.feedbackArr.push({
-             url:this.NumberArray[i].applicationCareerChinaInfo.headImgURL,
+             url:this.NumberArray[i].headImgURL,
              name:this.NumberArray[i].firstName,
              nat:this.NumberArray[i].nationality,
              age:this.NumberArray[i].age,
-             number:this.NumberArray[i].applicationCareerChinaInfo.abilityScoreAverage+5,
+             number:this.NumberArray[i].abilityScoreAverage+5,
              time:this.NumberArray[i].updateTimeStr,
              state:this.NumberArray[i].candidateOrder.opt_status,
              id:this.NumberArray[i].candidateOrder.id,
-             profileId:this.NumberArray[i].applicationCareerChinaInfo.profileId,
+             profileId:this.NumberArray[i].profileId,
              orderId:this.orderId,
              orderNum:this.orderNum,
              InterviewShow:this.InterviewShow
@@ -865,24 +1011,31 @@ export default {
       })
     },
     handleClicks (tab){
+      //全部
       if(tab.index === '0'){
-        this.state = '1007'
+        this.state = '9999'
       };
+      //新简历
       if(tab.index === '1'){
         this.state = '1001'
       };
+      //约面中
       if(tab.index === '2'){
+        this.state = '1007'
+      };
+      //面试中
+      if(tab.index === '3'){
         this.state = '1002'
       };
-      if(tab.index === '3'){
+      //已录用
+      if(tab.index === '4'){
         this.state = '1003'
       };
-      if(tab.index === '4'){
-        this.state = '1004'
-      };
+      //已签约
       if(tab.index === '5'){
         this.state = '1005'
       };
+      //已关闭
       if(tab.index === '6'){
         this.state = '1006'
       };
@@ -1056,7 +1209,6 @@ export default {
         for(var i = 0;i < Array_List.length;i++){
           let position_Data = Array_List[i].positionEntity;
           var demand = Array_List[i].demandEntity;
-          // var ArrList = Array_List[i].orderStauts;
           var profileArr = Array_List[i].candidateProfiles;
           if(profileArr.length <=7){
             this.TotalHide = false;
@@ -1068,10 +1220,10 @@ export default {
 
           }else {
             for(let k = 0; k < profileArr.length;k++){
-              var application = profileArr[k].applicationCareerChinaInfo;
+              var application = profileArr[k];
               temparr.push({
                 url:application.headImgURL,
-                profileId:application.profileId,
+                profileId:application.id,
                 candidateOrderId:profileArr[k].candidateOrder.id,
                 TitleName:profileArr[k].firstName
               });
@@ -1125,16 +1277,12 @@ export default {
        this.pageSize = val;
        this.$http.get(localhost+'/cc/order/b/list?access_token='+access_token+'&customerId='+BcustomerId+'&pageIndex='+this.currentPage+'&pageSize='+this.pageSize+'&status='+this.Num).then((response) =>{
            this.Created(response);
-       },(response) =>{
-
        });
      },
     handleCurrentChange(val) {
        this.currentPage = val;
        this.$http.get(localhost+'/cc/order/b/list?access_token='+access_token+'&customerId='+BcustomerId+'&pageIndex='+this.currentPage+'&pageSize='+this.pageSize+'&status='+this.Num).then((response) =>{
           this.Created(response);
-       },(response) =>{
-
        });
      },
     //当前几页
@@ -1499,20 +1647,20 @@ export default {
       if(status == '面试中'){
         status = '1002';
       };
-      if(status == '已通过'){
+      if(status == '已录用'){
         status = '1003';
       };
-      if(status == '已拒绝'){
-        status = '1004';
+      if(status == '约面中'){
+        status = '1007';
       };
-      if(status == '已录用'){
+      if(status == '已签约'){
         status = '1005';
       };
       if(status == '已关闭'){
         status = '1006';
       };
       if(status == '全部'){
-        status = '1007';
+        status = '9999';
       };
       window.open('/module/resume.html?profileId='+profileId+'&orderId='+orderId+'&'+'orderNum'+'='+orderNum+'&status='+status+'&candidateOrderId='+candidateOrderId);
     },
@@ -1538,7 +1686,7 @@ export default {
         console.log(response.body)
         if(response.body.error_code == 200){
           let ResponseData = response.body.resultObj.profilelitByOptStatus;
-          this.headeImg = ResponseData.applicationCareerChinaInfo.headImgURL;
+          this.headeImg = ResponseData.headImgURL;
           this.id = ResponseData.candidateOrderList[0].id;
           this.userName = ResponseData.firstName;
           this.MaskShow = true;
@@ -1546,13 +1694,22 @@ export default {
           this.feedbackHide = false;
           this.feedbackSuccess = false;
           this.feedbackTitle = '面试反馈';
-          this.FeedbackContent = false;
-          $('.Interview-img-yes').removeClass('Active-yes');
-          $('.Interview-img-no').removeClass('Active-no');
-          $('.Interview-state-left').removeClass('Interview-left-Active');
-          $('.Interview-state-right').removeClass('Interview-right-Active');
-          $('.Interview-font-left').css('color','#999');
-          $('.Interview-font-right').css('color','#999');
+
+          this.isIcon1 = false;
+          this.isAgreeBg = false;
+          this.isRefuseBg = false;
+          this.isNoBg = false;
+          this.IsAgree1 = false;
+          this.IsAgree2 = false;
+          this.IsAgree3 = false;
+          this.isIcon2 = false;
+          this.isIcon3 = false;
+          this.isActive1 = false;
+          this.isActive2 = false;
+          this.isActive3 = false;
+          this.agreeHide = false;
+          this.refuseHide = false;
+
           this.Interview = '';
         }
       });
@@ -1565,37 +1722,72 @@ export default {
     },
     //通过
     InterviewYes (){
-      $('.Interview-img-yes').addClass('Active-yes');
-      $('.Interview-img-no').removeClass('Active-no');
-      $('.Interview-state-left').addClass('Interview-left-Active');
-      $('.Interview-state-right').removeClass('Interview-right-Active');
-      $('.Interview-font-left').css('color','#fff');
-      $('.Interview-font-right').css('color','#999');
-      this.Reason = '相关要求';
-      this.placeholder = '（您可以填写相关建议和要求。）';
-      $('.mask-feedback-stars').css('opacity','0');
-      this.FeedbackContent = true;
+      // $('.Interview-img-yes').addClass('Active-yes');
+      // $('.Interview-img-no').removeClass('Active-no');
+      // $('.Interview-state-left').addClass('Interview-left-Active');
+      // $('.Interview-state-right').removeClass('Interview-right-Active');
+      // $('.Interview-font-left').css('color','#fff');
+      // $('.Interview-font-right').css('color','#999');
+      // this.Reason = '相关要求';
+      // this.placeholder = '（您可以填写相关建议和要求。）';
+      // $('.mask-feedback-stars').css('opacity','0');
+      // this.YesFlag = true;
+      // this.NoFlag = false;
+      // this.Prompt = false;
+      // this.Prompt1 = false;
+      //同意展示
+      this.isAgreeBg = true;
+      this.IsAgree1 = true;
+      this.isIcon1 = true;
+      this.agreeHide = true;
+      //拒绝隐藏
+      this.isRefuseBg = false;
+      this.isIcon2 = false;
+      this.IsAgree2 = false;
+      this.refuseHide = false;
+      //没有出现隐藏
+      this.isNoBg = false;
+      this.isIcon3 = false;
+      this.IsAgree3 = false;
       this.YesFlag = true;
       this.NoFlag = false;
-      this.Prompt = false;
-      this.Prompt1 = false;
+      this.public3 = false;
+      this.public2 = false;
     },
     //拒绝
     InterviewNo (){
-      $('.Interview-img-no').addClass('Active-no');
-      $('.Interview-img-yes').removeClass('Active-yes');
-      $('.Interview-state-right').addClass('Interview-right-Active');
-      $('.Interview-state-left').removeClass('Interview-left-Active');
-      $('.Interview-font-right').css('color','#fff');
-      $('.Interview-font-left').css('color','#999');
-      this.Reason = '拒绝原因';
-      this.placeholder = '（请填写拒绝外教的原因，以便我们为您推荐更符合要求的外教。）';
-      $('.mask-feedback-stars').css('opacity','1');
-      this.FeedbackContent = true;
+      // $('.Interview-img-no').addClass('Active-no');
+      // $('.Interview-img-yes').removeClass('Active-yes');
+      // $('.Interview-state-right').addClass('Interview-right-Active');
+      // $('.Interview-state-left').removeClass('Interview-left-Active');
+      // $('.Interview-font-right').css('color','#fff');
+      // $('.Interview-font-left').css('color','#999');
+      // this.Reason = '拒绝原因';
+      // this.placeholder = '（请填写拒绝外教的原因，以便我们为您推荐更符合要求的外教。）';
+      // $('.mask-feedback-stars').css('opacity','1');
+      // this.YesFlag = false;
+      // this.NoFlag = true;
+      // this.Prompt = false;
+      // this.Prompt1 = false;
+      //拒绝展示
+      this.isRefuseBg = true;
+      this.isIcon2 = true;
+      this.IsAgree2 = true;
+      this.refuseHide = true;
+      //同意隐藏
+      this.isAgreeBg = false;
+      this.IsAgree1 = false;
+      this.isIcon1 = false;
+      this.agreeHide = false;
+      //没有出现隐藏
+      this.isNoBg = false;
+      this.isIcon3 = false;
+      this.IsAgree3 = false;
+      // this.placeholder = '（请填写拒绝外教的原因，以便我们为您推荐更符合要求的外教。）';
       this.YesFlag = false;
       this.NoFlag = true;
-      this.Prompt = false;
-      this.Prompt1 = false;
+      this.public3 = false;
+      this.public2 = false;
 
     },
     successFooter (){
@@ -2115,7 +2307,7 @@ export default {
   top: 0
   left: 0
   z-index :100
- .mask-feedback-Interview,.mask-feedback-success
+ .mask-feedback-Interview,.InterviewFeedback
     position:absolute
     top:50%
     left:50%
@@ -2283,4 +2475,135 @@ export default {
         text-align :center
         width :390px
         margin 0 auto 50px
+ .InterviewFeedback
+  .Feedback-content
+    width:100%
+    .mask-feedback-img
+      width:40px
+      height:40px
+      margin:20px 10px 20px 255px
+      border-radius:50%
+    .mask-feedback-name
+      font-size:14px
+      color:#333
+      vertical-align:35px
+    .Feedback-center
+      width:560px
+      margin 0 auto
+      background:#f7f9fc
+      padding-bottom:30px
+      .Interview-title
+        display:block
+        margin:0px 0 0 25px
+        padding-top:30px
+        .require-icon
+          font-siez:14px
+          color:#ea3522
+          display:inline-block
+          margin:0 10px 0 0
+        .require-name
+          font-size:18px
+          color:#333
+      .Interview-status
+        display:block
+        width:480px
+        margin:15px auto
+        .status-agree,.status-Refuse,.status-No
+          padding:10px 18px
+          position:relative
+          background:#fff
+          border:1px solid #dfe6ef
+          display:inline-block
+          margin: 0 20px 0 0
+          cursor:pointer
+          .agree-icon,.Refuse-icon,.No-icon
+            position:absolute
+            top:13px
+            left:22px
+            background:url('../../../ilb/image/resume/icon-b-details.png') no-repeat
+            background-position:-87px -11px
+            width:20px
+            height:14px
+            display:inline-block
+          .status-Refuse
+            width:17px
+            height:16px
+            background-position:-58px -11px
+          .Refuse-icon
+            width:17px
+            height:16px
+            background-position:-58px -11px
+          .No-icon
+            width:20px
+            height:20px
+            top: 11px
+            background:url('../../../common/img/icon-b-1.png') no-repeat
+            background-position: -211px -16px
+          .ActiveYes
+            background-position:-155px -11px
+          .ActiveNo
+            background-position:-122px -10px
+          .ActiveNoShow
+            background-position:-175px -16px
+          .agree-text,.Refuse-text,.No-text
+            font-size: 16px
+            color: #999
+            margin: 0 0 0 30px
+          .IsAgree
+            color:#fff
+        .status-No
+          margin-right:0
+        .isAgreeBg
+          background:#3082e7
+      .Interview-text
+        width:480px
+        margin:20px auto 0
+        .text-title
+          font-size:18px
+          color:#333
+        .input-textarea
+          margin:15px auto 0
+          width:480px
+          height:90px
+          border:1px solid #dfe6ef
+          resize:none
+          border-radius:4px
+          padding-left:10px
+          padding-top:10px
+        .text-header
+          display:block
+          .require-icon
+            font-size:14px
+            color:#ea3522
+            margin:0 10px 0 0
+          .text-title
+            font-size:18px
+            color:#333
+        .refuse-reason
+          margin:15px 0 0 0
+          .reason
+            padding:10px 20px
+            height:30px
+            line-height:30px
+            text-align:center
+            cursor:pointer
+            color:#999999
+            font-size:14px
+            background:#fff
+            border:1px solid #dfe6ef
+            margin: 0 10px 0 0
+          .Active
+            color:#fff
+            background:#3082e7
+    .button-submit
+      display:block
+      width:100px
+      height:30px
+      line-height:30px
+      text-align:center
+      cursor:pointer
+      background:#3082e7
+      margin:20px auto 30px
+      color:#fff
+      border-radius:4px
 </style>

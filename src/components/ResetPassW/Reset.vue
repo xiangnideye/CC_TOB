@@ -1,37 +1,37 @@
 <template>
-<div class="Reset">
-  <a href="index.html" class="Link"></a>
-  <p class="title" v-show="titleSHow">重置密码</p>
-  <div v-show="Reset_1">
-    <div class="position1">
-      <input type="text" @focus="phoneHide" v-model="UserPhone" class="Phone" placeholder="填写手机号">
+  <div class="Reset">
+    <a href="index.html" class="Link"></a>
+    <p class="title" v-show="titleSHow">重置密码</p>
+    <div v-show="Reset_1">
+      <div class="position1">
+        <input type="text" @focus="phoneHide" v-model="UserPhone" class="Phone" placeholder="填写手机号">
 
-      <p class="phone_">{{phoneNumber_}}</p>
+        <p class="phone_">{{phoneNumber_}}</p>
+      </div>
+      <div class="position2">
+        <input type="text" @focus="codeHide" maxlength="4" v-model="userCode" class="Pleasecode" placeholder="请输入验证码">
+        <button id="code" class="code" @click="GetCode" :disabled="boolean" :class="None">{{Code}}</button>
+        <p class="code_">{{phoneCode_}}</p>
+      </div>
+      <div @click="GoReset" class="Yes">确定</div>
     </div>
-    <div class="position2">
-      <input type="text" @focus="codeHide" maxlength="4" v-model="userCode" class="Pleasecode" placeholder="请输入验证码">
-      <button id="code" class="code" @click="GetCode" :disabled="boolean" :class="None">{{Code}}</button>
-      <p class="code_">{{phoneCode_}}</p>
+    <div v-show="Reset_2">
+      <div class="position3">
+        <input type="password" @focus="PassP" class="pass1" placeholder="请输入新密码(8-20位)" v-model="passWOrd1">
+        <p class="Pass_">{{passNumber}}</p>
+      </div>
+      <div class="position3">
+        <input type="password" @focus="PassP2" class="pass2" placeholder="再次输入新密码" v-model="passWOrd2">
+        <p class="Pass_2">{{passNumber1}}</p>
+      </div>
+      <div class="Yes" @click="YesReset">确定</div>
     </div>
-    <div @click="GoReset" class="Yes">确定</div>
+    <div class="Reset_3" v-show="Success">
+      <i class="Pic"></i>
+      <p class="title_3">密码修改成功，请重新登录</p>
+      <a href="index.html" class="Ok_">确定</a>
+    </div>
   </div>
-  <div v-show="Reset_2">
-    <div class="position3">
-      <input type="password" @focus="PassP" class="pass1" placeholder="请输入新密码(8-20位)" v-model="passWOrd1">
-      <p class="Pass_">{{passNumber}}</p>
-    </div>
-    <div class="position3">
-      <input type="password" @focus="PassP2" class="pass2" placeholder="再次输入新密码" v-model="passWOrd2">
-      <p class="Pass_2">{{passNumber1}}</p>
-    </div>
-    <div class="Yes" @click="YesReset">确定</div>
-  </div>
-  <div class="Reset_3" v-show="Success">
-    <i class="Pic"></i>
-    <p class="title_3">密码修改成功，请重新登录</p>
-    <a href="index.html" class="Ok_">确定</a>
-  </div>
-</div>
 </template>
 
 <script>
@@ -67,13 +67,14 @@ export default {
     }
   },
   methods: {
+    //获取验证码
     GetCode() {
       if (!(/^1[34578]\d{9}$/.test(this.UserPhone))) {
         this.ResNumber = '请输入您的手机号';
       } else {
-        if(!this.CodeMask){
-          this.CodeMask = true;
-        }
+        // if(!this.CodeMask){
+        //   this.CodeMask = true;
+        // }
         this.$http.get(localhost+'/cc/account/number/verifycode?phoneNumber='+this.UserPhone+'&access_token='+access_token+'&modifyPwdToken='+'true').then((response) =>{
           if(response.body.error_code == 200){
             let Code = document.getElementById('code');
@@ -87,7 +88,7 @@ export default {
                     _this.boolean = true;
                     Code.style.backgroundColor = '#989898';
                   } else if (time === 0) {
-                    _this.CodeMask = false;
+                    // _this.CodeMask = false;
                     _this.boolean = false;
                     _this.Code = '重新发送验证码';
                     Code.style.backgroundColor = '#0ed666';
@@ -102,6 +103,7 @@ export default {
     phoneHide() {
       this.phoneNumber_ = '';
     },
+    //获取验证码输入
     GoReset() {
       if (this.UserPhone == '') {
         this.phoneNumber_ = '手机号码不能为空';
@@ -114,7 +116,7 @@ export default {
         this.phoneCode_ = '请输入正确的验证码';
       }
       if (this.phoneNumber_ == '' && this.phoneCode_ == '' ) {
-        this.$http.get(localhost+'/cc/account/reset/pwd/check?access_token='+access_token+'&phoneNumber='+this.newPhoto+'&numIdentifyCode='+this.phoneCode).then((response) => {
+        this.$http.get(localhost+'/cc/account/reset/pwd/check?access_token='+access_token+'&phoneNumber='+this.UserPhone+'&numIdentifyCode='+this.userCode).then((response) => {
           console.log(response.body)
           if(response.body.error_code == 200){
               $.cookie('phoneNum', this.UserPhone);
@@ -128,6 +130,7 @@ export default {
         });
       }
     },
+    //修改密码
     YesReset() {
       if (this.passWOrd1 != this.passWOrd2) {
         this.passNumber1 = '两次输入密码不一致';

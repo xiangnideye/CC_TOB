@@ -58,6 +58,7 @@ export default {
   z-index:100
   width:100%
   height:60px
+  background:#fff
   box-shadow:0px 2px 7px rgba(83,110,136,.15)
   .title
     float:left

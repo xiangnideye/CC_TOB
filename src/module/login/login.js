@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import homePage from '../../components/login/homePage/homePage'
+import InterviewManagement from '../../components/login/InterviewManagement/InterviewManagement'
 import account from '../../components/login/account/account'
 import data from '../../components/login/data/data'
 import demand from '../../components/login/demand/demand'
@@ -31,11 +33,14 @@ const router = new VueRouter({
   linkActiveClass:'active',
   routes:[
     {
-       path: '/account',
-       component: account
+       path: '/homePage',
+       component: homePage
      },
      {
-       name:'11',
+        path: '/InterviewManagement',
+        component: InterviewManagement
+      },
+     {
        path: '/data',
        component: data
      },
@@ -46,7 +51,11 @@ const router = new VueRouter({
      {
        path:'/Order',
        component:Order
-     }
+     },
+     {
+        path: '/account',
+        component: account
+      }
   ]
 });
 
